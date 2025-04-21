@@ -8,9 +8,6 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  args: {
-    label: 'Div',
-  },
 } satisfies Meta<typeof DatePicker>
 
 export default meta
