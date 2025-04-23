@@ -44,24 +44,27 @@
     cursor: pointer;
     width: 100%;
     border-radius: 999px;
+    transition:
+      background-color 0.2s 0.2s,
+      color 0.2s 0.2s;
 
     &[data-today='true'] {
-      background: #547792;
+      background: #00000048;
       color: #fff;
     }
     &[data-selected='true'] {
-      background: #213448;
+      background: #000;
       color: #fff;
     }
     &[data-this-month='false'] {
-      color: #6c757d;
+      color: #808080;
     }
     &[data-start-month='true'],
     &[data-end-month='true'] {
       font-weight: bold;
     }
     &:hover:not([data-selected='true']) {
-      background: #94b4c1;
+      background: #000000b0;
       color: #fff;
     }
   }
