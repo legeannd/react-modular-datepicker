@@ -54,7 +54,7 @@ export function DatePicker() {
       {weekdays.map((weekday) => (
         <div
           key={weekday}
-          className={styles.calendar}
+          className={styles.calendarRow}
         >
           <span className={styles.dayLabel}>{weekday}</span>
           <span className={styles.dayRow}>
