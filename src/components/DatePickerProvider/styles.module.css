@@ -1,0 +1,11 @@
+.datepicker-container {
+  font-family: Arial, Helvetica, sans-serif;
+
+  button {
+    background-color: transparent;
+    border: none;
+    text-align: inherit;
+    font: inherit;
+    appearance: none;
+  }
+}

@@ -1,12 +1,12 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, it } from 'vitest'
-import { DatePicker } from '.'
+import { Calendar } from '.'
 
-describe('Datepicker', () => {
+describe('Calendar', () => {
   afterEach(cleanup)
 
-  it('should render component', () => {
-    render(<DatePicker />)
+  it('should render calendar component', () => {
+    render(<Calendar />)
 
     screen.getByText('index')
   })

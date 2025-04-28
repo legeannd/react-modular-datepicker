@@ -1,16 +1,14 @@
-import { useCallback, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useMemo, useState } from 'react'
+import styles from './styles.module.css'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
-import styles from './styles.module.css'
+
+import { DatePickerContext } from '../../contexts/DatePickerContext'
+import { CurrentDay } from '../../types'
 
 dayjs.extend(localeData)
 
-interface CurrentDay {
-  day: number
-  isCurrentMonth: boolean
-}
-
-export function DatePicker() {
+export function DatePickerProvider({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<CurrentDay | null>(null)
   const date = dayjs()
   const weekdays = useMemo(() => dayjs.weekdaysShort(), [])
@@ -50,35 +48,10 @@ export function DatePicker() {
   }, [])
 
   return (
-    <div className={styles.container}>
-      {weekdays.map((weekday) => (
-        <div
-          key={weekday}
-          className={styles.calendarRow}
-        >
-          <span className={styles.dayLabel}>{weekday}</span>
-          <span className={styles.dayRow}>
-            {monthHash[weekday].map((dayProps) => (
-              <button
-                data-today={dayProps.day === date.date()}
-                data-start-month={
-                  dayProps.day === date.startOf('M').date() && dayProps.isCurrentMonth
-                }
-                data-end-month={dayProps.day === date.endOf('M').date() && dayProps.isCurrentMonth}
-                data-this-month={dayProps.isCurrentMonth}
-                data-selected={
-                  selected?.day === dayProps.day &&
-                  selected.isCurrentMonth === dayProps.isCurrentMonth
-                }
-                key={dayProps.day}
-                onClick={() => handleDateClick(dayProps)}
-              >
-                {dayProps.day}
-              </button>
-            ))}
-          </span>
-        </div>
-      ))}
-    </div>
+    <DatePickerContext.Provider
+      value={{ selected, month: monthHash, weekdays, date: date.toISOString(), handleDateClick }}
+    >
+      <div className={styles['datepicker-container']}>{children}</div>
+    </DatePickerContext.Provider>
   )
 }
