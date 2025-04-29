@@ -1,19 +1,30 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
+import { CalendarProps } from '../../types'
 
-export function Calendar() {
-  const { weekdays, month: monthHash, selected, date: ISODate, handleDateClick } = useDatePicker()
+export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
+  const { month: monthHash, selected, date: ISODate, handleDateClick } = useDatePicker()
   const date = dayjs(ISODate)
+  const weekdays = useMemo(() => dayjs.weekdaysShort(), [])
   const isWeekend = useCallback((index: number) => index === 0 || index === 6, [])
+  const getCustomWeekdayLabel = useCallback(
+    (index: number) => {
+      if (weekdayLabels && weekdayLabels[index]) {
+        return weekdayLabels[index]
+      }
+      return weekdays[index]
+    },
+    [weekdays, weekdayLabels]
+  )
 
   return (
     <div className={styles.container}>
       {weekdays.map((weekday, index) => (
         <div key={weekday}>
-          <span className={styles.dayLabel}>{weekday}</span>
+          {showWeekdays && <span className={styles.dayLabel}>{getCustomWeekdayLabel(index)}</span>}
           <span className={clsx(styles.dayRow, isWeekend(index) && styles.weekendRow)}>
             {monthHash[weekday].map((dayProps) => (
               <button

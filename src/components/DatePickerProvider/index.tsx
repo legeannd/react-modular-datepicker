@@ -1,14 +1,13 @@
-import { ReactNode, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import styles from './styles.module.css'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
-
 import { DatePickerContext } from '../../contexts/DatePickerContext'
-import { CurrentDay } from '../../types'
+import { CurrentDay, DatePickerProviderProps } from '../../types'
 
 dayjs.extend(localeData)
 
-export function DatePickerProvider({ children }: { children: ReactNode }) {
+export function DatePickerProvider({ children }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<CurrentDay | null>(null)
   const date = dayjs()
   const weekdays = useMemo(() => dayjs.weekdaysShort(), [])
@@ -49,7 +48,7 @@ export function DatePickerProvider({ children }: { children: ReactNode }) {
 
   return (
     <DatePickerContext.Provider
-      value={{ selected, month: monthHash, weekdays, date: date.toISOString(), handleDateClick }}
+      value={{ selected, month: monthHash, date: date.toISOString(), handleDateClick }}
     >
       <div className={styles['datepicker-container']}>{children}</div>
     </DatePickerContext.Provider>
