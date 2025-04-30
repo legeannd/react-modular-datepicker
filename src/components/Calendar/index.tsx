@@ -1,24 +1,22 @@
-import { useCallback, useMemo } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
+import isToday from 'dayjs/plugin/isToday'
 import { CalendarProps } from '../../types'
 
+dayjs.extend(isToday)
+
 export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
-  const { month: monthHash, selected, date: ISODate, handleDateClick } = useDatePicker()
-  const date = dayjs(ISODate)
-  const weekdays = useMemo(() => dayjs.weekdaysShort(), [])
-  const isWeekend = useCallback((index: number) => index === 0 || index === 6, [])
-  const getCustomWeekdayLabel = useCallback(
-    (index: number) => {
-      if (weekdayLabels && weekdayLabels[index]) {
-        return weekdayLabels[index]
-      }
-      return weekdays[index]
-    },
-    [weekdays, weekdayLabels]
-  )
+  const { month: monthHash, selected, handleDateClick } = useDatePicker()
+  const weekdays = dayjs.weekdaysShort()
+  const isWeekend = (index: number) => index === 0 || index === 6
+  const getCustomWeekdayLabel = (index: number) => {
+    if (weekdayLabels && weekdayLabels[index]) {
+      return weekdayLabels[index]
+    }
+    return weekdays[index]
+  }
 
   return (
     <div className={styles.container}>
@@ -26,22 +24,22 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
         <div key={weekday}>
           {showWeekdays && <span className={styles.dayLabel}>{getCustomWeekdayLabel(index)}</span>}
           <span className={clsx(styles.dayRow, isWeekend(index) && styles.weekendRow)}>
-            {monthHash[weekday].map((dayProps) => (
+            {monthHash[weekday].map(({ day, isCurrentMonth }) => (
               <button
-                data-today={dayProps.day === date.date()}
+                data-today={dayjs(day.date).isToday()}
                 data-start-month={
-                  dayProps.day === date.startOf('M').date() && dayProps.isCurrentMonth
+                  dayjs(day.date).isSame(dayjs(day.date).startOf('M')) && isCurrentMonth
                 }
-                data-end-month={dayProps.day === date.endOf('M').date() && dayProps.isCurrentMonth}
-                data-this-month={dayProps.isCurrentMonth}
-                data-selected={
-                  selected?.day === dayProps.day &&
-                  selected.isCurrentMonth === dayProps.isCurrentMonth
+                data-end-month={
+                  dayjs(day.date).isSame(dayjs(day.date).endOf('M')) && isCurrentMonth
                 }
-                key={dayProps.day}
-                onClick={() => handleDateClick(dayProps)}
+                data-this-month={isCurrentMonth}
+                data-selected={dayjs(selected?.day.date).isSame(day.date)}
+                key={day.date}
+                onClick={() => handleDateClick({ day, isCurrentMonth })}
+                aria-label={dayjs(day.date).format('MMMM D, YYYY')}
               >
-                {dayProps.day}
+                {day.label}
               </button>
             ))}
           </span>

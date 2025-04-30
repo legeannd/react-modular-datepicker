@@ -8,7 +8,5 @@ export function useDatePicker() {
     throw new Error('DatePicker components cannot be rendered outside the DatePickerProvider')
   }
 
-  console.log(context)
-
   return context
 }

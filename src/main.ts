@@ -1,1 +1,2 @@
-export { DatePicker } from './components/DatePickerProvider'
+export { DatePickerProvider } from './components/DatePickerProvider'
+export { Calendar } from './components/Calendar'

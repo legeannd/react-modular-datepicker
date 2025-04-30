@@ -1,0 +1,29 @@
+import { Meta, StoryObj } from '@storybook/react'
+import { DatePickerProvider } from '.'
+import { DatePickerProviderProps } from '../../types'
+import { Calendar } from '../Calendar'
+
+const meta = {
+  title: 'Components/DatePickerProvider',
+  component: DatePickerProvider,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+} satisfies Meta<typeof DatePickerProvider>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    children: <Calendar />,
+  } as DatePickerProviderProps,
+}
+
+export const CustomInitialDate: Story = {
+  args: {
+    initialDate: '2025-01-01',
+    children: <Calendar />,
+  } as DatePickerProviderProps,
+}

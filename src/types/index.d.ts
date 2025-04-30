@@ -1,7 +1,10 @@
 import { ReactNode } from "react"
 
 export interface CurrentDay {
-  day: number
+  day: {
+    label: number
+    date: string
+  }
   isCurrentMonth: boolean
 }
 
@@ -13,11 +16,11 @@ export interface CalendarProps {
 
 export interface DatePickerProviderProps {
   children: ReactNode
+  initialDate?: string | Date
 }
 
 export interface DatePickerContextType {
   selected: CurrentDay | null
   month: { [key: string]: CurrentDay[] }
-  date: string
   handleDateClick: (day: CurrentDay) => void
 }
