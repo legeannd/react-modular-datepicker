@@ -8,9 +8,19 @@ import { globSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import dts from 'vite-plugin-dts'
 
+const ReactCompilerConfig = {
+  target: '19'
+}
+
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [
+          ["babel-plugin-react-compiler", ReactCompilerConfig],
+        ]
+      }
+    }),
     libInjectCss(),
     dts({
       exclude: ['**/*.stories.tsx', 'src/test', '**/*.test.tsx'],
