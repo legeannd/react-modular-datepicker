@@ -8,9 +8,9 @@ import { CalendarProps } from '../../types'
 dayjs.extend(isToday)
 
 export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
-  const { month: monthHash, selected, handleDateClick } = useDatePicker()
+  const { month: monthTable, selected, handleDateClick } = useDatePicker()
   const weekdays = dayjs.weekdaysShort()
-  const isWeekend = (index: number) => index === 0 || index === 6
+  const isWeekend = (week: string) => monthTable[week][0] || monthTable[week][6]
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
       return weekdayLabels[index]
@@ -20,11 +20,20 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
 
   return (
     <div className={styles.container}>
-      {weekdays.map((weekday, index) => (
-        <div key={weekday}>
-          {showWeekdays && <span className={styles.dayLabel}>{getCustomWeekdayLabel(index)}</span>}
-          <span className={clsx(styles.dayRow, isWeekend(index) && styles.weekendRow)}>
-            {monthHash[weekday].map(({ day, isCurrentMonth }) => (
+      {showWeekdays && (
+        <span className={styles.dayLabel}>
+          {weekdays.map((_, index) => (
+            <span>{getCustomWeekdayLabel(index)}</span>
+          ))}
+        </span>
+      )}
+      <div className={styles.dayRows}>
+        {Array.from(Object.keys(monthTable)).map((week) => (
+          <div
+            key={week}
+            className={clsx(styles.dayRow, isWeekend(week) && styles.weekendRow)}
+          >
+            {monthTable[week].map(({ day, isCurrentMonth }) => (
               <button
                 data-today={dayjs(day.date).isToday()}
                 data-start-month={
@@ -42,9 +51,9 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
                 {day.label}
               </button>
             ))}
-          </span>
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
