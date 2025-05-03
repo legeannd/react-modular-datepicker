@@ -37,10 +37,11 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
               <button
                 data-today={dayjs(day.date).isToday()}
                 data-start-month={
-                  dayjs(day.date).isSame(dayjs(day.date).startOf('M')) && isCurrentMonth
+                  dayjs(day.date).isSame(dayjs(day.date).startOf('M').startOf('D')) &&
+                  isCurrentMonth
                 }
                 data-end-month={
-                  dayjs(day.date).isSame(dayjs(day.date).endOf('M')) && isCurrentMonth
+                  dayjs(day.date).isSame(dayjs(day.date).endOf('M').startOf('D')) && isCurrentMonth
                 }
                 data-this-month={isCurrentMonth}
                 data-selected={dayjs(selected?.day.date).isSame(day.date)}
