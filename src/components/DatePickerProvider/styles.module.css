@@ -2,8 +2,8 @@
   font-family: Arial, Helvetica, sans-serif;
 
   button {
+    cursor: pointer;
     background-color: transparent;
-    border: none;
     text-align: inherit;
     font: inherit;
     appearance: none;

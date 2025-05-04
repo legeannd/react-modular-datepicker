@@ -4,13 +4,22 @@ import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
 import { CalendarProps } from '../../types'
+import { useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 dayjs.extend(isToday)
 
 export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
-  const { month: monthTable, selected, handleDateClick } = useDatePicker()
+  const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
+  const { selected, header, handleDateClick, handleAddCalendarRef, createMonthTable } =
+    useDatePicker()
+  const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs.weekdaysShort()
-  const isWeekend = (week: string) => monthTable[week][0] || monthTable[week][6]
+  const isWeekend = (date: string) => {
+    const dayOfWeek = dayjs(date).day()
+    return dayOfWeek === 0 || dayOfWeek === 6
+  }
+
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
       return weekdayLabels[index]
@@ -18,23 +27,42 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
     return weekdays[index]
   }
 
-  return (
-    <div className={styles.container}>
+  useEffect(() => {
+    if (header && calendarRef.current) {
+      handleAddCalendarRef({ current: calendarRef.current })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [header])
+
+  useImperativeHandle(
+    calendarRef,
+    () => ({
+      updateMonthTable: (newDate?: string | Date) => {
+        const updatedMonthTable = createMonthTable(newDate)
+        setMonthTable(updatedMonthTable)
+      },
+    }),
+    [createMonthTable]
+  )
+
+  const body = (
+    <div className={clsx(styles.container, !header && styles.containerShadow)}>
       {showWeekdays && (
         <span className={styles.dayLabel}>
           {weekdays.map((_, index) => (
-            <span>{getCustomWeekdayLabel(index)}</span>
+            <span key={index}>{getCustomWeekdayLabel(index)}</span>
           ))}
         </span>
       )}
       <div className={styles.dayRows}>
-        {Array.from(Object.keys(monthTable)).map((week) => (
+        {Array.from(monthTable.keys()).map((week) => (
           <div
             key={week}
-            className={clsx(styles.dayRow, isWeekend(week) && styles.weekendRow)}
+            className={styles.dayRow}
           >
-            {monthTable[week].map(({ day, isCurrentMonth }) => (
+            {monthTable.get(week)?.map(({ day, isCurrentMonth }) => (
               <button
+                className={clsx(isWeekend(day.date) && styles.weekendDay)}
                 data-today={dayjs(day.date).isToday()}
                 data-start-month={
                   dayjs(day.date).isSame(dayjs(day.date).startOf('M').startOf('D')) &&
@@ -44,7 +72,11 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
                   dayjs(day.date).isSame(dayjs(day.date).endOf('M').startOf('D')) && isCurrentMonth
                 }
                 data-this-month={isCurrentMonth}
-                data-selected={dayjs(selected?.day.date).isSame(day.date)}
+                data-selected={
+                  header
+                    ? dayjs(selected?.day.date).isSame(day.date) && isCurrentMonth
+                    : dayjs(selected?.day.date).isSame(day.date)
+                }
                 key={day.date}
                 onClick={() => handleDateClick({ day, isCurrentMonth })}
                 aria-label={dayjs(day.date).format('MMMM D, YYYY')}
@@ -57,4 +89,6 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
       </div>
     </div>
   )
+
+  return header ? createPortal(body, header) : body
 }

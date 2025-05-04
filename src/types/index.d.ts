@@ -1,5 +1,3 @@
-import { ReactNode } from "react"
-
 export interface CurrentDay {
   day: {
     label: number
@@ -15,12 +13,21 @@ export interface CalendarProps {
 
 
 export interface DatePickerProviderProps {
-  children: ReactNode
+  children: React.ReactNode
   initialDate?: string | Date
 }
 
+export type CalendarRefObject = React.RefObject<{
+  updateMonthTable: (newDate?: string | Date) => void
+}>
+
 export interface DatePickerContextType {
+  initialDate: string | Date
   selected: CurrentDay | null
-  month: { [key: string]: CurrentDay[] }
+  header: HTMLElement | null
+  calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
+  getHeaderRef: (ref: HTMLDivElement | null) => void
+  handleAddCalendarRef: (ref: CalendarRefObject) => void;
   handleDateClick: (day: CurrentDay) => void
+  createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
 }
