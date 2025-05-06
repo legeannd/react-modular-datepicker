@@ -3,15 +3,25 @@ import styles from './styles.module.css'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import { DatePickerContext } from '../../contexts/DatePickerContext'
-import { CalendarRefObject, CurrentDay, DatePickerProviderProps } from '../../types'
+import {
+  CalendarRefObject,
+  CurrentDay,
+  DatePickerProviderProps,
+  HandleDateClickType,
+  SelectedDate,
+} from '../../types'
 
 dayjs.extend(localeData)
 
 export function DatePickerProvider({
   children,
   initialDate = new Date(),
+  type = 'single',
 }: DatePickerProviderProps) {
-  const [selected, setSelected] = useState<CurrentDay | null>(null)
+  const [selected, setSelected] = useState<SelectedDate>({
+    selection: null,
+    type,
+  })
   const [headerRef, setHeaderRef] = useState<HTMLDivElement | null>(null)
   const [calendarRefs, setCalendarRefs] = useState<
     { updateMonthTable: (newDate: string | Date) => void }[]
@@ -45,8 +55,41 @@ export function DatePickerProvider({
     return monthTable
   }
 
-  const handleDateClick = (day: CurrentDay) => {
-    setSelected(day)
+  const handleDateClick: HandleDateClickType = (day) => {
+    switch (type) {
+      case 'single':
+        setSelected({ type, selection: day })
+        break
+      case 'multiple':
+        setSelected((prev) => ({
+          type,
+          selection: [...(Array.isArray(prev.selection) ? prev.selection : []), day],
+        }))
+        break
+      case 'range': {
+        const { selection } = selected
+        if (!selection || ('start' in selection && 'end' in selection)) {
+          setSelected({ type, selection: { start: day } })
+        } else {
+          const date = dayjs(day.day.date)
+          if ('start' in selection) {
+            if (date.isBefore(selection.start?.day.date)) {
+              setSelected((prev) => {
+                if (prev.selection && 'start' in prev.selection) {
+                  return { type, selection: { start: day, end: prev.selection.start } }
+                }
+                return prev
+              })
+            } else if (date.isAfter(selection.start?.day.date)) {
+              setSelected((prev) => ({ type, selection: { ...prev.selection, end: day } }))
+            }
+          }
+        }
+        break
+      }
+      default:
+        return
+    }
   }
 
   const handleAddCalendarRef = (ref: CalendarRefObject) => {
@@ -70,6 +113,7 @@ export function DatePickerProvider({
     <DatePickerContext.Provider
       value={{
         selected,
+        type,
         initialDate,
         header: headerRef,
         calendarRefs,

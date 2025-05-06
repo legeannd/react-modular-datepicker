@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
-import { CalendarProps } from '../../types'
+import { CalendarProps, CurrentDay } from '../../types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -27,11 +27,50 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
     return weekdays[index]
   }
 
+  const getStartAndEndRangeDates = (type: 'start' | 'end', { day: dayToCompare }: CurrentDay) => {
+    if (selected.selection && selected.type === 'range' && selected.selection[type]) {
+      return dayjs(selected.selection[type]?.day.date).isSame(dayToCompare.date)
+    }
+    return false
+  }
+
+  const getBetweenRangeDates = ({ day }: CurrentDay) => {
+    const current = dayjs(day.date)
+    if (selected.type === 'range' && selected.selection?.start && selected.selection?.end) {
+      if (
+        current.isAfter(selected.selection?.start?.day.date, 'day') &&
+        current.isBefore(selected.selection.end.day.date, 'day')
+      ) {
+        return true
+      }
+    }
+    return false
+  }
+
+  const getSelectedDates = (clicked: CurrentDay) => {
+    if (header && !clicked.isCurrentMonth) {
+      return false
+    }
+    const { day } = clicked
+    switch (selected.type) {
+      case 'single':
+        return dayjs(selected.selection?.day.date).isSame(day.date)
+      case 'multiple':
+        return selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date))
+      case 'range':
+        return (
+          getStartAndEndRangeDates('start', clicked) || getStartAndEndRangeDates('end', clicked)
+        )
+      default:
+        return false
+    }
+  }
+
   useEffect(() => {
     if (header && calendarRef.current) {
       handleAddCalendarRef({ current: calendarRef.current })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [header])
 
   useImperativeHandle(
@@ -60,28 +99,30 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
             key={week}
             className={styles.dayRow}
           >
-            {monthTable.get(week)?.map(({ day, isCurrentMonth }) => (
+            {monthTable.get(week)?.map((currentDay) => (
               <button
-                className={clsx(isWeekend(day.date) && styles.weekendDay)}
-                data-today={dayjs(day.date).isToday()}
+                className={clsx(isWeekend(currentDay.day.date) && styles.weekendDay)}
+                data-today={dayjs(currentDay.day.date).isToday()}
                 data-start-month={
-                  dayjs(day.date).isSame(dayjs(day.date).startOf('M').startOf('D')) &&
-                  isCurrentMonth
+                  dayjs(currentDay.day.date).isSame(
+                    dayjs(currentDay.day.date).startOf('M').startOf('D')
+                  ) && currentDay.isCurrentMonth
                 }
                 data-end-month={
-                  dayjs(day.date).isSame(dayjs(day.date).endOf('M').startOf('D')) && isCurrentMonth
+                  dayjs(currentDay.day.date).isSame(
+                    dayjs(currentDay.day.date).endOf('M').startOf('D')
+                  ) && currentDay.isCurrentMonth
                 }
-                data-this-month={isCurrentMonth}
-                data-selected={
-                  header
-                    ? dayjs(selected?.day.date).isSame(day.date) && isCurrentMonth
-                    : dayjs(selected?.day.date).isSame(day.date)
-                }
-                key={day.date}
-                onClick={() => handleDateClick({ day, isCurrentMonth })}
-                aria-label={dayjs(day.date).format('MMMM D, YYYY')}
+                data-this-month={currentDay.isCurrentMonth}
+                data-selected={getSelectedDates(currentDay)}
+                data-start-range={getStartAndEndRangeDates('start', currentDay)}
+                data-end-range={getStartAndEndRangeDates('end', currentDay)}
+                data-between-range={getBetweenRangeDates(currentDay)}
+                key={currentDay.day.date}
+                onClick={() => handleDateClick(currentDay)}
+                aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
               >
-                {day.label}
+                {currentDay.day.label}
               </button>
             ))}
           </div>

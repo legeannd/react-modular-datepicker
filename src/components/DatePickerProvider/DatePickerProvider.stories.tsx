@@ -21,6 +21,20 @@ export const Default: Story = {
   } as DatePickerProviderProps,
 }
 
+export const SelectMultipleDates: Story = {
+  args: {
+    children: <Calendar />,
+    type: 'multiple',
+  } as DatePickerProviderProps,
+}
+
+export const SelectDateRange: Story = {
+  args: {
+    children: <Calendar />,
+    type: 'range',
+  } as DatePickerProviderProps,
+}
+
 export const CustomInitialDate: Story = {
   args: {
     initialDate: '2025-01-01',

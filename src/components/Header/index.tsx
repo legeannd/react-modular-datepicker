@@ -36,6 +36,7 @@ export function Header() {
   return (
     <div className={styles.container}>
       <div className={styles.options}>
+        {date.year()}
         <button
           className={styles.changeButton}
           onClick={() => handleChangeCalendarRange('decrease')}

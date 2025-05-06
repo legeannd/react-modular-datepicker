@@ -3,9 +3,15 @@ export interface CurrentDay {
     label: number
     date: string
   }
-  isCurrentMonth: boolean
+  isCurrentMonth?: boolean
 }
 
+export interface CurrentRange {
+  start?: CurrentDay
+  end?: CurrentDay
+}
+
+export type CalendarType = 'single' | 'multiple' | 'range'
 export interface CalendarProps {
   showWeekdays?: boolean
   weekdayLabels?: string[]
@@ -15,19 +21,28 @@ export interface CalendarProps {
 export interface DatePickerProviderProps {
   children: React.ReactNode
   initialDate?: string | Date
+  type?: CalendarType
 }
 
 export type CalendarRefObject = React.RefObject<{
   updateMonthTable: (newDate?: string | Date) => void
 }>
 
+export type HandleDateClickType = (day: CurrentDay) => void
+
+export type SelectedDate =
+  | { type: 'single'; selection: CurrentDay | null }
+  | { type: 'multiple'; selection: CurrentDay[] | null }
+  | { type: 'range'; selection: CurrentRange | null }
+
 export interface DatePickerContextType {
   initialDate: string | Date
-  selected: CurrentDay | null
+  selected: SelectedDate
+  type: CalendarType
   header: HTMLElement | null
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
   getHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
-  handleDateClick: (day: CurrentDay) => void
+  handleDateClick: HandleDateClickType
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
 }
