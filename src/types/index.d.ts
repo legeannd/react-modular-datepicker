@@ -38,10 +38,12 @@ export type SelectedDate =
 export interface DatePickerContextType {
   initialDate: string | Date
   selected: SelectedDate
+  hovered: CurrentDay | null
   type: CalendarType
   header: HTMLElement | null
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
-  getHeaderRef: (ref: HTMLDivElement | null) => void
+  handleSetHovered: (day?: CurrentDay) => void
+  handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
   handleDateClick: HandleDateClickType
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>

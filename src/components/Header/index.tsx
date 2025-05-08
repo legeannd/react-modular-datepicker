@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 import dayjs from 'dayjs'
 
 export function Header() {
-  const { initialDate, calendarRefs, getHeaderRef } = useDatePicker()
+  const { initialDate, calendarRefs, handleSetHeaderRef } = useDatePicker()
   const [date, setDate] = useState(dayjs(initialDate))
   const [monthRangeText, setMonthRangeText] = useState(dayjs.monthsShort()[date.get('M')])
 
@@ -54,7 +54,7 @@ export function Header() {
       <div
         className={styles.calendars}
         id='rmdp-header'
-        ref={(ref) => getHeaderRef(ref)}
+        ref={(ref) => handleSetHeaderRef(ref)}
       ></div>
     </div>
   )

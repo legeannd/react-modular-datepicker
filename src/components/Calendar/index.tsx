@@ -11,8 +11,15 @@ dayjs.extend(isToday)
 
 export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
-  const { selected, header, handleDateClick, handleAddCalendarRef, createMonthTable } =
-    useDatePicker()
+  const {
+    selected,
+    hovered,
+    header,
+    handleDateClick,
+    handleSetHovered,
+    handleAddCalendarRef,
+    createMonthTable,
+  } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs.weekdaysShort()
   const isWeekend = (date: string) => {
@@ -34,16 +41,27 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
     return false
   }
 
-  const getBetweenRangeDates = ({ day }: CurrentDay) => {
-    const current = dayjs(day.date)
-    if (selected.type === 'range' && selected.selection?.start && selected.selection?.end) {
-      if (
-        current.isAfter(selected.selection?.start?.day.date, 'day') &&
-        current.isBefore(selected.selection.end.day.date, 'day')
-      ) {
-        return true
+  const getBetweenRangeDates = (day: CurrentDay) => {
+    if (header && !day.isCurrentMonth) {
+      return false
+    }
+    if (selected.type === 'range') {
+      const current = dayjs(day.day.date)
+      if (selected.selection?.start && selected.selection?.end) {
+        return (
+          current.isAfter(selected.selection?.start?.day.date, 'day') &&
+          current.isBefore(selected.selection.end.day.date, 'day')
+        )
+      } else if (hovered && selected.selection?.start && !selected.selection.end) {
+        return (
+          (current.isAfter(selected.selection.start.day.date) &&
+            current.isBefore(hovered?.day.date)) ||
+          (current.isBefore(selected.selection.start.day.date) &&
+            current.isAfter(hovered?.day.date))
+        )
       }
     }
+
     return false
   }
 
@@ -119,8 +137,10 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
                 data-end-range={getStartAndEndRangeDates('end', currentDay)}
                 data-between-range={getBetweenRangeDates(currentDay)}
                 key={currentDay.day.date}
-                onClick={() => handleDateClick(currentDay)}
                 aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
+                onClick={() => handleDateClick(currentDay)}
+                onMouseEnter={() => handleSetHovered(currentDay)}
+                onMouseLeave={() => handleSetHovered}
               >
                 {currentDay.day.label}
               </button>

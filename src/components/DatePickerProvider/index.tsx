@@ -22,6 +22,7 @@ export function DatePickerProvider({
     selection: null,
     type,
   })
+  const [hovered, setHovered] = useState<CurrentDay | null>(null)
   const [headerRef, setHeaderRef] = useState<HTMLDivElement | null>(null)
   const [calendarRefs, setCalendarRefs] = useState<
     { updateMonthTable: (newDate: string | Date) => void }[]
@@ -103,9 +104,20 @@ export function DatePickerProvider({
     }
   }
 
-  const getHeaderRef = (ref: HTMLDivElement | null) => {
+  const handleSetHeaderRef = (ref: HTMLDivElement | null) => {
     if (ref) {
       setHeaderRef(ref)
+    }
+  }
+
+  const handleSetHovered = (day?: CurrentDay) => {
+    if (type === 'range') {
+      if (day && selected.selection && 'start' in selected.selection) {
+        setHovered(day)
+      }
+      if (selected.selection && 'end' in selected.selection) {
+        setHovered(null)
+      }
     }
   }
 
@@ -113,11 +125,13 @@ export function DatePickerProvider({
     <DatePickerContext.Provider
       value={{
         selected,
+        hovered,
         type,
         initialDate,
         header: headerRef,
         calendarRefs,
-        getHeaderRef,
+        handleSetHovered,
+        handleSetHeaderRef,
         handleDateClick,
         handleAddCalendarRef,
         createMonthTable,
