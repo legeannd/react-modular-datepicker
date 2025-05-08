@@ -22,6 +22,7 @@ export interface DatePickerProviderProps {
   children: React.ReactNode
   initialDate?: string | Date
   type?: CalendarType
+  normalizeMultipleCalendarsHeight?: boolean
 }
 
 export type CalendarRefObject = React.RefObject<{

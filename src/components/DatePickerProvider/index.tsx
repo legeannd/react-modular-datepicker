@@ -17,6 +17,7 @@ export function DatePickerProvider({
   children,
   initialDate = new Date(),
   type = 'single',
+  normalizeMultipleCalendarsHeight = false,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -35,7 +36,10 @@ export function DatePickerProvider({
     const monthTable = new Map<number, CurrentDay[]>()
     let currentDay = startOfMonth.startOf('week')
     let week = 0
-    while (currentDay.isBefore(endOfMonth.endOf('week'))) {
+    while (
+      currentDay.isBefore(endOfMonth.endOf('week')) ||
+      (normalizeMultipleCalendarsHeight && week !== 6)
+    ) {
       const weekDays = monthTable.get(week) || []
       weekDays.push({
         day: {

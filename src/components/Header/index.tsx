@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import styles from './styles.module.css'
 import dayjs from 'dayjs'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export function Header() {
   const { initialDate, calendarRefs, handleSetHeaderRef } = useDatePicker()
@@ -36,20 +37,24 @@ export function Header() {
   return (
     <div className={styles.container}>
       <div className={styles.options}>
-        {date.year()}
-        <button
-          className={styles.changeButton}
-          onClick={() => handleChangeCalendarRange('decrease')}
-        >
-          -
-        </button>
-        {monthRangeText}
-        <button
-          className={styles.changeButton}
-          onClick={() => handleChangeCalendarRange('increase')}
-        >
-          +
-        </button>
+        <div className={styles.labels}>
+          <span> {date.year()}</span>
+          <span> {monthRangeText}</span>
+        </div>
+        <div className={styles.buttons}>
+          <button
+            className={styles.changeButton}
+            onClick={() => handleChangeCalendarRange('decrease')}
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            className={styles.changeButton}
+            onClick={() => handleChangeCalendarRange('increase')}
+          >
+            <ChevronRight />
+          </button>
+        </div>
       </div>
       <div
         className={styles.calendars}

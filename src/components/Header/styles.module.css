@@ -1,19 +1,38 @@
 .container {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px;
   background: #fff;
+  border-radius: 0.5rem;
 }
 
 .options {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1rem;
+  font-weight: bold;
+  color: #444;
+
+  & svg {
+    color: #444;
+  }
+}
+
+.buttons,
+.labels {
+  display: flex;
+  gap: 1rem;
 }
 
 .changeButton {
-  padding: 0.5rem 1rem;
-  border: 1px solid black;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 0;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f4f4f5;
+  }
 }
 
 .calendars {

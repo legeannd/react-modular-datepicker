@@ -15,6 +15,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
     selected,
     hovered,
     header,
+    calendarRefs,
     handleDateClick,
     handleSetHovered,
     handleAddCalendarRef,
@@ -66,7 +67,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
   }
 
   const getSelectedDates = (clicked: CurrentDay) => {
-    if (header && !clicked.isCurrentMonth) {
+    if (header && calendarRefs.length > 1 && !clicked.isCurrentMonth) {
       return false
     }
     const { day } = clicked
@@ -120,7 +121,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
             {monthTable.get(week)?.map((currentDay) => (
               <button
                 className={clsx(isWeekend(currentDay.day.date) && styles.weekendDay)}
-                data-today={dayjs(currentDay.day.date).isToday()}
+                data-today={dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth}
                 data-start-month={
                   dayjs(currentDay.day.date).isSame(
                     dayjs(currentDay.day.date).startOf('M').startOf('D')

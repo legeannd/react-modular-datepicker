@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { DatePickerProvider } from '.'
 import { DatePickerProviderProps } from '../../types'
 import { Calendar } from '../Calendar'
+import { Header } from '../Header'
 
 const meta = {
   title: 'Components/DatePickerProvider',
@@ -38,6 +39,26 @@ export const SelectDateRange: Story = {
 export const CustomInitialDate: Story = {
   args: {
     initialDate: '2025-01-01',
-    children: <Calendar />,
+    children: (
+      <>
+        <Header />
+        <Calendar />
+      </>
+    ),
+  } as DatePickerProviderProps,
+}
+
+export const NormalizedMultipleCalendarsHeight: Story = {
+  args: {
+    children: (
+      <>
+        <Header />
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </>
+    ),
+    type: 'range',
+    normalizeMultipleCalendarsHeight: true,
   } as DatePickerProviderProps,
 }
