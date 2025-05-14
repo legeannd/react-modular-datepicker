@@ -1,11 +1,11 @@
 import styles from './styles.module.css'
-import clsx from 'clsx'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
 import { CalendarProps, CurrentDay } from '../../types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { twMerge } from 'tailwind-merge'
 
 dayjs.extend(isToday)
 
@@ -104,7 +104,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
   )
 
   const body = (
-    <div className={clsx(styles.container, !header && styles.containerShadow)}>
+    <div className={twMerge(styles.container, !header && styles.containerShadow)}>
       {showWeekdays && (
         <span className={styles.dayLabel}>
           {weekdays.map((_, index) => (
@@ -120,7 +120,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
           >
             {monthTable.get(week)?.map((currentDay) => (
               <button
-                className={clsx(isWeekend(currentDay.day.date) && styles.weekendDay)}
+                className={twMerge(isWeekend(currentDay.day.date) && styles.weekendDay)}
                 data-today={dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth}
                 data-start-month={
                   dayjs(currentDay.day.date).isSame(

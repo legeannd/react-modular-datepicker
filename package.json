@@ -17,11 +17,7 @@
     "prepublishOnly": "vitest run && npm run build"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "dayjs": "^1.11.13",
-    "lucide-react": "^0.508.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "lucide-react": "^0.508.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "3",
@@ -52,13 +48,21 @@
     "jsdom": "^26.1.0",
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "storybook": "8.6.12",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "3.4.17",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1",
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitest": "^3.1.1"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.13",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "eslintConfig": {
     "extends": [

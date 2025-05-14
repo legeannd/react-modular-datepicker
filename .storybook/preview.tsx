@@ -1,6 +1,7 @@
+import '../src/styles/main.css'
+
 import type { Preview } from '@storybook/react'
-import React from 'react'
-import { DatePickerProvider } from '../src/components/DatePickerProvider' // Adjust the path as needed
+import { DatePickerProvider } from '../src/components/DatePickerProvider'
 
 const preview: Preview = {
   parameters: {
