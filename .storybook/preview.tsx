@@ -12,13 +12,6 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <DatePickerProvider>
-        <Story />
-      </DatePickerProvider>
-    ),
-  ],
 }
 
 export default preview

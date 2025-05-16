@@ -70,7 +70,6 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
           current.isBefore(selected.selection.end.day.date, 'day')
         )
       } else if (hovered && selected.selection?.start && !selected.selection.end) {
-        console.log('entrou')
         return (
           (current.isAfter(selected.selection.start.day.date) &&
             current.isBefore(hovered?.day.date)) ||

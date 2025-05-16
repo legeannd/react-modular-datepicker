@@ -10,6 +10,13 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <DatePickerProvider>
+        <Story />
+      </DatePickerProvider>
+    ),
+  ],
 } satisfies Meta<typeof Header>
 
 export default meta
@@ -23,12 +30,12 @@ export const WithGroupOfCalendars: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <DatePickerProvider>
+      <>
         <Story />
         <Calendar />
         <Calendar />
         <Calendar />
-      </DatePickerProvider>
+      </>
     ),
   ],
 }

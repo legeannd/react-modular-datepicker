@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Calendar } from '.'
 import { CalendarProps } from '../../types'
+import { DatePickerProvider } from '../DatePickerProvider'
 
 const meta = {
   title: 'Components/Calendar',
@@ -9,6 +10,13 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <DatePickerProvider>
+        <Story />
+      </DatePickerProvider>
+    ),
+  ],
 } satisfies Meta<typeof Calendar>
 
 export default meta
