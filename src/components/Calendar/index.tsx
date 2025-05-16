@@ -1,4 +1,3 @@
-import styles from './styles.module.css'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
@@ -45,20 +44,25 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
   const body = (
     <div
       aria-label={calendarLabel}
-      className={twMerge(styles.container, !header && styles.containerShadow)}
+      className={twMerge('flex flex-col gap-1 rounded-lg bg-white p-1', !header && 'shadow-md')}
     >
       {showWeekdays && (
-        <span className={styles.dayLabel}>
+        <span className={twMerge('text-label grid grid-cols-7 text-xs')}>
           {weekdays.map((_, index) => (
-            <span key={index}>{getCustomWeekdayLabel(index)}</span>
+            <span
+              className={twMerge('flex items-center justify-center px-0 py-2')}
+              key={index}
+            >
+              {getCustomWeekdayLabel(index)}
+            </span>
           ))}
         </span>
       )}
-      <div className={styles.dayRows}>
+      <div className={twMerge('flex flex-col gap-1')}>
         {Array.from(monthTable.keys()).map((week) => (
           <div
             key={week}
-            className={styles.dayRow}
+            className={twMerge('grid grid-cols-7 gap-0.5')}
           >
             {monthTable.get(week)?.map((currentDay) => (
               <DayButton

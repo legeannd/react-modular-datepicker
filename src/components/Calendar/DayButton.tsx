@@ -146,7 +146,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
     <button
       className={twMerge(
         'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-[.5rem] p-2 text-sm transition-all duration-200 ease-in-out',
-        today && 'outline-today outline -outline-offset-1',
+        today && !betweenRange && 'outline-today outline -outline-offset-1',
         visualSelected && 'bg-selected text-highlight font-bold outline-0',
         !thisMonth && !visualSelected && 'text-disabled',
         (startMonth || endMonth) && 'font-bold',
@@ -158,7 +158,14 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
           !singleHovered &&
           !visualSelected &&
           !betweenRange &&
-          'text-weekend bg-weekend-background'
+          thisMonth &&
+          'bg-weekend-background text-weekend',
+        weekend &&
+          !singleHovered &&
+          !visualSelected &&
+          !betweenRange &&
+          !thisMonth &&
+          'bg-weekend-background'
       )}
       data-today={today}
       data-start-month={startMonth}
