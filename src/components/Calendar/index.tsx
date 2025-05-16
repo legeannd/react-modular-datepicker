@@ -15,6 +15,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
   const { header, handleAddCalendarRef, createMonthTable } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs.weekdaysShort()
+  const calendarLabel = dayjs(monthTable.get(1)?.[0].day.date).format('MMMM, YYYY')
 
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
@@ -42,7 +43,10 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
   )
 
   const body = (
-    <div className={twMerge(styles.container, !header && styles.containerShadow)}>
+    <div
+      aria-label={calendarLabel}
+      className={twMerge(styles.container, !header && styles.containerShadow)}
+    >
       {showWeekdays && (
         <span className={styles.dayLabel}>
           {weekdays.map((_, index) => (
