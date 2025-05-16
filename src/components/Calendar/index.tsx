@@ -2,87 +2,25 @@ import styles from './styles.module.css'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
-import { CalendarProps, CurrentDay } from '../../types'
+import { CalendarProps } from '../../types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
+import { DayButton } from './DayButton'
 
 dayjs.extend(isToday)
 
 export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
-  const {
-    selected,
-    hovered,
-    header,
-    calendarRefs,
-    handleDateClick,
-    handleSetHovered,
-    handleAddCalendarRef,
-    createMonthTable,
-  } = useDatePicker()
+  const { header, handleAddCalendarRef, createMonthTable } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs.weekdaysShort()
-  const isWeekend = (date: string) => {
-    const dayOfWeek = dayjs(date).day()
-    return dayOfWeek === 0 || dayOfWeek === 6
-  }
 
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
       return weekdayLabels[index]
     }
     return weekdays[index]
-  }
-
-  const getStartAndEndRangeDates = (type: 'start' | 'end', { day: dayToCompare }: CurrentDay) => {
-    if (selected.selection && selected.type === 'range' && selected.selection[type]) {
-      return dayjs(selected.selection[type]?.day.date).isSame(dayToCompare.date)
-    }
-    return false
-  }
-
-  const getBetweenRangeDates = (day: CurrentDay) => {
-    if (header && !day.isCurrentMonth) {
-      return false
-    }
-    if (selected.type === 'range') {
-      const current = dayjs(day.day.date)
-      if (selected.selection?.start && selected.selection?.end) {
-        return (
-          current.isAfter(selected.selection?.start?.day.date, 'day') &&
-          current.isBefore(selected.selection.end.day.date, 'day')
-        )
-      } else if (hovered && selected.selection?.start && !selected.selection.end) {
-        return (
-          (current.isAfter(selected.selection.start.day.date) &&
-            current.isBefore(hovered?.day.date)) ||
-          (current.isBefore(selected.selection.start.day.date) &&
-            current.isAfter(hovered?.day.date))
-        )
-      }
-    }
-
-    return false
-  }
-
-  const getSelectedDates = (clicked: CurrentDay) => {
-    if (header && calendarRefs.length > 1 && !clicked.isCurrentMonth) {
-      return false
-    }
-    const { day } = clicked
-    switch (selected.type) {
-      case 'single':
-        return dayjs(selected.selection?.day.date).isSame(day.date)
-      case 'multiple':
-        return selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date))
-      case 'range':
-        return (
-          getStartAndEndRangeDates('start', clicked) || getStartAndEndRangeDates('end', clicked)
-        )
-      default:
-        return false
-    }
   }
 
   useEffect(() => {
@@ -119,32 +57,10 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
             className={styles.dayRow}
           >
             {monthTable.get(week)?.map((currentDay) => (
-              <button
-                className={twMerge(isWeekend(currentDay.day.date) && styles.weekendDay)}
-                data-today={dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth}
-                data-start-month={
-                  dayjs(currentDay.day.date).isSame(
-                    dayjs(currentDay.day.date).startOf('M').startOf('D')
-                  ) && currentDay.isCurrentMonth
-                }
-                data-end-month={
-                  dayjs(currentDay.day.date).isSame(
-                    dayjs(currentDay.day.date).endOf('M').startOf('D')
-                  ) && currentDay.isCurrentMonth
-                }
-                data-this-month={currentDay.isCurrentMonth}
-                data-selected={getSelectedDates(currentDay)}
-                data-start-range={getStartAndEndRangeDates('start', currentDay)}
-                data-end-range={getStartAndEndRangeDates('end', currentDay)}
-                data-between-range={getBetweenRangeDates(currentDay)}
+              <DayButton
                 key={currentDay.day.date}
-                aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
-                onClick={() => handleDateClick(currentDay)}
-                onMouseEnter={() => handleSetHovered(currentDay)}
-                onMouseLeave={() => handleSetHovered}
-              >
-                {currentDay.day.label}
-              </button>
+                currentDay={currentDay}
+              />
             ))}
           </div>
         ))}

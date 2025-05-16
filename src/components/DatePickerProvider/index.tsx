@@ -65,12 +65,24 @@ export function DatePickerProvider({
       case 'single':
         setSelected({ type, selection: day })
         break
-      case 'multiple':
-        setSelected((prev) => ({
-          type,
-          selection: [...(Array.isArray(prev.selection) ? prev.selection : []), day],
-        }))
+      case 'multiple': {
+        const currentSelection = Array.isArray(selected.selection) ? selected.selection : []
+        const filteredSelection = currentSelection.filter(
+          (selected) => selected.day.date !== day.day.date
+        )
+        if (currentSelection.some((selected) => selected.day.date === day.day.date)) {
+          setSelected({
+            type,
+            selection: [...filteredSelection],
+          })
+        } else {
+          setSelected({
+            type,
+            selection: [...filteredSelection, day],
+          })
+        }
         break
+      }
       case 'range': {
         const { selection } = selected
         if (!selection || ('start' in selection && 'end' in selection)) {
