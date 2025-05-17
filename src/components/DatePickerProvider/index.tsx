@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import styles from './styles.module.css'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import { DatePickerContext } from '../../contexts/DatePickerContext'
@@ -155,7 +154,7 @@ export function DatePickerProvider({
     >
       <div
         id='rmdp-provider'
-        className={styles['datepicker-container']}
+        className='font-display'
       >
         {children}
       </div>

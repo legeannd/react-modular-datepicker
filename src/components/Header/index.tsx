@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
-import styles from './styles.module.css'
 import dayjs from 'dayjs'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -9,8 +8,8 @@ export function Header() {
   const [date, setDate] = useState(dayjs(initialDate))
   const [monthRangeText, setMonthRangeText] = useState(dayjs.monthsShort()[date.get('M')])
 
-  const handleChangeCalendarRange = (type: 'increase' | 'decrease') => {
-    if (type === 'increase') {
+  const handleChangeCalendarRange = (type: 'increment' | 'decrement') => {
+    if (type === 'increment') {
       setDate((prev) => prev.add(1, 'month'))
     } else {
       setDate((prev) => prev.subtract(1, 'month'))
@@ -35,29 +34,33 @@ export function Header() {
   }, [calendarRefs, date])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.options}>
-        <div className={styles.labels}>
+    <div className='rounded-lg bg-white shadow-md'>
+      <div className='text-label flex items-center justify-between gap-8 p-4 font-bold'>
+        <div className='flex gap-4'>
           <span> {date.year()}</span>
           <span> {monthRangeText}</span>
         </div>
-        <div className={styles.buttons}>
+        <div className='flex gap-4'>
           <button
-            className={styles.changeButton}
-            onClick={() => handleChangeCalendarRange('decrease')}
+            className='hover:bg-hover cursor-pointer rounded-lg px-2 py-1 transition-colors duration-200 ease-in-out'
+            onClick={() => handleChangeCalendarRange('decrement')}
           >
-            <ChevronLeft />
+            <ChevronLeft className='text-label' />
           </button>
           <button
-            className={styles.changeButton}
-            onClick={() => handleChangeCalendarRange('increase')}
+            className={
+              'hover:bg-hover cursor-pointer rounded-lg px-2 py-1 transition-colors duration-200 ease-in-out'
+            }
+            onClick={() => handleChangeCalendarRange('increment')}
           >
-            <ChevronRight />
+            <ChevronRight className='text-label' />
           </button>
         </div>
       </div>
       <div
-        className={styles.calendars}
+        className={
+          'grid grid-cols-3 items-end gap-x-4 gap-y-2 [&:has(>*:nth-child(2)):not(:has(>*:nth-child(3)))]:grid-cols-2 [&:has(>*:only-child)]:grid-cols-1'
+        }
         id='rmdp-header'
         ref={(ref) => handleSetHeaderRef(ref)}
       ></div>
