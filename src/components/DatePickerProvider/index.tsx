@@ -6,6 +6,7 @@ import {
   CalendarRefObject,
   CurrentDay,
   DatePickerProviderProps,
+  GroupingModeType,
   HandleDateClickType,
   SelectedDate,
 } from '../../types'
@@ -16,7 +17,7 @@ export function DatePickerProvider({
   children,
   initialDate = new Date(),
   type = 'single',
-  normalizeMultipleCalendarsHeight = false,
+  normalizeHeight = false,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -27,6 +28,7 @@ export function DatePickerProvider({
   const [calendarRefs, setCalendarRefs] = useState<
     { updateMonthTable: (newDate: string | Date) => void }[]
   >([])
+  const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
 
   const createMonthTable = (tableDate = initialDate) => {
     const date = dayjs(tableDate).startOf('day')
@@ -35,10 +37,7 @@ export function DatePickerProvider({
     const monthTable = new Map<number, CurrentDay[]>()
     let currentDay = startOfMonth.startOf('week')
     let week = 0
-    while (
-      currentDay.isBefore(endOfMonth.endOf('week')) ||
-      (normalizeMultipleCalendarsHeight && week !== 6)
-    ) {
+    while (currentDay.isBefore(endOfMonth.endOf('week')) || (normalizeHeight && week !== 6)) {
       const weekDays = monthTable.get(week) || []
       weekDays.push({
         day: {
@@ -136,6 +135,10 @@ export function DatePickerProvider({
     }
   }
 
+  const handleSetGroupingMode = (mode: GroupingModeType) => {
+    setGroupingMode(mode)
+  }
+
   return (
     <DatePickerContext.Provider
       value={{
@@ -145,10 +148,12 @@ export function DatePickerProvider({
         initialDate,
         header: headerRef,
         calendarRefs,
+        groupingMode,
         handleSetHovered,
         handleSetHeaderRef,
         handleDateClick,
         handleAddCalendarRef,
+        handleSetGroupingMode,
         createMonthTable,
       }}
     >

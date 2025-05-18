@@ -15,14 +15,20 @@ export type CalendarType = 'single' | 'multiple' | 'range'
 export interface CalendarProps {
   showWeekdays?: boolean
   weekdayLabels?: string[]
+  id?: string
 }
 
+export type GroupingModeType = 'all' | 'disabled' | string[]
+
+export interface HeaderProps {
+  groupingMode?: GroupingModeType
+}
 
 export interface DatePickerProviderProps {
   children: React.ReactNode
   initialDate?: string | Date
   type?: CalendarType
-  normalizeMultipleCalendarsHeight?: boolean
+  normalizeHeight?: boolean
 }
 
 export type CalendarRefObject = React.RefObject<{
@@ -43,9 +49,11 @@ export interface DatePickerContextType {
   type: CalendarType
   header: HTMLElement | null
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
+  groupingMode: GroupingModeType
   handleSetHovered: (day?: CurrentDay) => void
   handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
   handleDateClick: HandleDateClickType
+  handleSetGroupingMode: (mode: GroupingModeType) => void;
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
 }

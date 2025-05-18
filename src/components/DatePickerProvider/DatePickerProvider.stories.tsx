@@ -59,6 +59,6 @@ export const NormalizedMultipleCalendarsHeight: Story = {
       </>
     ),
     type: 'range',
-    normalizeMultipleCalendarsHeight: true,
+    normalizeHeight: true,
   } as DatePickerProviderProps,
 }

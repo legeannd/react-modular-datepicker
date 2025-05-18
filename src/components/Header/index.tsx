@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { HeaderProps } from '../../types'
 
-export function Header() {
-  const { initialDate, calendarRefs, handleSetHeaderRef } = useDatePicker()
+export function Header({ groupingMode }: HeaderProps) {
+  const { initialDate, calendarRefs, handleSetHeaderRef, handleSetGroupingMode } = useDatePicker()
   const [date, setDate] = useState(dayjs(initialDate))
   const [monthRangeText, setMonthRangeText] = useState(dayjs.monthsShort()[date.get('M')])
 
@@ -33,12 +34,18 @@ export function Header() {
     }
   }, [calendarRefs, date])
 
+  useEffect(() => {
+    if (groupingMode) {
+      handleSetGroupingMode(groupingMode)
+    }
+  }, [groupingMode, handleSetGroupingMode])
+
   return (
     <div className='rounded-lg bg-white shadow-md'>
       <div className='text-label flex items-center justify-between gap-8 p-4 font-bold'>
         <div className='flex gap-4'>
-          <span> {date.year()}</span>
-          <span> {monthRangeText}</span>
+          <span>{date.year()}</span>
+          <span>{monthRangeText}</span>
         </div>
         <div className='flex gap-4'>
           <button

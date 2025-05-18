@@ -30,12 +30,51 @@ export const WithGroupOfCalendars: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <>
+      <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
         <Story />
         <Calendar />
         <Calendar />
         <Calendar />
-      </>
+      </div>
+    ),
+  ],
+}
+
+export const WithGroupingDisabled: Story = {
+  args: { groupingMode: 'disabled' },
+  decorators: [
+    (Story) => (
+      <div className='flex flex-col items-center rounded-xl bg-red-100'>
+        <div className='flex p-4'>
+          <Story />
+        </div>
+        <div className='grid grid-cols-2 gap-4 p-8'>
+          <Calendar />
+          <Calendar />
+          <Calendar />
+          <Calendar />
+        </div>
+      </div>
+    ),
+  ],
+}
+
+export const WithPartialGrouping: Story = {
+  args: { groupingMode: ['second', 'third'] },
+  decorators: [
+    (Story) => (
+      <DatePickerProvider
+        normalizeHeight
+        type='range'
+      >
+        <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
+          <Calendar />
+          <Calendar id='second' />
+          <Story />
+          <Calendar id='third' />
+          <Calendar />
+        </div>
+      </DatePickerProvider>
     ),
   ],
 }

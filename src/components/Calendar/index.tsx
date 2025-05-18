@@ -9,12 +9,14 @@ import { DayButton } from './DayButton'
 
 dayjs.extend(isToday)
 
-export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) {
+export function Calendar({ showWeekdays = true, weekdayLabels, id }: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
-  const { header, handleAddCalendarRef, createMonthTable } = useDatePicker()
+  const { header, groupingMode, handleAddCalendarRef, createMonthTable } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs.weekdaysShort()
   const calendarLabel = dayjs(monthTable.get(1)?.[0].day.date).format('MMMM, YYYY')
+  const shouldRenderInsideHeader = groupingMode === 'all' || (!!id && groupingMode.includes(id))
+  const renderOnPortal = !!header && shouldRenderInsideHeader
 
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
@@ -43,8 +45,12 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
 
   const body = (
     <div
+      id={id}
       aria-label={calendarLabel}
-      className={twMerge('flex flex-col gap-1 rounded-lg bg-white p-1', !header && 'shadow-md')}
+      className={twMerge(
+        'flex flex-col gap-1 rounded-lg bg-white p-1',
+        (!header || !shouldRenderInsideHeader) && 'shadow-md'
+      )}
     >
       {showWeekdays && (
         <span className={twMerge('text-label grid grid-cols-7 text-xs')}>
@@ -76,5 +82,5 @@ export function Calendar({ showWeekdays = true, weekdayLabels }: CalendarProps) 
     </div>
   )
 
-  return header ? createPortal(body, header) : body
+  return renderOnPortal ? createPortal(body, header) : body
 }
