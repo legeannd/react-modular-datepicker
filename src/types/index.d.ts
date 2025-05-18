@@ -16,6 +16,7 @@ export interface CalendarProps {
   showWeekdays?: boolean
   weekdayLabels?: string[]
   id?: string
+  showLabel?: boolean
 }
 
 export type GroupingModeType = 'all' | 'disabled' | string[]

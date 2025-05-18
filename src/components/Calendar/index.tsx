@@ -6,10 +6,11 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { twMerge } from 'tailwind-merge'
 import { DayButton } from './DayButton'
+import { Calendar1, CalendarDays } from 'lucide-react'
 
 dayjs.extend(isToday)
 
-export function Calendar({ showWeekdays = true, weekdayLabels, id }: CalendarProps) {
+export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
   const { header, groupingMode, handleAddCalendarRef, createMonthTable } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
@@ -17,6 +18,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id }: CalendarPro
   const calendarLabel = dayjs(monthTable.get(1)?.[0].day.date).format('MMMM, YYYY')
   const shouldRenderInsideHeader = groupingMode === 'all' || (!!id && groupingMode.includes(id))
   const renderOnPortal = !!header && shouldRenderInsideHeader
+  const daysInCalendar = dayjs(monthTable.get(1)?.[0].day.date).daysInMonth()
 
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
@@ -79,6 +81,24 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id }: CalendarPro
           </div>
         ))}
       </div>
+      {showLabel && (
+        <div className='text-footer-label flex justify-between rounded bg-gray-50 p-2 text-center text-xs font-light'>
+          <span className='flex items-center gap-1'>
+            <CalendarDays
+              size={12}
+              strokeWidth={1}
+            />{' '}
+            {calendarLabel}
+          </span>
+          <span className='flex items-center gap-1'>
+            <Calendar1
+              size={12}
+              strokeWidth={1}
+            />
+            {daysInCalendar} days
+          </span>
+        </div>
+      )}
     </div>
   )
 

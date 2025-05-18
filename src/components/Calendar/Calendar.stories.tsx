@@ -26,15 +26,23 @@ export const Default: Story = {
   args: {} as CalendarProps,
 }
 
-export const WithoutWeekdaysLabel: Story = {
+export const WithoutWeekdayLabels: Story = {
   args: {
     showWeekdays: false,
   } as CalendarProps,
 }
 
-export const CustomLabels: Story = {
+export const CustomWeekdayLabels: Story = {
   args: {
     showWeekdays: true,
     weekdayLabels: ['🌞', '🌜', '🔥', '💧', '🌳', '🌈', '⭐'],
+  } as CalendarProps,
+}
+
+export const WithCalendarInfoLabels: Story = {
+  args: {
+    showWeekdays: true,
+    weekdayLabels: ['🌞', '🌜', '🔥', '💧', '🌳', '🌈', '⭐'],
+    showLabel: true,
   } as CalendarProps,
 }

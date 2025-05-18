@@ -44,11 +44,11 @@ export const WithGroupingDisabled: Story = {
   args: { groupingMode: 'disabled' },
   decorators: [
     (Story) => (
-      <div className='flex flex-col items-center rounded-xl bg-red-100'>
-        <div className='flex p-4'>
+      <div className='flex flex-col items-center gap-4 rounded-xl bg-red-100 p-8'>
+        <div className='flex'>
           <Story />
         </div>
-        <div className='grid grid-cols-2 gap-4 p-8'>
+        <div className='grid grid-cols-2 gap-4'>
           <Calendar />
           <Calendar />
           <Calendar />
@@ -67,7 +67,7 @@ export const WithPartialGrouping: Story = {
         normalizeHeight
         type='range'
       >
-        <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
+        <div className='flex w-full items-start gap-4 rounded-xl bg-red-100 p-8'>
           <Calendar />
           <Calendar id='second' />
           <Story />
