@@ -145,7 +145,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
   return (
     <button
       className={twMerge(
-        'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-[.5rem] px-4 py-2 text-sm transition-all duration-200 ease-in-out',
+        'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-200 ease-in-out',
         today && !betweenRange && 'outline-today outline -outline-offset-1',
         visualSelected && 'bg-selected text-highlight font-bold outline-0',
         !thisMonth && !visualSelected && 'text-disabled',

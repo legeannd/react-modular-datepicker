@@ -18,20 +18,35 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    children: <Calendar />,
+    children: (
+      <>
+        <Header />
+        <Calendar />
+      </>
+    ),
   } as DatePickerProviderProps,
 }
 
 export const SelectMultipleDates: Story = {
   args: {
-    children: <Calendar />,
+    children: (
+      <>
+        <Header />
+        <Calendar />
+      </>
+    ),
     type: 'multiple',
   } as DatePickerProviderProps,
 }
 
 export const SelectDateRange: Story = {
   args: {
-    children: <Calendar />,
+    children: (
+      <>
+        <Header />
+        <Calendar />
+      </>
+    ),
     type: 'range',
   } as DatePickerProviderProps,
 }

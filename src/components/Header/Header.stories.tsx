@@ -63,18 +63,27 @@ export const WithPartialGrouping: Story = {
   args: { groupingMode: ['second', 'third'] },
   decorators: [
     (Story) => (
-      <DatePickerProvider
-        normalizeHeight
-        type='range'
-      >
-        <div className='flex w-full items-start gap-4 rounded-xl bg-red-100 p-8'>
-          <Calendar />
-          <Calendar id='second' />
-          <Story />
-          <Calendar id='third' />
-          <Calendar />
-        </div>
-      </DatePickerProvider>
+      <div className='flex w-full items-start gap-4 rounded-xl bg-red-100 p-8'>
+        <Calendar />
+        <Calendar id='second' />
+        <Story />
+        <Calendar id='third' />
+        <Calendar />
+      </div>
+    ),
+  ],
+}
+
+export const WithDisabledPeriodChange: Story = {
+  args: { enablePeriodChange: false },
+  decorators: [
+    (Story) => (
+      <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
+        <Story />
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </div>
     ),
   ],
 }

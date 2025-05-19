@@ -29,6 +29,7 @@ export type GroupingModeType = 'all' | 'disabled' | string[]
 
 export interface HeaderProps {
   groupingMode?: GroupingModeType
+  enablePeriodChange?: boolean
 }
 
 export interface DatePickerProviderProps {

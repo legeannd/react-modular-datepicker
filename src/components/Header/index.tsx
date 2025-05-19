@@ -1,13 +1,28 @@
 import { useEffect, useState } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import dayjs from 'dayjs'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Calendar1, CalendarDays, CalendarRange, ChevronLeft, ChevronRight } from 'lucide-react'
 import { HeaderProps } from '../../types'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
-export function Header({ groupingMode }: HeaderProps) {
-  const { initialDate, calendarRefs, handleSetHeaderRef, handleSetGroupingMode } = useDatePicker()
+export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps) {
+  const { initialDate, calendarRefs, type, handleSetHeaderRef, handleSetGroupingMode } =
+    useDatePicker()
   const [date, setDate] = useState(dayjs(initialDate))
-  const [monthRangeText, setMonthRangeText] = useState(dayjs.monthsShort()[date.get('M')])
+  const month = dayjs.monthsShort()[date.get('M')]
+  const [monthRangeText, setMonthRangeText] = useState(month)
+
+  const calendarIcon =
+    type === 'single' ? <Calendar1 /> : type === 'multiple' ? <CalendarDays /> : <CalendarRange />
 
   const handleChangeCalendarRange = (type: 'increment' | 'decrement') => {
     if (type === 'increment') {
@@ -16,6 +31,15 @@ export function Header({ groupingMode }: HeaderProps) {
       setDate((prev) => prev.subtract(1, 'month'))
     }
   }
+
+  const handleChangeCalendarStartPeriod = (field: 'month' | 'year', value: string) => {
+    const newDate = dayjs(date).set(field, Number(value))
+    setDate(newDate)
+  }
+  console.log(dayjs.months()[date.get('M')])
+
+  const yearRange = (start: number, stop: number, step: number) =>
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step)
 
   useEffect(() => {
     let newDate = date
@@ -42,27 +66,89 @@ export function Header({ groupingMode }: HeaderProps) {
 
   return (
     <div className='rounded-lg bg-white shadow-md'>
-      <div className='text-label flex items-center justify-between gap-8 p-4 font-bold'>
-        <div className='flex gap-4'>
-          <span>{date.year()}</span>
-          <span>{monthRangeText}</span>
+      <div className='text-label flex items-center justify-between gap-8 p-4 text-sm font-bold'>
+        <div className='flex items-center gap-2'>
+          {calendarIcon}
+          <div className='flex items-center gap-4'>
+            {enablePeriodChange ? (
+              <Popover>
+                <PopoverTrigger className='hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out'>
+                  {monthRangeText} {date.year()}
+                </PopoverTrigger>
+                <PopoverContent className='flex w-auto gap-2 p-2'>
+                  <Select
+                    defaultValue={String(date.get('M'))}
+                    onValueChange={(value) => handleChangeCalendarStartPeriod('month', value)}
+                  >
+                    <SelectTrigger className='text-label rounded'>
+                      <SelectValue placeholder={month} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Month</SelectLabel>
+                        {Array.from(Array(12).keys()).map((month) => (
+                          <SelectItem
+                            key={month}
+                            value={String(month)}
+                          >
+                            {dayjs.months()[month]}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <Select
+                    defaultValue={String(date.year())}
+                    onValueChange={(value) => handleChangeCalendarStartPeriod('year', value)}
+                  >
+                    <SelectTrigger className='text-label rounded'>
+                      <SelectValue placeholder={date.year()} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Year</SelectLabel>
+                        {yearRange(
+                          dayjs(initialDate).year() + 10,
+                          dayjs(initialDate).year() - 40,
+                          -1
+                        ).map((year) => (
+                          <SelectItem
+                            key={year}
+                            value={String(year)}
+                          >
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <>
+                {monthRangeText} {date.year()}
+              </>
+            )}
+          </div>
         </div>
-        <div className='flex gap-4'>
-          <button
-            className='hover:bg-hover cursor-pointer rounded-lg px-2 py-1 transition-colors duration-200 ease-in-out'
-            onClick={() => handleChangeCalendarRange('decrement')}
-          >
-            <ChevronLeft className='text-label' />
-          </button>
-          <button
-            className={
-              'hover:bg-hover cursor-pointer rounded-lg px-2 py-1 transition-colors duration-200 ease-in-out'
-            }
-            onClick={() => handleChangeCalendarRange('increment')}
-          >
-            <ChevronRight className='text-label' />
-          </button>
-        </div>
+        {enablePeriodChange && (
+          <div className='flex gap-4'>
+            <button
+              className='hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out'
+              onClick={() => handleChangeCalendarRange('decrement')}
+            >
+              <ChevronLeft className='text-label' />
+            </button>
+            <button
+              className={
+                'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out'
+              }
+              onClick={() => handleChangeCalendarRange('increment')}
+            >
+              <ChevronRight className='text-label' />
+            </button>
+          </div>
+        )}
       </div>
       <div
         className={
