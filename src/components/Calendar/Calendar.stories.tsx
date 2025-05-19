@@ -41,8 +41,6 @@ export const CustomWeekdayLabels: Story = {
 
 export const WithCalendarInfoLabels: Story = {
   args: {
-    showWeekdays: true,
-    weekdayLabels: ['🌞', '🌜', '🔥', '💧', '🌳', '🌈', '⭐'],
     showLabel: true,
   } as CalendarProps,
 }

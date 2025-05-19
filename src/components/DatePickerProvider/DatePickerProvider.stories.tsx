@@ -51,9 +51,9 @@ export const SelectDateRange: Story = {
   } as DatePickerProviderProps,
 }
 
-export const CustomInitialDate: Story = {
+export const CustomstartDate: Story = {
   args: {
-    initialDate: '2025-01-01',
+    startDate: '2025-01-01',
     children: (
       <>
         <Header />
@@ -63,7 +63,7 @@ export const CustomInitialDate: Story = {
   } as DatePickerProviderProps,
 }
 
-export const InitialSelectedDates: Story = {
+export const initialDatesDates: Story = {
   args: {
     children: (
       <>
@@ -75,7 +75,7 @@ export const InitialSelectedDates: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
-    initialSelected: {
+    initialDates: {
       days: [
         '2025-6-05',
         '2025-7-09',

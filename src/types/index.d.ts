@@ -11,7 +11,7 @@ export interface CurrentRange {
   end?: CurrentDay
 }
 
-export interface InitialDaysObject {
+export interface InitialDatesObject {
   days?: string[]
   start?: string
   end?: string
@@ -34,10 +34,10 @@ export interface HeaderProps {
 
 export interface DatePickerProviderProps {
   children: React.ReactNode
-  initialDate?: string | Date
+  startDate?: string | Date
   type?: CalendarType
   normalizeHeight?: boolean
-  initialSelected?: InitialDaysObject
+  initialDates?: InitialDatesObject
 }
 
 export type CalendarRefObject = React.RefObject<{
@@ -52,7 +52,7 @@ export type SelectedDate =
   | { type: 'range'; selection: CurrentRange | null }
 
 export interface DatePickerContextType {
-  initialDate: string | Date
+  startDate: string | Date
   selected: SelectedDate
   hovered: CurrentDay | null
   type: CalendarType

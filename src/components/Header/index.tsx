@@ -15,9 +15,9 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps) {
-  const { initialDate, calendarRefs, type, handleSetHeaderRef, handleSetGroupingMode } =
+  const { startDate, calendarRefs, type, handleSetHeaderRef, handleSetGroupingMode } =
     useDatePicker()
-  const [date, setDate] = useState(dayjs(initialDate))
+  const [date, setDate] = useState(dayjs(startDate))
   const month = dayjs.monthsShort()[date.get('M')]
   const [monthRangeText, setMonthRangeText] = useState(month)
 
@@ -36,7 +36,6 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
     const newDate = dayjs(date).set(field, Number(value))
     setDate(newDate)
   }
-  console.log(dayjs.months()[date.get('M')])
 
   const yearRange = (start: number, stop: number, step: number) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step)
@@ -108,8 +107,8 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
                       <SelectGroup>
                         <SelectLabel>Year</SelectLabel>
                         {yearRange(
-                          dayjs(initialDate).year() + 10,
-                          dayjs(initialDate).year() - 40,
+                          dayjs(startDate).year() + 10,
+                          dayjs(startDate).year() - 40,
                           -1
                         ).map((year) => (
                           <SelectItem
@@ -125,9 +124,9 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
                 </PopoverContent>
               </Popover>
             ) : (
-              <>
+              <div className='px-2 py-1'>
                 {monthRangeText} {date.year()}
-              </>
+              </div>
             )}
           </div>
         </div>

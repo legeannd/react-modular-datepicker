@@ -8,7 +8,7 @@ import {
   DatePickerProviderProps,
   GroupingModeType,
   handleDateSelectType,
-  InitialDaysObject,
+  InitialDatesObject,
   SelectedDate,
 } from '../../types'
 
@@ -16,10 +16,10 @@ dayjs.extend(localeData)
 
 export function DatePickerProvider({
   children,
-  initialDate = new Date(),
+  startDate = new Date(),
   type = 'single',
   normalizeHeight = false,
-  initialSelected,
+  initialDates,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -32,7 +32,7 @@ export function DatePickerProvider({
   >([])
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
 
-  const createMonthTable = (tableDate = initialDate) => {
+  const createMonthTable = (tableDate = startDate) => {
     const date = dayjs(tableDate).startOf('day')
     const startOfMonth = date.startOf('month')
     const endOfMonth = date.endOf('month')
@@ -60,18 +60,18 @@ export function DatePickerProvider({
     return monthTable
   }
 
-  const setInitialDates = (initialSelected: InitialDaysObject) => {
+  const setstartDates = (initialDates: InitialDatesObject) => {
     switch (type) {
       case 'single': {
-        const day = dayjs(initialSelected?.days?.[0])
+        const day = dayjs(initialDates?.days?.[0])
         if (day.isValid()) {
           handleDateSelect({ day: { date: day.toISOString(), label: day.date() } })
         }
         break
       }
       case 'multiple': {
-        const selected = initialSelected?.days?.length
-          ? initialSelected?.days
+        const selected = initialDates?.days?.length
+          ? initialDates?.days
               ?.map((initial) => {
                 const day = dayjs(initial)
                 if (day.isValid()) {
@@ -85,8 +85,8 @@ export function DatePickerProvider({
         break
       }
       case 'range': {
-        const start = dayjs(initialSelected?.start)
-        const end = dayjs(initialSelected?.end)
+        const start = dayjs(initialDates?.start)
+        const end = dayjs(initialDates?.end)
 
         if (start.isValid() && end.isValid()) {
           setSelected({
@@ -183,10 +183,10 @@ export function DatePickerProvider({
   }
 
   useEffect(() => {
-    if (initialSelected) {
-      setInitialDates(initialSelected)
+    if (initialDates) {
+      setstartDates(initialDates)
     }
-  }, [initialSelected])
+  }, [initialDates])
 
   return (
     <DatePickerContext.Provider
@@ -194,7 +194,7 @@ export function DatePickerProvider({
         selected,
         hovered,
         type,
-        initialDate,
+        startDate,
         header: headerRef,
         calendarRefs,
         groupingMode,
