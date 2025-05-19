@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import { DatePickerContext } from '../../contexts/DatePickerContext'
@@ -7,7 +7,8 @@ import {
   CurrentDay,
   DatePickerProviderProps,
   GroupingModeType,
-  HandleDateClickType,
+  handleDateSelectType,
+  InitialDaysObject,
   SelectedDate,
 } from '../../types'
 
@@ -18,6 +19,7 @@ export function DatePickerProvider({
   initialDate = new Date(),
   type = 'single',
   normalizeHeight = false,
+  initialSelected,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -58,7 +60,48 @@ export function DatePickerProvider({
     return monthTable
   }
 
-  const handleDateClick: HandleDateClickType = (day) => {
+  const setInitialDates = (initialSelected: InitialDaysObject) => {
+    switch (type) {
+      case 'single': {
+        const day = dayjs(initialSelected?.days?.[0])
+        if (day.isValid()) {
+          handleDateSelect({ day: { date: day.toISOString(), label: day.date() } })
+        }
+        break
+      }
+      case 'multiple': {
+        const selected = initialSelected?.days?.length
+          ? initialSelected?.days
+              ?.map((initial) => {
+                const day = dayjs(initial)
+                if (day.isValid()) {
+                  return { day: { date: day.toISOString(), label: day.date() } }
+                }
+                return false
+              })
+              .filter((item) => item !== false)
+          : []
+        setSelected({ selection: selected, type })
+        break
+      }
+      case 'range': {
+        const start = dayjs(initialSelected?.start)
+        const end = dayjs(initialSelected?.end)
+
+        if (start.isValid() && end.isValid()) {
+          setSelected({
+            selection: {
+              start: { day: { date: start.toISOString(), label: start.date() } },
+              end: { day: { date: end.toISOString(), label: end.date() } },
+            },
+            type,
+          })
+        }
+      }
+    }
+  }
+
+  const handleDateSelect: handleDateSelectType = (day) => {
     switch (type) {
       case 'single':
         setSelected({ type, selection: day })
@@ -139,6 +182,12 @@ export function DatePickerProvider({
     setGroupingMode(mode)
   }
 
+  useEffect(() => {
+    if (initialSelected) {
+      setInitialDates(initialSelected)
+    }
+  }, [initialSelected])
+
   return (
     <DatePickerContext.Provider
       value={{
@@ -151,7 +200,7 @@ export function DatePickerProvider({
         groupingMode,
         handleSetHovered,
         handleSetHeaderRef,
-        handleDateClick,
+        handleDateSelect,
         handleAddCalendarRef,
         handleSetGroupingMode,
         createMonthTable,

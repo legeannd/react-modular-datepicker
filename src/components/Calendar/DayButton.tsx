@@ -15,7 +15,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
   const [endRange, setEndRange] = useState(false)
   const [betweenRange, setBetweenRange] = useState(false)
   const [weekend, setWeekend] = useState(false)
-  const { selected, hovered, header, calendarRefs, handleDateClick, handleSetHovered } =
+  const { selected, hovered, header, calendarRefs, handleDateSelect, handleSetHovered } =
     useDatePicker()
 
   const isWeekend = (date: string) => {
@@ -177,7 +177,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
       data-between-range={betweenRange}
       key={currentDay.day.date}
       aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
-      onClick={() => handleDateClick(currentDay)}
+      onClick={() => handleDateSelect(currentDay)}
       onMouseEnter={() => handleHover(currentDay)}
       onMouseLeave={() => handleHover()}
     >

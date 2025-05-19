@@ -48,6 +48,34 @@ export const CustomInitialDate: Story = {
   } as DatePickerProviderProps,
 }
 
+export const InitialSelectedDates: Story = {
+  args: {
+    children: (
+      <>
+        <Header />
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </>
+    ),
+    type: 'range',
+    normalizeHeight: true,
+    initialSelected: {
+      days: [
+        '2025-6-05',
+        '2025-7-09',
+        '2025-5-07',
+        '2025-6-10',
+        '2025-7-11',
+        '2025-7-2',
+        '2025-5-20',
+      ],
+      start: '2025-6-05',
+      end: '2025-6-30',
+    },
+  } as DatePickerProviderProps,
+}
+
 export const NormalizedMultipleCalendarsHeight: Story = {
   args: {
     children: (
