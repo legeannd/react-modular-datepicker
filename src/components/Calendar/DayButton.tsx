@@ -5,8 +5,6 @@ import { useDatePicker } from '../../hooks/useDatePicker'
 import { useEffect, useState } from 'react'
 
 export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
-  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
-  const thisMonth = currentDay.isCurrentMonth ?? false
   const [visualSelected, setVisualSelected] = useState(false)
   const [singleHovered, setVisualHovered] = useState(false)
   const [startMonth, setStartMonth] = useState(false)
@@ -15,8 +13,18 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
   const [endRange, setEndRange] = useState(false)
   const [betweenRange, setBetweenRange] = useState(false)
   const [weekend, setWeekend] = useState(false)
-  const { selected, hovered, header, calendarRefs, handleDateSelect, handleSetHovered } =
-    useDatePicker()
+  const {
+    selected,
+    hovered,
+    header,
+    calendarRefs,
+    handleDateSelect,
+    handleSetHovered,
+    isDateDisabled,
+  } = useDatePicker()
+  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
+  const thisMonth = currentDay.isCurrentMonth ?? false
+  const disabled = isDateDisabled(currentDay.day.date)
 
   const isWeekend = (date: string) => {
     const dayOfWeek = dayjs(date).day()
@@ -159,13 +167,9 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
           !visualSelected &&
           !betweenRange &&
           thisMonth &&
-          'bg-weekend-background text-weekend',
-        weekend &&
-          !singleHovered &&
-          !visualSelected &&
-          !betweenRange &&
-          !thisMonth &&
-          'bg-weekend-background'
+          'text-weekend',
+        disabled && 'text-muted-foreground/20 cursor-not-allowed',
+        disabled && betweenRange && 'bg-red-500/10 text-red-500/70'
       )}
       data-today={today}
       data-start-month={startMonth}
@@ -180,6 +184,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
       onClick={() => handleDateSelect(currentDay)}
       onMouseEnter={() => handleHover(currentDay)}
       onMouseLeave={() => handleHover()}
+      disabled={disabled}
     >
       {currentDay.day.label}
     </button>

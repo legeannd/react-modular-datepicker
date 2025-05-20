@@ -20,6 +20,7 @@ export function DatePickerProvider({
   type = 'single',
   normalizeHeight = false,
   initialDates,
+  disabledDates = {},
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -60,7 +61,7 @@ export function DatePickerProvider({
     return monthTable
   }
 
-  const setstartDates = (initialDates: InitialDatesObject) => {
+  const setInitialDates = (initialDates: InitialDatesObject) => {
     switch (type) {
       case 'single': {
         const day = dayjs(initialDates?.days?.[0])
@@ -101,6 +102,49 @@ export function DatePickerProvider({
     }
   }
 
+  const isDateDisabled = (date: string) => {
+    let isDisabled = false
+    const current = dayjs(date)
+    if (disabledDates.every === 'weekend') {
+      isDisabled = isDisabled || current.day() === 0 || current.day() === 6
+    }
+    if (disabledDates.every === 'weekdays' && disabledDates.weekdays) {
+      isDisabled = isDisabled || (disabledDates.weekdays?.includes(current.day()) ?? false)
+    }
+    if (disabledDates.days && disabledDates.days.length > 0) {
+      isDisabled =
+        isDisabled || (disabledDates.days.some((day) => dayjs(day).isSame(current)) ?? false)
+    }
+    if (disabledDates.start || disabledDates.end) {
+      const start = dayjs(disabledDates.start)
+      const end = dayjs(disabledDates.end)
+      if (disabledDates.start && disabledDates.end) {
+        isDisabled =
+          isDisabled ||
+          current.isSame(start) ||
+          (current.isAfter(start) && current.isBefore(end)) ||
+          current.isSame(end)
+      }
+      if (disabledDates.start && !disabledDates.end) {
+        isDisabled = isDisabled || current.isAfter(start)
+      } else if (disabledDates.end && !disabledDates.start) {
+        isDisabled = isDisabled || current.isBefore(end)
+      }
+    }
+
+    return isDisabled
+  }
+
+  const isRangeDisabled = (start: string, end: string) => {
+    const startDate = dayjs(start)
+    const endDate = dayjs(end)
+    const diff = endDate.diff(startDate, 'day')
+    for (let i = 0; i <= diff; i++) {
+      if (isDateDisabled(startDate.add(i, 'day').toISOString())) return true
+    }
+    return false
+  }
+
   const handleDateSelect: handleDateSelectType = (day) => {
     switch (type) {
       case 'single':
@@ -131,15 +175,20 @@ export function DatePickerProvider({
         } else {
           const date = dayjs(day.day.date)
           if ('start' in selection) {
-            if (date.isBefore(selection.start?.day.date)) {
-              setSelected((prev) => {
-                if (prev.selection && 'start' in prev.selection) {
-                  return { type, selection: { start: day, end: prev.selection.start } }
-                }
-                return prev
-              })
-            } else if (date.isAfter(selection.start?.day.date)) {
-              setSelected((prev) => ({ type, selection: { ...prev.selection, end: day } }))
+            const start = dayjs(selection.start?.day.date)
+            if (date.isBefore(start)) {
+              if (!isRangeDisabled(date.toISOString(), start.toISOString())) {
+                setSelected((prev) => {
+                  if (prev.selection && 'start' in prev.selection) {
+                    return { type, selection: { start: day, end: prev.selection.start } }
+                  }
+                  return prev
+                })
+              }
+            } else if (date.isAfter(start)) {
+              if (!isRangeDisabled(start.toISOString(), date.toISOString())) {
+                setSelected((prev) => ({ type, selection: { ...prev.selection, end: day } }))
+              }
             }
           }
         }
@@ -184,7 +233,7 @@ export function DatePickerProvider({
 
   useEffect(() => {
     if (initialDates) {
-      setstartDates(initialDates)
+      setInitialDates(initialDates)
     }
   }, [initialDates])
 
@@ -204,6 +253,7 @@ export function DatePickerProvider({
         handleAddCalendarRef,
         handleSetGroupingMode,
         createMonthTable,
+        isDateDisabled,
       }}
     >
       <div

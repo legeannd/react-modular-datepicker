@@ -17,6 +17,11 @@ export interface InitialDatesObject {
   end?: string
 }
 
+export interface DisabledDatesObject extends InitialDatesObject {
+  every?: 'weekend' | 'weekdays'
+  weekdays?: number[]
+}
+
 export type CalendarType = 'single' | 'multiple' | 'range'
 export interface CalendarProps {
   showWeekdays?: boolean
@@ -38,6 +43,7 @@ export interface DatePickerProviderProps {
   type?: CalendarType
   normalizeHeight?: boolean
   initialDates?: InitialDatesObject
+  disabledDates?: DisabledDatesObject
 }
 
 export type CalendarRefObject = React.RefObject<{
@@ -65,4 +71,5 @@ export interface DatePickerContextType {
   handleDateSelect: handleDateSelectType
   handleSetGroupingMode: (mode: GroupingModeType) => void;
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
+  isDateDisabled: (day: string) => boolean
 }

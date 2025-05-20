@@ -51,7 +51,7 @@ export const SelectDateRange: Story = {
   } as DatePickerProviderProps,
 }
 
-export const CustomstartDate: Story = {
+export const CustomStartDate: Story = {
   args: {
     startDate: '2025-01-01',
     children: (
@@ -63,7 +63,7 @@ export const CustomstartDate: Story = {
   } as DatePickerProviderProps,
 }
 
-export const initialDatesDates: Story = {
+export const InitialSelectedDates: Story = {
   args: {
     children: (
       <>
@@ -87,6 +87,39 @@ export const initialDatesDates: Story = {
       ],
       start: '2025-6-05',
       end: '2025-6-30',
+    },
+  } as DatePickerProviderProps,
+}
+
+export const DisabledDates: Story = {
+  args: {
+    children: (
+      <>
+        <Header />
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </>
+    ),
+    type: 'multiple',
+    normalizeHeight: true,
+    disabledDates: {
+      every: 'weekdays',
+      weekdays: [1, 6],
+      days: [
+        '2025-6-05',
+        '2025-7-09',
+        '2025-5-07',
+        '2025-5-08',
+        '2025-5-16',
+        '2025-5-22',
+        '2025-5-29',
+        '2025-6-10',
+        '2025-7-11',
+        '2025-7-2',
+      ],
+      start: '2025-6-4',
+      end: '2025-6-20',
     },
   } as DatePickerProviderProps,
 }
