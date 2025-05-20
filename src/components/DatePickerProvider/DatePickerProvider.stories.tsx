@@ -101,7 +101,7 @@ export const DisabledDates: Story = {
         <Calendar />
       </>
     ),
-    type: 'multiple',
+    type: 'range',
     normalizeHeight: true,
     disabledDates: {
       every: 'weekdays',

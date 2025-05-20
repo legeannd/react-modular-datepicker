@@ -184,10 +184,16 @@ export function DatePickerProvider({
                   }
                   return prev
                 })
+              } else {
+                setSelected({ type, selection: null })
+                setHovered(null)
               }
             } else if (date.isAfter(start)) {
               if (!isRangeDisabled(start.toISOString(), date.toISOString())) {
                 setSelected((prev) => ({ type, selection: { ...prev.selection, end: day } }))
+              } else {
+                setSelected({ type, selection: null })
+                setHovered(null)
               }
             }
           }
@@ -235,6 +241,7 @@ export function DatePickerProvider({
     if (initialDates) {
       setInitialDates(initialDates)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialDates])
 
   return (
