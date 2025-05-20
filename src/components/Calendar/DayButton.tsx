@@ -1,6 +1,5 @@
 import { twMerge } from 'tailwind-merge'
 import { CurrentDay, SelectedDate } from '../../types'
-import dayjs from 'dayjs'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import { useEffect, useState } from 'react'
 
@@ -21,6 +20,7 @@ export function DayButton({ currentDay }: { currentDay: CurrentDay }) {
     handleDateSelect,
     handleSetHovered,
     isDateDisabled,
+    dayjs,
   } = useDatePicker()
   const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
   const thisMonth = currentDay.isCurrentMonth ?? false

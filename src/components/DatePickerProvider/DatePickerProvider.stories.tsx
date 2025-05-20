@@ -27,6 +27,18 @@ export const Default: Story = {
   } as DatePickerProviderProps,
 }
 
+export const CustomLocale: Story = {
+  args: {
+    children: (
+      <>
+        <Header />
+        <Calendar showLabel />
+      </>
+    ),
+    locale: 'pt-br',
+  } as DatePickerProviderProps,
+}
+
 export const SelectMultipleDates: Story = {
   args: {
     children: (

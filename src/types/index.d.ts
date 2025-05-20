@@ -1,3 +1,6 @@
+import { Locales } from "@/lib/locale"
+import { Dayjs } from "dayjs"
+
 export interface CurrentDay {
   day: {
     label: number
@@ -44,6 +47,7 @@ export interface DatePickerProviderProps {
   normalizeHeight?: boolean
   initialDates?: InitialDatesObject
   disabledDates?: DisabledDatesObject
+  locale?: Locales
 }
 
 export type CalendarRefObject = React.RefObject<{
@@ -72,4 +76,5 @@ export interface DatePickerContextType {
   handleSetGroupingMode: (mode: GroupingModeType) => void;
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
   isDateDisabled: (day: string) => boolean
+  dayjs: (date?: string | Date | Dayjs) => Dayjs
 }

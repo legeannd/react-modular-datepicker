@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
+import isToday from 'dayjs/plugin/isToday'
 import { DatePickerContext } from '../../contexts/DatePickerContext'
 import {
   CalendarRefObject,
@@ -11,8 +12,10 @@ import {
   InitialDatesObject,
   SelectedDate,
 } from '../../types'
+import { useLocalizedDayjs } from '@/hooks/useLocalizedDayjs'
 
 dayjs.extend(localeData)
+dayjs.extend(isToday)
 
 export function DatePickerProvider({
   children,
@@ -21,6 +24,7 @@ export function DatePickerProvider({
   normalizeHeight = false,
   initialDates,
   disabledDates = {},
+  locale,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -32,6 +36,7 @@ export function DatePickerProvider({
     { updateMonthTable: (newDate: string | Date) => void }[]
   >([])
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
+  const { getDayjs: dayjs } = useLocalizedDayjs(locale)
 
   const createMonthTable = (tableDate = startDate) => {
     const date = dayjs(tableDate).startOf('day')
@@ -261,6 +266,7 @@ export function DatePickerProvider({
         handleSetGroupingMode,
         createMonthTable,
         isDateDisabled,
+        dayjs,
       }}
     >
       <div

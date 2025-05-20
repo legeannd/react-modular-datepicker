@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
-import dayjs from 'dayjs'
 import { Calendar1, CalendarDays, CalendarRange, ChevronLeft, ChevronRight } from 'lucide-react'
 import { HeaderProps } from '../../types'
 import {
@@ -8,17 +7,17 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps) {
-  const { startDate, calendarRefs, type, handleSetHeaderRef, handleSetGroupingMode } =
+  const { startDate, calendarRefs, type, handleSetHeaderRef, handleSetGroupingMode, dayjs } =
     useDatePicker()
   const [date, setDate] = useState(dayjs(startDate))
-  const month = dayjs.monthsShort()[date.get('M')]
+  const month = dayjs().localeData().monthsShort()[date.get('M')]
+  const monthsShort = dayjs().localeData().monthsShort()
   const [monthRangeText, setMonthRangeText] = useState(month)
 
   const calendarIcon =
@@ -49,13 +48,11 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
       }
     })
     if (newDate.isAfter(date) && newDate.diff(date, 'month') >= 1) {
-      setMonthRangeText(
-        `${dayjs.monthsShort()[date.get('M')]} - ${dayjs.monthsShort()[newDate.get('M')]}`
-      )
+      setMonthRangeText(`${monthsShort[date.get('M')]} - ${monthsShort[newDate.get('M')]}`)
     } else {
-      setMonthRangeText(`${dayjs.monthsShort()[newDate.get('M')]}`)
+      setMonthRangeText(`${monthsShort[newDate.get('M')]}`)
     }
-  }, [calendarRefs, date])
+  }, [calendarRefs, date, monthsShort])
 
   useEffect(() => {
     if (groupingMode) {
@@ -71,7 +68,7 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
           <div className='flex items-center gap-4'>
             {enablePeriodChange ? (
               <Popover>
-                <PopoverTrigger className='hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out'>
+                <PopoverTrigger className='hover:bg-hover cursor-pointer rounded px-2 py-1 capitalize transition-colors duration-200 ease-in-out'>
                   {monthRangeText} {date.year()}
                 </PopoverTrigger>
                 <PopoverContent className='flex w-auto gap-2 p-2'>
@@ -79,18 +76,18 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
                     defaultValue={String(date.get('M'))}
                     onValueChange={(value) => handleChangeCalendarStartPeriod('month', value)}
                   >
-                    <SelectTrigger className='text-label rounded'>
+                    <SelectTrigger className='text-label rounded capitalize'>
                       <SelectValue placeholder={month} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Month</SelectLabel>
                         {Array.from(Array(12).keys()).map((month) => (
                           <SelectItem
                             key={month}
                             value={String(month)}
+                            className='capitalize'
                           >
-                            {dayjs.months()[month]}
+                            {dayjs().localeData().months()[month]}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -105,7 +102,6 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Year</SelectLabel>
                         {yearRange(
                           dayjs(startDate).year() + 10,
                           dayjs(startDate).year() - 40,
@@ -124,7 +120,7 @@ export function Header({ groupingMode, enablePeriodChange = true }: HeaderProps)
                 </PopoverContent>
               </Popover>
             ) : (
-              <div className='px-2 py-1'>
+              <div className='px-2 py-1 capitalize'>
                 {monthRangeText} {date.year()}
               </div>
             )}

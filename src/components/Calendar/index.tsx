@@ -1,6 +1,4 @@
 import { useDatePicker } from '../../hooks/useDatePicker'
-import dayjs from 'dayjs'
-import isToday from 'dayjs/plugin/isToday'
 import { CalendarProps } from '../../types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -8,13 +6,11 @@ import { twMerge } from 'tailwind-merge'
 import { DayButton } from './DayButton'
 import { Calendar1, CalendarDays } from 'lucide-react'
 
-dayjs.extend(isToday)
-
 export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
-  const { header, groupingMode, handleAddCalendarRef, createMonthTable } = useDatePicker()
+  const { header, groupingMode, handleAddCalendarRef, createMonthTable, dayjs } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
-  const weekdays = dayjs.weekdaysShort()
+  const weekdays = dayjs().localeData().weekdaysShort()
   const calendarLabel = dayjs(monthTable.get(1)?.[0].day.date).format('MMMM, YYYY')
   const shouldRenderInsideHeader = groupingMode === 'all' || (!!id && groupingMode.includes(id))
   const renderOnPortal = !!header && shouldRenderInsideHeader
@@ -58,7 +54,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: 
         <span className={twMerge('text-label grid grid-cols-7 text-xs')}>
           {weekdays.map((_, index) => (
             <span
-              className={twMerge('flex items-center justify-center px-0 py-2')}
+              className={twMerge('flex items-center justify-center px-0 py-2 capitalize')}
               key={index}
             >
               {getCustomWeekdayLabel(index)}
@@ -83,11 +79,11 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: 
       </div>
       {showLabel && (
         <div className='text-footer-label flex justify-between rounded bg-gray-50 p-2 text-center text-xs font-light'>
-          <span className='flex items-center gap-1'>
+          <span className='flex items-center gap-1 capitalize'>
             <CalendarDays
               size={12}
               strokeWidth={1}
-            />{' '}
+            />
             {calendarLabel}
           </span>
           <span className='flex items-center gap-1'>
@@ -95,7 +91,7 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: 
               size={12}
               strokeWidth={1}
             />
-            {daysInCalendar} days
+            {daysInCalendar}
           </span>
         </div>
       )}
