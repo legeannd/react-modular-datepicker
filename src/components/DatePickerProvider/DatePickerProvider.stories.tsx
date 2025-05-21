@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { DatePickerProvider } from '.'
 import { DatePickerProviderProps } from '../../types'
 import { Calendar } from '../Calendar'
-import { Header } from '../Header'
+import { Header, Button, DateSelect, MonthLabel } from '../Header'
 
 const meta = {
   title: 'Components/DatePickerProvider',
@@ -31,7 +31,11 @@ export const CustomLocale: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect>
+            <MonthLabel type='full' />
+          </DateSelect>
+        </Header>
         <Calendar showLabel />
       </>
     ),
@@ -43,7 +47,13 @@ export const SelectMultipleDates: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
       </>
     ),
@@ -55,7 +65,13 @@ export const SelectDateRange: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
       </>
     ),
@@ -65,10 +81,16 @@ export const SelectDateRange: Story = {
 
 export const CustomStartDate: Story = {
   args: {
-    startDate: '2025-01-01',
+    defaultValue: '2025-01-01',
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
       </>
     ),
@@ -79,7 +101,13 @@ export const InitialSelectedDates: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
         <Calendar />
         <Calendar />
@@ -87,6 +115,7 @@ export const InitialSelectedDates: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
+    defaultValue: '2025-05-01',
     initialDates: {
       days: [
         '2025-6-05',
@@ -107,7 +136,13 @@ export const DisabledDates: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
         <Calendar />
         <Calendar />
@@ -115,6 +150,7 @@ export const DisabledDates: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
+    defaultValue: '2025-05-01',
     disabledDates: {
       every: 'weekdays',
       weekdays: [1, 6],
@@ -136,11 +172,37 @@ export const DisabledDates: Story = {
   } as DatePickerProviderProps,
 }
 
+export const DisabledPeriodChange: Story = {
+  args: {
+    children: (
+      <>
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </>
+    ),
+    disablePeriodChange: true,
+  } as DatePickerProviderProps,
+}
+
 export const NormalizedMultipleCalendarsHeight: Story = {
   args: {
     children: (
       <>
-        <Header />
+        <Header>
+          <DateSelect />
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
         <Calendar />
         <Calendar />
         <Calendar />

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-import dayjs from 'dayjs'
-import localeData from 'dayjs/plugin/localeData'
-import isToday from 'dayjs/plugin/isToday'
+import { Dayjs } from 'dayjs'
 import { DatePickerContext } from '../../contexts/DatePickerContext'
 import {
   CalendarRefObject,
@@ -14,17 +12,15 @@ import {
 } from '../../types'
 import { useLocalizedDayjs } from '@/hooks/useLocalizedDayjs'
 
-dayjs.extend(localeData)
-dayjs.extend(isToday)
-
 export function DatePickerProvider({
   children,
-  startDate = new Date(),
+  defaultValue = new Date(),
   type = 'single',
   normalizeHeight = false,
   initialDates,
   disabledDates = {},
   locale,
+  disablePeriodChange = false,
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -37,8 +33,9 @@ export function DatePickerProvider({
   >([])
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
   const { getDayjs: dayjs } = useLocalizedDayjs(locale)
+  const [refDate, setRefDate] = useState<Dayjs>(dayjs(defaultValue))
 
-  const createMonthTable = (tableDate = startDate) => {
+  const createMonthTable = (tableDate = defaultValue) => {
     const date = dayjs(tableDate).startOf('day')
     const startOfMonth = date.startOf('month')
     const endOfMonth = date.endOf('month')
@@ -242,6 +239,10 @@ export function DatePickerProvider({
     setGroupingMode(mode)
   }
 
+  const handleChangeReferenceDate = (date: Dayjs) => {
+    setRefDate(date)
+  }
+
   useEffect(() => {
     if (initialDates) {
       setInitialDates(initialDates)
@@ -255,10 +256,12 @@ export function DatePickerProvider({
         selected,
         hovered,
         type,
-        startDate,
+        defaultValue,
         header: headerRef,
         calendarRefs,
         groupingMode,
+        refDate,
+        disablePeriodChange,
         handleSetHovered,
         handleSetHeaderRef,
         handleDateSelect,
@@ -267,6 +270,7 @@ export function DatePickerProvider({
         createMonthTable,
         isDateDisabled,
         dayjs,
+        handleChangeReferenceDate,
       }}
     >
       <div

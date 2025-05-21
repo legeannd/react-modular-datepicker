@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Header } from '.'
+import { Button, DateSelect, Header, MonthLabel } from '.'
 import { DatePickerProvider } from '../DatePickerProvider'
 import { Calendar } from '../Calendar'
 
@@ -23,11 +23,33 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    children: (
+      <>
+        <DateSelect />
+        <div className='flex gap-4'>
+          <Button type='previous' />
+          <Button type='next' />
+        </div>
+      </>
+    ),
+  },
 }
 
 export const WithGroupOfCalendars: Story = {
-  args: {},
+  args: {
+    children: (
+      <>
+        <DateSelect>
+          <MonthLabel type='full' />
+        </DateSelect>
+        <div className='flex gap-4'>
+          <Button type='previous' />
+          <Button type='next' />
+        </div>
+      </>
+    ),
+  },
   decorators: [
     (Story) => (
       <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
@@ -41,7 +63,20 @@ export const WithGroupOfCalendars: Story = {
 }
 
 export const WithGroupingDisabled: Story = {
-  args: { groupingMode: 'disabled' },
+  args: {
+    groupingMode: 'disabled',
+    children: (
+      <>
+        <DateSelect>
+          <MonthLabel type='full' />
+        </DateSelect>
+        <div className='flex gap-4'>
+          <Button type='previous' />
+          <Button type='next' />
+        </div>
+      </>
+    ),
+  },
   decorators: [
     (Story) => (
       <div className='flex flex-col items-center gap-4 rounded-xl bg-red-100 p-8'>
@@ -60,7 +95,20 @@ export const WithGroupingDisabled: Story = {
 }
 
 export const WithPartialGrouping: Story = {
-  args: { groupingMode: ['second', 'third'] },
+  args: {
+    groupingMode: ['second', 'third'],
+    children: (
+      <>
+        <DateSelect>
+          <MonthLabel type='full' />
+        </DateSelect>
+        <div className='flex gap-4'>
+          <Button type='previous' />
+          <Button type='next' />
+        </div>
+      </>
+    ),
+  },
   decorators: [
     (Story) => (
       <div className='flex w-full items-start gap-4 rounded-xl bg-red-100 p-8'>
@@ -68,20 +116,6 @@ export const WithPartialGrouping: Story = {
         <Calendar id='second' />
         <Story />
         <Calendar id='third' />
-        <Calendar />
-      </div>
-    ),
-  ],
-}
-
-export const WithDisabledPeriodChange: Story = {
-  args: { enablePeriodChange: false },
-  decorators: [
-    (Story) => (
-      <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
-        <Story />
-        <Calendar />
-        <Calendar />
         <Calendar />
       </div>
     ),

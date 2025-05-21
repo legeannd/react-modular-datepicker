@@ -36,18 +36,23 @@ export interface CalendarProps {
 export type GroupingModeType = 'all' | 'disabled' | string[]
 
 export interface HeaderProps {
+  children?: React.ReactNode
   groupingMode?: GroupingModeType
-  enablePeriodChange?: boolean
 }
+
+export interface MonthLabelProps { type?: 'short' | 'full' }
+
+export interface DateSelectProps { children?: React.ReactNode }
 
 export interface DatePickerProviderProps {
   children: React.ReactNode
-  startDate?: string | Date
+  defaultValue?: string | Date
   type?: CalendarType
   normalizeHeight?: boolean
   initialDates?: InitialDatesObject
   disabledDates?: DisabledDatesObject
   locale?: Locales
+  disablePeriodChange?: boolean
 }
 
 export type CalendarRefObject = React.RefObject<{
@@ -62,13 +67,15 @@ export type SelectedDate =
   | { type: 'range'; selection: CurrentRange | null }
 
 export interface DatePickerContextType {
-  startDate: string | Date
+  defaultValue: string | Date
   selected: SelectedDate
   hovered: CurrentDay | null
   type: CalendarType
   header: HTMLElement | null
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
   groupingMode: GroupingModeType
+  refDate: Dayjs
+  disablePeriodChange: boolean
   handleSetHovered: (day?: CurrentDay) => void
   handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
@@ -77,4 +84,5 @@ export interface DatePickerContextType {
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
   isDateDisabled: (day: string) => boolean
   dayjs: (date?: string | Date | Dayjs) => Dayjs
+  handleChangeReferenceDate: (date: Dayjs) => void
 }
