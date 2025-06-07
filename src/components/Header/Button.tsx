@@ -1,33 +1,31 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
+import { ButtonProps } from '@/types'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-export function Button({ type }: { type: 'previous' | 'next' }) {
+export function Button({ type }: ButtonProps) {
   const { refDate, disablePeriodChange, handleChangeReferenceDate } = useDatePicker()
 
-  const handleChangeCalendarRange = (type: 'previous' | 'next') => {
+  const typeIcon =
+    type === 'previous' ? (
+      <ChevronLeft className='text-label' />
+    ) : (
+      <ChevronRight className='text-label' />
+    )
+
+  const handleChangeCalendarRange = () => {
     if (type === 'next') {
       handleChangeReferenceDate(refDate.add(1, 'month'))
     } else {
       handleChangeReferenceDate(refDate.subtract(1, 'month'))
     }
   }
-  return type === 'previous' ? (
+  return (
     <button
       className='hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed'
-      onClick={() => handleChangeCalendarRange('previous')}
+      onClick={() => handleChangeCalendarRange()}
       disabled={disablePeriodChange}
     >
-      <ChevronLeft className='text-label' />
-    </button>
-  ) : (
-    <button
-      className={
-        'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed'
-      }
-      onClick={() => handleChangeCalendarRange('next')}
-      disabled={disablePeriodChange}
-    >
-      <ChevronRight className='text-label' />
+      {typeIcon}
     </button>
   )
 }

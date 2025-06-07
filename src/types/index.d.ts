@@ -44,6 +44,8 @@ export interface MonthLabelProps { type?: 'short' | 'full' }
 
 export interface DateSelectProps { children?: React.ReactNode }
 
+export interface ButtonProps extends HTMLButtonElement { type: 'previous' | 'next' }
+
 export interface DatePickerProviderProps {
   children: React.ReactNode
   defaultValue?: string | Date
