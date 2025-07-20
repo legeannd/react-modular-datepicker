@@ -62,6 +62,33 @@ export const WithGroupOfCalendars: Story = {
   ],
 }
 
+export const CustomDateSelectRange: Story = {
+  args: {
+    children: (
+      <>
+        <DateSelect
+          yearRangeStartOffset={20}
+          yearRangeEndOffset={20}
+        />
+        <div className='flex gap-4'>
+          <Button type='previous' />
+          <Button type='next' />
+        </div>
+      </>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
+        <Story />
+        <Calendar />
+        <Calendar />
+        <Calendar />
+      </div>
+    ),
+  ],
+}
+
 export const WithGroupingDisabled: Story = {
   args: {
     groupingMode: 'disabled',

@@ -33,7 +33,7 @@ export function Header({ children, groupingMode }: HeaderProps) {
           'grid grid-cols-3 items-end gap-x-4 gap-y-2 [&:has(>*:nth-child(2)):not(:has(>*:nth-child(3)))]:grid-cols-2 [&:has(>*:only-child)]:grid-cols-1'
         }
         id='rmdp-header'
-        ref={(ref) => handleSetHeaderRef(ref)}
+        ref={handleSetHeaderRef}
       ></div>
     </div>
   )

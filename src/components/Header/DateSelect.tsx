@@ -11,8 +11,25 @@ import { useDatePicker } from '@/hooks/useDatePicker'
 import { Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 import { MonthLabel } from './MonthLabel'
 import { DateSelectProps } from '@/types'
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
 
-export function DateSelect({ children }: DateSelectProps) {
+export function DateSelect({
+  children,
+  className,
+  yearRangeStartOffset = 10,
+  yearRangeEndOffset = 40,
+  popoverProps,
+  popoverTriggerProps,
+  popoverContentProps,
+  monthSelectProps,
+  monthSelectTriggerProps,
+  monthSelectContentProps,
+  yearSelectProps,
+  yearSelectTriggerProps,
+  yearSelectContentProps,
+  ...props
+}: DateSelectProps) {
   const {
     disablePeriodChange,
     type,
@@ -20,6 +37,8 @@ export function DateSelect({ children }: DateSelectProps) {
     dayjs,
     handleChangeReferenceDate,
   } = useDatePicker()
+  const [initialDate] = useState(date)
+
   const month = dayjs().localeData().monthsShort()[date.get('M')]
 
   const calendarIcon =
@@ -34,25 +53,44 @@ export function DateSelect({ children }: DateSelectProps) {
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step)
 
   return (
-    <div className='flex items-center gap-2'>
+    <div
+      className={cn('flex items-center gap-2', className)}
+      {...props}
+    >
       {calendarIcon}
       <div className='flex items-center gap-4'>
         {disablePeriodChange ? (
           (children ?? <MonthLabel />)
         ) : (
-          <Popover>
-            <PopoverTrigger className='hover:bg-hover cursor-pointer rounded px-2 py-1 capitalize transition-colors duration-200 ease-in-out'>
+          <Popover {...popoverProps}>
+            <PopoverTrigger
+              {...popoverTriggerProps}
+              className={cn(
+                'hover:bg-hover cursor-pointer rounded px-2 py-1 capitalize transition-colors duration-200 ease-in-out',
+                popoverTriggerProps?.className
+              )}
+            >
               {children ?? <MonthLabel />}
             </PopoverTrigger>
-            <PopoverContent className='flex w-auto gap-2 p-2'>
+            <PopoverContent
+              {...popoverContentProps}
+              className={cn('flex w-auto gap-2 p-2', popoverContentProps?.className)}
+            >
               <Select
+                {...monthSelectProps}
                 defaultValue={String(date.get('M'))}
                 onValueChange={(value) => handleChangeCalendarStartPeriod('month', value)}
               >
-                <SelectTrigger className='text-label rounded capitalize'>
+                <SelectTrigger
+                  {...monthSelectTriggerProps}
+                  className={cn(
+                    'text-label rounded capitalize',
+                    monthSelectTriggerProps?.className
+                  )}
+                >
                   <SelectValue placeholder={month} />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent {...monthSelectContentProps}>
                   <SelectGroup>
                     {Array.from(Array(12).keys()).map((month) => (
                       <SelectItem
@@ -67,15 +105,23 @@ export function DateSelect({ children }: DateSelectProps) {
                 </SelectContent>
               </Select>
               <Select
+                {...yearSelectProps}
                 defaultValue={String(date.year())}
                 onValueChange={(value) => handleChangeCalendarStartPeriod('year', value)}
               >
-                <SelectTrigger className='text-label rounded'>
+                <SelectTrigger
+                  {...yearSelectTriggerProps}
+                  className={cn('text-label rounded', yearSelectTriggerProps?.className)}
+                >
                   <SelectValue placeholder={date.year()} />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent {...yearSelectContentProps}>
                   <SelectGroup>
-                    {yearRange(dayjs(date).year() + 10, dayjs(date).year() - 40, -1).map((year) => (
+                    {yearRange(
+                      dayjs(initialDate).year() + yearRangeStartOffset,
+                      dayjs(initialDate).year() - yearRangeEndOffset,
+                      -1
+                    ).map((year) => (
                       <SelectItem
                         key={year}
                         value={String(year)}

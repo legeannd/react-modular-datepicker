@@ -1,5 +1,8 @@
 import { Locales } from "@/lib/locale"
 import { Dayjs } from "dayjs"
+import { ButtonHTMLAttributes, ComponentProps, HTMLAttributes } from "react"
+import type * as PopoverPrimitive from '@radix-ui/react-popover'
+import type * as SelectPrimitive from '@radix-ui/react-select'
 
 export interface CurrentDay {
   day: {
@@ -40,11 +43,24 @@ export interface HeaderProps {
   groupingMode?: GroupingModeType
 }
 
-export interface MonthLabelProps { type?: 'short' | 'full' }
+export interface MonthLabelProps extends HTMLAttributes<HTMLSpanElement> { type?: 'short' | 'full' }
 
-export interface DateSelectProps { children?: React.ReactNode }
+export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode
+  yearRangeStartOffset?: number
+  yearRangeEndOffset?: number
+  popoverProps?: ComponentProps<typeof PopoverPrimitive.Root>
+  popoverTriggerProps?: ComponentProps<typeof PopoverPrimitive.Trigger>
+  popoverContentProps?: ComponentProps<typeof PopoverPrimitive.Content>
+  monthSelectProps?: ComponentProps<typeof SelectPrimitive.Root>
+  monthSelectTriggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>
+  monthSelectContentProps?: ComponentProps<typeof SelectPrimitive.Content>
+  yearSelectProps?: ComponentProps<typeof SelectPrimitive.Root>
+  yearSelectTriggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>
+  yearSelectContentProps?: ComponentProps<typeof SelectPrimitive.Content>
+}
 
-export interface ButtonProps extends HTMLButtonElement { type: 'previous' | 'next' }
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { type: 'previous' | 'next' }
 
 export interface DatePickerProviderProps {
   children: React.ReactNode

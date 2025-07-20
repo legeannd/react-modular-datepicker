@@ -1,8 +1,9 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
+import { cn } from '@/lib/utils'
 import { ButtonProps } from '@/types'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-export function Button({ type }: ButtonProps) {
+export function Button({ type, className, ...props }: ButtonProps) {
   const { refDate, disablePeriodChange, handleChangeReferenceDate } = useDatePicker()
 
   const typeIcon =
@@ -19,10 +20,15 @@ export function Button({ type }: ButtonProps) {
       handleChangeReferenceDate(refDate.subtract(1, 'month'))
     }
   }
+
   return (
     <button
-      className='hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed'
-      onClick={() => handleChangeCalendarRange()}
+      {...props}
+      className={cn(
+        'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed',
+        className
+      )}
+      onClick={handleChangeCalendarRange}
       disabled={disablePeriodChange}
     >
       {typeIcon}

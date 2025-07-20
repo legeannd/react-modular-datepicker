@@ -1,8 +1,9 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
+import { cn } from '@/lib/utils'
 import { MonthLabelProps } from '@/types'
 import { useEffect, useState } from 'react'
 
-export function MonthLabel({ type = 'short' }: MonthLabelProps) {
+export function MonthLabel({ type = 'short', className, ...props }: MonthLabelProps) {
   const { calendarRefs, refDate, dayjs } = useDatePicker()
 
   const getMonths = () => {
@@ -27,7 +28,10 @@ export function MonthLabel({ type = 'short' }: MonthLabelProps) {
   }, [calendarRefs, dayjs, months, refDate])
 
   return (
-    <span>
+    <span
+      className={cn(className)}
+      {...props}
+    >
       {monthRangeText} {refDate.year()}
     </span>
   )
