@@ -12,7 +12,7 @@ import { Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 import { MonthLabel } from './MonthLabel'
 import { DateSelectProps } from '@/types'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { useRef } from 'react'
 
 export function DateSelect({
   children,
@@ -37,7 +37,7 @@ export function DateSelect({
     dayjs,
     handleChangeReferenceDate,
   } = useDatePicker()
-  const [initialDate] = useState(date)
+  const { current: initialDate } = useRef(date)
 
   const month = dayjs().localeData().monthsShort()[date.get('M')]
 
