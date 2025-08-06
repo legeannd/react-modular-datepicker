@@ -29,24 +29,44 @@ export interface DisabledDatesObject extends InitialDatesObject {
 }
 
 export type CalendarType = 'single' | 'multiple' | 'range'
-export interface CalendarProps {
+
+export interface DayButtonStyles {
+  base?: string
+  today?: string
+  selected?: string
+  differentMonth?: string
+  monthBoundary?: string
+  rangeStart?: string
+  rangeEnd?: string
+  betweenRange?: string
+  hovered?: string
+  weekend?: string
+  disabled?: string
+  disabledInRange?: string
+}
+
+export interface CalendarProps extends HTMLAttributes<HTMLDivElement> {
   showWeekdays?: boolean
   weekdayLabels?: string[]
+  weekdayClassName?: string
   id?: string
   showLabel?: boolean
+  dayButtonStyles?: DayButtonStyles
 }
 
 export type GroupingModeType = 'all' | 'disabled' | string[]
 
-export interface HeaderProps {
+export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
   groupingMode?: GroupingModeType
+  calendarGridClassName?: string
 }
 
 export interface MonthLabelProps extends HTMLAttributes<HTMLSpanElement> { type?: 'short' | 'full' }
 
 export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
+  showIcon?: boolean
   yearRangeStartOffset?: number
   yearRangeEndOffset?: number
   popoverProps?: ComponentProps<typeof PopoverPrimitive.Root>
@@ -62,7 +82,7 @@ export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { type: 'previous' | 'next' }
 
-export interface DatePickerProviderProps {
+export interface DatePickerProviderProps extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   defaultValue?: string | Date
   type?: CalendarType

@@ -17,6 +17,7 @@ import { useRef } from 'react'
 export function DateSelect({
   children,
   className,
+  showIcon = true,
   yearRangeStartOffset = 10,
   yearRangeEndOffset = 40,
   popoverProps,
@@ -54,10 +55,10 @@ export function DateSelect({
 
   return (
     <div
-      className={cn('flex items-center gap-2', className)}
+      className={className || 'flex items-center gap-2'}
       {...props}
     >
-      {calendarIcon}
+      {showIcon && calendarIcon}
       <div className='flex items-center gap-4'>
         {disablePeriodChange ? (
           (children ?? <MonthLabel />)

@@ -1,8 +1,15 @@
 import { useEffect } from 'react'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import { HeaderProps } from '../../types'
+import { cn } from '../../lib/utils'
 
-export function Header({ children, groupingMode }: HeaderProps) {
+export function Header({
+  children,
+  groupingMode,
+  className,
+  calendarGridClassName,
+  ...props
+}: HeaderProps) {
   const { refDate, calendarRefs, handleSetHeaderRef, handleSetGroupingMode } = useDatePicker()
 
   useEffect(() => {
@@ -22,16 +29,20 @@ export function Header({ children, groupingMode }: HeaderProps) {
   }, [groupingMode, handleSetGroupingMode])
 
   return (
-    <div className='rounded-lg bg-white shadow-md'>
+    <div
+      {...props}
+      className={className || 'rounded-lg bg-white shadow-md'}
+    >
       {children && (
         <div className='text-label flex w-full items-center justify-between gap-8 p-4 text-sm font-bold'>
           {children}
         </div>
       )}
       <div
-        className={
-          'grid grid-cols-3 items-end gap-x-4 gap-y-2 [&:has(>*:nth-child(2)):not(:has(>*:nth-child(3)))]:grid-cols-2 [&:has(>*:only-child)]:grid-cols-1'
-        }
+        className={cn(
+          'grid grid-cols-3 items-end gap-x-4 gap-y-2 [&:has(>*:nth-child(2)):not(:has(>*:nth-child(3)))]:grid-cols-2 [&:has(>*:only-child)]:grid-cols-1',
+          calendarGridClassName
+        )}
         id='rmdp-header'
         ref={handleSetHeaderRef}
       ></div>

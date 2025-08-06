@@ -21,6 +21,8 @@ export function DatePickerProvider({
   disabledDates = {},
   locale,
   disablePeriodChange = false,
+  className,
+  ...props
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -274,8 +276,9 @@ export function DatePickerProvider({
       }}
     >
       <div
+        {...props}
         id='rmdp-provider'
-        className='font-display'
+        className={className || 'font-display'}
       >
         {children}
       </div>

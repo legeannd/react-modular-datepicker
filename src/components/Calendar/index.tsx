@@ -2,11 +2,20 @@ import { useDatePicker } from '../../hooks/useDatePicker'
 import { CalendarProps } from '../../types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { twMerge } from 'tailwind-merge'
+import { cn } from '../../lib/utils'
 import { DayButton } from './DayButton'
 import { Calendar1, CalendarDays } from 'lucide-react'
 
-export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: CalendarProps) {
+export function Calendar({
+  showWeekdays = true,
+  weekdayLabels,
+  weekdayClassName,
+  id,
+  showLabel,
+  dayButtonStyles,
+  className,
+  ...props
+}: CalendarProps) {
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
   const { header, groupingMode, handleAddCalendarRef, createMonthTable, dayjs } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
@@ -43,18 +52,22 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: 
 
   const body = (
     <div
+      {...props}
       id={id}
       aria-label={calendarLabel}
-      className={twMerge(
-        'flex flex-col gap-1 rounded-lg bg-white p-1',
-        (!header || !shouldRenderInsideHeader) && 'shadow-md'
-      )}
+      className={
+        className ||
+        cn(
+          'flex flex-col gap-1 rounded-lg bg-white p-1',
+          (!header || !shouldRenderInsideHeader) && 'shadow-md'
+        )
+      }
     >
       {showWeekdays && (
-        <span className={twMerge('text-label grid grid-cols-7 text-xs')}>
+        <span className={cn('text-label grid grid-cols-7 text-xs', weekdayClassName)}>
           {weekdays.map((_, index) => (
             <span
-              className={twMerge('flex items-center justify-center px-0 py-2 capitalize')}
+              className={'flex items-center justify-center px-0 py-2 capitalize'}
               key={index}
             >
               {getCustomWeekdayLabel(index)}
@@ -62,16 +75,17 @@ export function Calendar({ showWeekdays = true, weekdayLabels, id, showLabel }: 
           ))}
         </span>
       )}
-      <div className={twMerge('flex flex-col gap-1')}>
+      <div className={'flex flex-col gap-1'}>
         {Array.from(monthTable.keys()).map((week) => (
           <div
             key={week}
-            className={twMerge('grid grid-cols-7 gap-0.5')}
+            className={'grid grid-cols-7 gap-0.5'}
           >
             {monthTable.get(week)?.map((currentDay) => (
               <DayButton
                 key={currentDay.day.date}
                 currentDay={currentDay}
+                dayButtonStyles={dayButtonStyles}
               />
             ))}
           </div>
