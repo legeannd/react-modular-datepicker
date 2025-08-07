@@ -11,7 +11,7 @@ export type {
   ButtonProps,
   DateSelectProps,
   MonthLabelProps,
-  DayButtonStyles,
+  DayButtonClassNames,
   CurrentDay,
   CalendarType,
   GroupingModeType,
