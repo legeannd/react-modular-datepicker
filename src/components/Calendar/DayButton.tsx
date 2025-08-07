@@ -1,14 +1,19 @@
 import { twMerge } from 'tailwind-merge'
-import { CurrentDay, SelectedDate, DayButtonStyles } from '../../types'
+import { CurrentDay, SelectedDate, DayButtonClassNames } from '../../types'
 import { useDatePicker } from '../../hooks/useDatePicker'
 import { useEffect, useState, ButtonHTMLAttributes } from 'react'
 
 interface DayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   currentDay: CurrentDay
-  dayButtonStyles?: DayButtonStyles
+  dayButtonClassNames?: DayButtonClassNames
 }
 
-export function DayButton({ currentDay, dayButtonStyles, className, ...props }: DayButtonProps) {
+export function DayButton({
+  currentDay,
+  dayButtonClassNames,
+  className,
+  ...props
+}: DayButtonProps) {
   const [visualSelected, setVisualSelected] = useState(false)
   const [visualHovered, setVisualHovered] = useState(false)
   const [startMonth, setStartMonth] = useState(false)
@@ -159,33 +164,34 @@ export function DayButton({ currentDay, dayButtonStyles, className, ...props }: 
     <button
       {...props}
       className={twMerge(
-        dayButtonStyles?.base ||
+        dayButtonClassNames?.base ||
           'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-200 ease-in-out',
         today &&
           !betweenRange &&
-          (dayButtonStyles?.today || 'outline-today outline -outline-offset-1'),
+          (dayButtonClassNames?.today || 'outline-today outline -outline-offset-1'),
         visualSelected &&
-          (dayButtonStyles?.selected || 'bg-selected text-highlight font-bold outline-0'),
-        !thisMonth && !visualSelected && (dayButtonStyles?.differentMonth || 'text-disabled'),
-        (startMonth || endMonth) && (dayButtonStyles?.monthBoundary || 'font-bold'),
-        startRange && (dayButtonStyles?.rangeStart || 'rounded-r-none'),
-        endRange && (dayButtonStyles?.rangeEnd || 'rounded-l-none'),
-        betweenRange && (dayButtonStyles?.betweenRange || 'bg-range rounded-none'),
+          (dayButtonClassNames?.selected || 'bg-selected text-highlight font-bold outline-0'),
+        !thisMonth && !visualSelected && (dayButtonClassNames?.differentMonth || 'text-disabled'),
+        (startMonth || endMonth) && (dayButtonClassNames?.monthBoundary || 'font-bold'),
+        startRange && (dayButtonClassNames?.rangeStart || 'rounded-r-none'),
+        endRange && (dayButtonClassNames?.rangeEnd || 'rounded-l-none'),
+        betweenRange && (dayButtonClassNames?.betweenRange || 'bg-range rounded-none'),
         visualHovered &&
           !visualSelected &&
           !betweenRange &&
-          (dayButtonStyles?.hovered || 'bg-hover outline-0'),
+          (dayButtonClassNames?.hovered || 'bg-hover outline-0'),
         weekend &&
           !visualHovered &&
           !visualSelected &&
           !betweenRange &&
           thisMonth &&
-          (dayButtonStyles?.weekend || 'text-weekend'),
-        disabled && (dayButtonStyles?.disabled || 'text-muted-foreground/20 cursor-not-allowed'),
+          (dayButtonClassNames?.weekend || 'text-weekend'),
+        disabled &&
+          (dayButtonClassNames?.disabled || 'text-muted-foreground/20 cursor-not-allowed'),
         disabled &&
           betweenRange &&
-          (dayButtonStyles?.disabledInRange || 'bg-red-500/10 text-red-500/70'),
-        !dayButtonStyles && className
+          (dayButtonClassNames?.disabledInRange || 'bg-red-500/10 text-red-500/70'),
+        !dayButtonClassNames && className
       )}
       data-today={today}
       data-start-month={startMonth}

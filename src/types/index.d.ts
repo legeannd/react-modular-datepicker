@@ -30,7 +30,7 @@ export interface DisabledDatesObject extends InitialDatesObject {
 
 export type CalendarType = 'single' | 'multiple' | 'range'
 
-export interface DayButtonStyles {
+export interface DayButtonClassNames {
   base?: string
   today?: string
   selected?: string
@@ -51,7 +51,8 @@ export interface CalendarProps extends HTMLAttributes<HTMLDivElement> {
   weekdayClassName?: string
   id?: string
   showLabel?: boolean
-  dayButtonStyles?: DayButtonStyles
+  footerClassName?: string
+  dayButtonClassNames?: DayButtonClassNames
 }
 
 export type GroupingModeType = 'all' | 'disabled' | string[]

@@ -12,7 +12,8 @@ export function Calendar({
   weekdayClassName,
   id,
   showLabel,
-  dayButtonStyles,
+  footerClassName,
+  dayButtonClassNames,
   className,
   ...props
 }: CalendarProps) {
@@ -85,14 +86,19 @@ export function Calendar({
               <DayButton
                 key={currentDay.day.date}
                 currentDay={currentDay}
-                dayButtonStyles={dayButtonStyles}
+                dayButtonClassNames={dayButtonClassNames}
               />
             ))}
           </div>
         ))}
       </div>
       {showLabel && (
-        <div className='text-footer-label flex justify-between rounded bg-gray-50 p-2 text-center text-xs font-light'>
+        <div
+          className={cn(
+            'text-footer-label flex justify-between rounded p-2 text-center text-xs font-light',
+            footerClassName
+          )}
+        >
           <span className='flex items-center gap-1 capitalize'>
             <CalendarDays
               size={12}
