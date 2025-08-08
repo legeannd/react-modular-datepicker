@@ -3,6 +3,7 @@ import { DatePickerProvider } from '.'
 import { DatePickerProviderProps } from '../../types'
 import { Calendar } from '../Calendar'
 import { Header, Button, DateSelect, MonthLabel } from '../Header'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const meta = {
   title: 'Components/DatePickerProvider',
@@ -134,8 +135,12 @@ export const SelectMultipleDates: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -152,8 +157,12 @@ export const SelectDateRange: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -171,8 +180,12 @@ export const CustomStartDate: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -188,8 +201,12 @@ export const InitialSelectedDates: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -223,8 +240,12 @@ export const DisabledDates: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -263,8 +284,12 @@ export const DisabledPeriodChange: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -283,8 +308,12 @@ export const NormalizedMultipleCalendarsHeight: Story = {
         <Header>
           <DateSelect />
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar />
@@ -307,8 +336,12 @@ export const CustomProviderStyling: Story = {
             <MonthLabel type='full' />
           </DateSelect>
           <div className='flex gap-4'>
-            <Button type='previous' />
-            <Button type='next' />
+            <Button type='previous'>
+              <ChevronLeft className='text-label' />
+            </Button>
+            <Button type='next'>
+              <ChevronRight className='text-label' />
+            </Button>
           </div>
         </Header>
         <Calendar showLabel />

@@ -2,6 +2,7 @@ import { Meta } from '@storybook/react'
 import { DatePickerProvider } from './DatePickerProvider'
 import { Header, Button, DateSelect, MonthLabel } from './Header'
 import { Calendar } from './Calendar'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const meta = {
   title: 'Examples/Custom Styling Showcase',
@@ -63,11 +64,15 @@ export const PurpleGradientTheme = {
                 <Button
                   type='previous'
                   className='hover:bg-opacity-30 border-opacity-50 bg-opacity-10 cursor-pointer rounded-full border-2 border-white bg-white px-4 py-2 text-white shadow-lg transition-all duration-150 ease-out hover:bg-white hover:shadow-xl [&>svg]:stroke-[3px] [&>svg]:!text-purple-600'
-                />
+                >
+                  <ChevronLeft className='text-purple-600' />
+                </Button>
                 <Button
                   type='next'
                   className='hover:bg-opacity-30 border-opacity-50 bg-opacity-10 cursor-pointer rounded-full border-2 border-white bg-white px-4 py-2 text-white shadow-lg transition-all duration-150 ease-out hover:bg-white hover:shadow-xl [&>svg]:stroke-[3px] [&>svg]:!text-purple-600'
-                />
+                >
+                  <ChevronRight className='text-purple-600' />
+                </Button>
               </div>
             </Header>
             <div className='flex gap-0'>
@@ -149,12 +154,16 @@ export const DarkTheme = {
               <div className='flex gap-4'>
                 <Button
                   type='previous'
-                  className='cursor-pointer rounded bg-gray-700 px-3 py-1 text-gray-100 hover:bg-gray-600 transition-all duration-150 ease-out hover:shadow-md [&>svg]:stroke-2 [&>svg]:text-gray-100'
-                />
+                  className='cursor-pointer rounded bg-gray-700 px-3 py-1 text-gray-100 transition-all duration-150 ease-out hover:bg-gray-600 hover:shadow-md [&>svg]:stroke-2 [&>svg]:text-gray-100'
+                >
+                  <ChevronLeft className='text-gray-100' />
+                </Button>
                 <Button
                   type='next'
-                  className='cursor-pointer rounded bg-gray-700 px-3 py-1 text-gray-100 hover:bg-gray-600 transition-all duration-150 ease-out hover:shadow-md [&>svg]:stroke-2 [&>svg]:text-gray-100'
-                />
+                  className='cursor-pointer rounded bg-gray-700 px-3 py-1 text-gray-100 transition-all duration-150 ease-out hover:bg-gray-600 hover:shadow-md [&>svg]:stroke-2 [&>svg]:text-gray-100'
+                >
+                  <ChevronRight className='text-gray-100' />
+                </Button>
               </div>
             </Header>
             <div className='flex gap-0'>
@@ -238,11 +247,15 @@ export const MaterialDesignTheme = {
                 <Button
                   type='previous'
                   className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white px-3 py-3 text-white shadow-md transition-all duration-150 ease-out hover:shadow-lg [&>svg]:stroke-2 [&>svg]:!text-blue-600'
-                />
+                >
+                  <ChevronLeft className='text-blue-600' />
+                </Button>
                 <Button
                   type='next'
                   className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white px-3 py-3 text-white shadow-md transition-all duration-150 ease-out hover:shadow-lg [&>svg]:stroke-2 [&>svg]:!text-blue-600'
-                />
+                >
+                  <ChevronRight className='text-blue-600' />
+                </Button>
               </div>
             </Header>
             <div className='flex gap-0'>
@@ -328,11 +341,15 @@ export const NeumorphismTheme = {
                 <Button
                   type='previous'
                   className='cursor-pointer rounded-full bg-gray-100 px-4 py-2 text-gray-700 shadow-[2px_2px_5px_rgba(0,0,0,0.1),-2px_-2px_5px_rgba(255,255,255,1)] transition-all duration-150 ease-out hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] active:shadow-[inset_3px_3px_8px_rgba(0,0,0,0.15),inset_-3px_-3px_8px_rgba(255,255,255,1)] [&>svg]:text-gray-600'
-                />
+                >
+                  <ChevronLeft className='text-gray-600' />
+                </Button>
                 <Button
                   type='next'
                   className='cursor-pointer rounded-full bg-gray-100 px-4 py-2 text-gray-700 shadow-[2px_2px_5px_rgba(0,0,0,0.1),-2px_-2px_5px_rgba(255,255,255,1)] transition-all duration-150 ease-out hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] active:shadow-[inset_3px_3px_8px_rgba(0,0,0,0.15),inset_-3px_-3px_8px_rgba(255,255,255,1)] [&>svg]:text-gray-600'
-                />
+                >
+                  <ChevronRight className='text-gray-600' />
+                </Button>
               </div>
             </Header>
             <div className='flex gap-0'>
@@ -425,11 +442,15 @@ export const GreenRangeSelectionTheme = {
                 <Button
                   type='previous'
                   className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white px-3 py-3 text-white shadow-md transition-all duration-150 ease-out hover:shadow-lg [&>svg]:stroke-2 [&>svg]:!text-green-600'
-                />
+                >
+                  <ChevronLeft className='text-green-600' />
+                </Button>
                 <Button
                   type='next'
                   className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white px-3 py-3 text-white shadow-md transition-all duration-150 ease-out hover:shadow-lg [&>svg]:stroke-2 [&>svg]:!text-green-600'
-                />
+                >
+                  <ChevronRight className='text-green-600' />
+                </Button>
               </div>
             </Header>
             <div className='flex gap-0'>
@@ -480,14 +501,14 @@ export const GreenRangeSelectionTheme = {
 export const MobileResponsiveTheme = {
   render: () => (
     <div className='min-h-screen bg-slate-50 p-3 sm:p-8'>
-      <div className='mx-auto max-w-sm sm:max-w-lg space-y-4'>
+      <div className='mx-auto max-w-sm space-y-4 sm:max-w-lg'>
         <div className='rounded-xl border border-slate-200 bg-white p-4 shadow-lg'>
           <DatePickerProvider
             type='single'
             normalizeHeight={true}
           >
             <Header
-              className='rounded-lg bg-slate-900 text-white shadow-md p-3 mb-4'
+              className='mb-4 rounded-lg bg-slate-900 p-3 text-white shadow-md'
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
@@ -521,18 +542,22 @@ export const MobileResponsiveTheme = {
                 />
                 <MonthLabel
                   type='full'
-                  className='font-semibold text-slate-100 hidden sm:block'
+                  className='hidden font-semibold text-slate-100 sm:block'
                 />
               </DateSelect>
               <div className='flex gap-2'>
                 <Button
                   type='previous'
-                  className='cursor-pointer rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 p-2 text-white transition-all duration-150 ease-out [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-2'
-                />
+                  className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white p-2 text-white transition-all duration-150 ease-out [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-2'
+                >
+                  <ChevronLeft className='h-5 w-5 stroke-2 text-slate-700' />
+                </Button>
                 <Button
                   type='next'
-                  className='cursor-pointer rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 p-2 text-white transition-all duration-150 ease-out [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-2'
-                />
+                  className='bg-opacity-20 hover:bg-opacity-30 cursor-pointer rounded-full bg-white p-2 text-white transition-all duration-150 ease-out [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-2'
+                >
+                  <ChevronRight className='h-5 w-5 stroke-2 text-slate-700' />
+                </Button>
               </div>
             </Header>
             <Calendar
@@ -541,7 +566,7 @@ export const MobileResponsiveTheme = {
               weekdayClassName='text-slate-600 font-semibold text-sm text-center py-2'
               footerClassName='bg-slate-50 text-slate-700 border border-slate-200 rounded-b-lg font-medium [&_svg]:text-slate-500 px-3 py-2'
               dayButtonClassNames={{
-                base: 'flex cursor-pointer items-center justify-center rounded-lg w-10 h-10 text-sm transition-all duration-150 ease-out text-slate-700 hover:bg-slate-100 hover:shadow-sm font-medium touch-manipulation',
+                base: 'flex w-full cursor-pointer items-center justify-center rounded-lg h-10 text-sm transition-all duration-150 ease-out text-slate-700 hover:bg-slate-100 hover:shadow-sm font-medium touch-manipulation',
                 selected: 'bg-slate-800 hover:bg-slate-900 text-white font-semibold',
                 today: 'bg-slate-100 font-semibold text-slate-800 ring-2 ring-slate-300',
                 hovered: 'bg-slate-50 text-slate-800 font-medium',
@@ -551,25 +576,24 @@ export const MobileResponsiveTheme = {
             />
           </DatePickerProvider>
         </div>
-        
-        {/* Mobile-specific features demonstration */}
+
         <div className='rounded-lg border border-slate-200 bg-white p-4 shadow-md'>
-          <h3 className='font-semibold text-slate-800 mb-3'>Mobile Optimizations:</h3>
+          <h3 className='mb-3 font-semibold text-slate-800'>Mobile Optimizations:</h3>
           <div className='grid grid-cols-1 gap-2 text-sm text-slate-600'>
             <div className='flex items-center gap-2'>
-              <div className='w-2 h-2 bg-slate-400 rounded-full'></div>
+              <div className='h-2 w-2 rounded-full bg-slate-400'></div>
               <span>40px touch targets for accessibility</span>
             </div>
             <div className='flex items-center gap-2'>
-              <div className='w-2 h-2 bg-slate-400 rounded-full'></div>
+              <div className='h-2 w-2 rounded-full bg-slate-400'></div>
               <span>Consistent spacing and alignment</span>
             </div>
             <div className='flex items-center gap-2'>
-              <div className='w-2 h-2 bg-slate-400 rounded-full'></div>
+              <div className='h-2 w-2 rounded-full bg-slate-400'></div>
               <span>High contrast color scheme</span>
             </div>
             <div className='flex items-center gap-2'>
-              <div className='w-2 h-2 bg-slate-400 rounded-full'></div>
+              <div className='h-2 w-2 rounded-full bg-slate-400'></div>
               <span>Compact header with readable labels</span>
             </div>
           </div>

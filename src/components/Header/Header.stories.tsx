@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Button, DateSelect, Header, MonthLabel } from '.'
 import { DatePickerProvider } from '../DatePickerProvider'
 import { Calendar } from '../Calendar'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const meta = {
   title: 'Components/Header',
@@ -71,8 +72,12 @@ export const Default: Story = {
       <>
         <DateSelect />
         <div className='flex gap-4'>
-          <Button type='previous' />
-          <Button type='next' />
+          <Button type='previous'>
+            <ChevronLeft className='text-label' />
+          </Button>
+          <Button type='next'>
+            <ChevronRight className='text-label' />
+          </Button>
         </div>
       </>
     ),
@@ -87,8 +92,12 @@ export const WithGroupOfCalendars: Story = {
           <MonthLabel type='full' />
         </DateSelect>
         <div className='flex gap-4'>
-          <Button type='previous' />
-          <Button type='next' />
+          <Button type='previous'>
+            <ChevronLeft className='text-label' />
+          </Button>
+          <Button type='next'>
+            <ChevronRight className='text-label' />
+          </Button>
         </div>
       </>
     ),
@@ -114,8 +123,12 @@ export const CustomDateSelectRange: Story = {
           yearRangeEndOffset={20}
         />
         <div className='flex gap-4'>
-          <Button type='previous' />
-          <Button type='next' />
+          <Button type='previous'>
+            <ChevronLeft className='text-label' />
+          </Button>
+          <Button type='next'>
+            <ChevronRight className='text-label' />
+          </Button>
         </div>
       </>
     ),
@@ -141,8 +154,12 @@ export const WithGroupingDisabled: Story = {
           <MonthLabel type='full' />
         </DateSelect>
         <div className='flex gap-4'>
-          <Button type='previous' />
-          <Button type='next' />
+          <Button type='previous'>
+            <ChevronLeft className='text-label' />
+          </Button>
+          <Button type='next'>
+            <ChevronRight className='text-label' />
+          </Button>
         </div>
       </>
     ),
@@ -173,8 +190,12 @@ export const WithPartialGrouping: Story = {
           <MonthLabel type='full' />
         </DateSelect>
         <div className='flex gap-4'>
-          <Button type='previous' />
-          <Button type='next' />
+          <Button type='previous'>
+            <ChevronLeft className='text-label' />
+          </Button>
+          <Button type='next'>
+            <ChevronRight className='text-label' />
+          </Button>
         </div>
       </>
     ),

@@ -1,16 +1,8 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
 import { ButtonProps } from '@/types'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-export function Button({ type, className, ...props }: ButtonProps) {
+export function Button({ type, className, children, ...props }: ButtonProps) {
   const { refDate, disablePeriodChange, handleChangeReferenceDate } = useDatePicker()
-
-  const typeIcon =
-    type === 'previous' ? (
-      <ChevronLeft className='text-label' />
-    ) : (
-      <ChevronRight className='text-label' />
-    )
 
   const handleChangeCalendarRange = () => {
     if (type === 'next') {
@@ -30,7 +22,7 @@ export function Button({ type, className, ...props }: ButtonProps) {
       onClick={handleChangeCalendarRange}
       disabled={disablePeriodChange}
     >
-      {typeIcon}
+      {children}
     </button>
   )
 }

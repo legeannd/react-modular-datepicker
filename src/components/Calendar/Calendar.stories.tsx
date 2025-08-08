@@ -290,29 +290,22 @@ export const DocumentationExample: Story = {
   args: {
     showLabel: true,
     dayButtonClassNames: {
-      // Clean foundation
       base: 'rounded-md border transition-all duration-150 px-2 py-1.5 text-sm cursor-pointer flex items-center justify-center font-medium hover:shadow-sm',
 
-      // Disabled states - highest priority
       disabled: 'opacity-40 cursor-not-allowed bg-gray-50 border-gray-200 text-gray-400',
       disabledInRange: 'bg-red-50 text-red-400 border-red-200 cursor-not-allowed opacity-50',
 
-      // Selection state
       selected: 'bg-blue-500 text-white border-blue-500 font-semibold shadow-sm',
 
-      // Range states (clean connection)
       rangeStart: 'bg-blue-500 text-white border-blue-500 rounded-r-sm font-semibold',
       rangeEnd: 'bg-blue-500 text-white border-blue-500 rounded-l-sm font-semibold',
       betweenRange: 'bg-blue-100 text-blue-800 border-blue-200 rounded-none',
 
-      // Interactive hover
       hovered: 'bg-blue-50 border-blue-300 shadow-sm',
 
-      // Special dates
       today: 'bg-orange-50 text-orange-800 border-orange-300 font-semibold',
       weekend: 'text-red-600 border-red-100 bg-red-50',
 
-      // Context states
       differentMonth: 'opacity-30 text-gray-400 border-gray-100',
       monthBoundary: 'font-bold border-green-300 bg-green-50 text-green-700',
     } as DayButtonClassNames,
