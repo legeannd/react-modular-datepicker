@@ -9,8 +9,92 @@ const meta = {
   component: DatePickerProvider,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'The DatePickerProvider is the root component that provides context and state management for all date picker components. It must wrap all other date picker components.',
+      },
+    },
   },
   tags: ['autodocs'],
+  argTypes: {
+    type: {
+      control: { type: 'select' },
+      options: ['single', 'multiple', 'range'],
+      description: 'The selection type for the date picker',
+      defaultValue: 'single',
+      table: {
+        type: { summary: "'single' | 'multiple' | 'range'" },
+        defaultValue: { summary: "'single'" },
+      },
+    },
+    initialMonth: {
+      control: 'date',
+      description: 'The initial month to display in the calendar',
+      table: {
+        type: { summary: 'Date | string' },
+        defaultValue: { summary: 'new Date()' },
+      },
+    },
+    normalizeHeight: {
+      control: 'boolean',
+      description: 'Whether to normalize the calendar height to always show 6 weeks',
+      defaultValue: false,
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    locale: {
+      control: 'text',
+      description: 'Locale string for internationalization (e.g., "en", "pt-BR", "es")',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    disablePeriodChange: {
+      control: 'boolean',
+      description: 'Whether to disable navigation between months/years',
+      defaultValue: false,
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    defaultSelected: {
+      control: 'object',
+      description: 'Initial dates configuration for pre-selecting dates',
+      table: {
+        type: { summary: 'InitialDatesObject' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    disabledDates: {
+      control: 'object',
+      description: 'Configuration for disabling specific dates or patterns',
+      table: {
+        type: { summary: 'DisabledDatesObject' },
+        defaultValue: { summary: '{}' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'CSS classes for the provider wrapper',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    children: {
+      control: false,
+      description:
+        'The child components (Calendar, Header, etc.) that will use the date picker context',
+      table: {
+        type: { summary: 'React.ReactNode' },
+      },
+    },
+  },
 } satisfies Meta<typeof DatePickerProvider>
 
 export default meta
@@ -81,7 +165,7 @@ export const SelectDateRange: Story = {
 
 export const CustomStartDate: Story = {
   args: {
-    defaultValue: '2025-01-01',
+    initialMonth: '2025-01-01',
     children: (
       <>
         <Header>
@@ -115,8 +199,8 @@ export const InitialSelectedDates: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
-    defaultValue: '2025-05-01',
-    initialDates: {
+    initialMonth: '2025-05-01',
+    defaultSelected: {
       days: [
         '2025-6-05',
         '2025-7-09',
@@ -150,7 +234,7 @@ export const DisabledDates: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
-    defaultValue: '2025-05-01',
+    initialMonth: '2025-05-01',
     disabledDates: {
       every: 'weekdays',
       weekdays: [1, 6],
@@ -210,5 +294,25 @@ export const NormalizedMultipleCalendarsHeight: Story = {
     ),
     type: 'range',
     normalizeHeight: true,
+  } as DatePickerProviderProps,
+}
+
+export const CustomProviderStyling: Story = {
+  args: {
+    className: 'font-mono',
+    children: (
+      <>
+        <Header>
+          <DateSelect>
+            <MonthLabel type='full' />
+          </DateSelect>
+          <div className='flex gap-4'>
+            <Button type='previous' />
+            <Button type='next' />
+          </div>
+        </Header>
+        <Calendar showLabel />
+      </>
+    ),
   } as DatePickerProviderProps,
 }

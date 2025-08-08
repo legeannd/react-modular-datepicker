@@ -86,7 +86,7 @@ export interface CalendarProps extends HTMLAttributes<HTMLDivElement> {
   weekdayLabels?: string[]
   /** CSS classes for styling the weekday header row */
   weekdayClassName?: string
-  /** Unique identifier for the calendar instance */
+  /** Unique identifier for the calendar instance. If the header grouping is set to string[], it will be matched if this ID is inside of the array as well */
   id?: string
   /** Whether to show a label/title for the calendar */
   showLabel?: boolean

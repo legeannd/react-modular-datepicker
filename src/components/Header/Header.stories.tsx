@@ -8,11 +8,54 @@ const meta = {
   component: Header,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Header component that wraps calendar navigation controls and manages calendar grouping. Contains date selection controls, navigation buttons, and renders multiple calendars in a responsive grid layout.',
+      },
+    },
   },
   tags: ['autodocs'],
+  argTypes: {
+    children: {
+      description:
+        'Navigation controls and date selection components (DateSelect, Button, MonthLabel)',
+      control: false,
+      table: {
+        type: { summary: 'ReactNode' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    groupingMode: {
+      description:
+        'Controls how calendars are grouped together. "all" groups all calendars, "disabled" shows individual calendars, or array of specific calendar IDs to group',
+      control: { type: 'select' },
+      options: ['all', 'disabled', ['second', 'third']],
+      table: {
+        type: { summary: '"all" | "disabled" | string[]' },
+        defaultValue: { summary: '"all"' },
+      },
+    },
+    className: {
+      description: 'CSS classes for styling the header container',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '"rounded-lg bg-white shadow-md"' },
+      },
+    },
+    calendarGridClassName: {
+      description: 'CSS classes for styling the calendar grid layout container',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+  },
   decorators: [
     (Story) => (
-      <DatePickerProvider>
+      <DatePickerProvider normalizeHeight={true}>
         <Story />
       </DatePickerProvider>
     ),
