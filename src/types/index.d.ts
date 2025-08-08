@@ -125,8 +125,8 @@ export interface MonthLabelProps extends HTMLAttributes<HTMLSpanElement> {
 export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
   /** Child components like MonthLabel to display inside the date selector */
   children?: React.ReactNode
-  /** Whether to show calendar icon in the date selector */
-  showIcon?: boolean
+  /** Custom icon slot to add icons in the component. If provided, this will be rendered automatically */
+  iconSlot?: React.ReactNode
   /** Number of years to offset from current year for the start of year range selection */
   yearRangeStartOffset?: number
   /** Number of years to offset from current year for the end of year range selection */
@@ -155,6 +155,8 @@ export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Button type for navigation - 'previous' for going back or 'next' for going forward */
   type: 'previous' | 'next'
+  /** Custom content to display in the button (icons, text, or any React element). If not provided, falls back to default chevron icons */
+  children?: React.ReactNode
 }
 
 /** Props for the DatePickerProvider component - the root uncontrolled date picker */

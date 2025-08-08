@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from '../ui/select'
 import { useDatePicker } from '@/hooks/useDatePicker'
-import { Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 import { MonthLabel } from './MonthLabel'
 import { DateSelectProps } from '@/types'
 import { cn } from '@/lib/utils'
@@ -17,7 +16,7 @@ import { useRef } from 'react'
 export function DateSelect({
   children,
   className,
-  showIcon = true,
+  iconSlot,
   yearRangeStartOffset = 10,
   yearRangeEndOffset = 40,
   popoverProps,
@@ -31,19 +30,10 @@ export function DateSelect({
   yearSelectContentProps,
   ...props
 }: DateSelectProps) {
-  const {
-    disablePeriodChange,
-    type,
-    refDate: date,
-    dayjs,
-    handleChangeReferenceDate,
-  } = useDatePicker()
+  const { disablePeriodChange, refDate: date, dayjs, handleChangeReferenceDate } = useDatePicker()
   const { current: initialDate } = useRef(date)
 
   const month = dayjs().localeData().monthsShort()[date.get('M')]
-
-  const calendarIcon =
-    type === 'single' ? <Calendar1 /> : type === 'multiple' ? <CalendarDays /> : <CalendarRange />
 
   const handleChangeCalendarStartPeriod = (field: 'month' | 'year', value: string) => {
     const newDate = dayjs(date).set(field, Number(value))
@@ -58,7 +48,7 @@ export function DateSelect({
       className={className || 'flex items-center gap-2'}
       {...props}
     >
-      {showIcon && calendarIcon}
+      {iconSlot}
       <div className='flex items-center gap-4'>
         {disablePeriodChange ? (
           (children ?? <MonthLabel />)

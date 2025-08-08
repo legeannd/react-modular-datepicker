@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react'
 import { DatePickerProvider } from './DatePickerProvider'
 import { Header, Button, DateSelect, MonthLabel } from './Header'
 import { Calendar } from './Calendar'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar1 } from 'lucide-react'
 
 const meta = {
   title: 'Examples/Custom Styling Showcase',
@@ -31,7 +31,6 @@ export const PurpleGradientTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
-                showIcon={false}
                 className='bg-opacity-20 flex items-center justify-center gap-2 border-2 border-purple-400 bg-purple-600 text-white backdrop-blur-sm'
                 popoverTriggerProps={{
                   className:
@@ -123,6 +122,7 @@ export const DarkTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
+                iconSlot={<Calendar1 />}
                 className='flex items-center justify-center gap-2 text-white'
                 popoverTriggerProps={{
                   className:
@@ -214,7 +214,6 @@ export const MaterialDesignTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
-                showIcon={false}
                 className='bg-opacity-20 flex items-center justify-center gap-2 rounded-md bg-blue-600 text-white backdrop-blur-sm'
                 popoverTriggerProps={{
                   className:
@@ -306,6 +305,7 @@ export const NeumorphismTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
+                iconSlot={<Calendar1 />}
                 className='flex items-center gap-2 rounded-xl bg-gray-100 px-4 py-2 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)]'
                 popoverTriggerProps={{
                   className:
@@ -409,7 +409,6 @@ export const GreenRangeSelectionTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
-                showIcon={false}
                 className='bg-opacity-20 flex items-center justify-center gap-2 rounded-md bg-green-600 text-white backdrop-blur-sm'
                 popoverTriggerProps={{
                   className:
@@ -512,7 +511,6 @@ export const MobileResponsiveTheme = {
               calendarGridClassName='gap-x-0'
             >
               <DateSelect
-                showIcon={false}
                 className='flex items-center justify-center gap-2 rounded-md bg-slate-800 px-3 py-2 text-slate-100'
                 popoverTriggerProps={{
                   className:
