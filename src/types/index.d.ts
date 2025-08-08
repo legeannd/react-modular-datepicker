@@ -70,7 +70,7 @@ export interface DayButtonClassNames {
   betweenRange?: string
   /** Styles for hovered dates - only applies when not selected and not in range */
   hovered?: string
-  /** Styles for weekend dates (Saturday/Sunday) - suppressed when hovered, selected, or in range */
+  /** Styles for weekend dates (Saturday/Sunday) - suppressed when hovered, selected, in range, or month boundary */
   weekend?: string
   /** Styles for disabled dates - highest priority, always visible, overrides all other states */
   disabled?: string

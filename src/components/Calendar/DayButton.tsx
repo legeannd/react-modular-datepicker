@@ -184,6 +184,7 @@ export function DayButton({
           !visualHovered &&
           !visualSelected &&
           !betweenRange &&
+          !(startMonth || endMonth) &&
           thisMonth &&
           (dayButtonClassNames?.weekend || 'text-weekend'),
         disabled &&
