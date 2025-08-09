@@ -88,10 +88,8 @@ export interface CalendarProps extends HTMLAttributes<HTMLDivElement> {
   weekdayClassName?: string
   /** Unique identifier for the calendar instance. If the header grouping is set to string[], it will be matched if this ID is inside of the array as well */
   id?: string
-  /** Whether to show a label/title for the calendar */
-  showLabel?: boolean
-  /** CSS classes for styling the calendar footer area */
-  footerClassName?: string
+  /** Custom footer content using render prop pattern. Receives calendar data for full customization. If not provided, no footer will be rendered */
+  footerSlot?: (data: { currentDate: Dayjs }) => React.ReactNode
   /** Custom styling configuration for day buttons with state-based priorities */
   dayButtonClassNames?: DayButtonClassNames
 }

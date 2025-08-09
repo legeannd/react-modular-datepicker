@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Calendar } from '.'
 import { CalendarProps, DayButtonClassNames } from '../../types'
 import { DatePickerProvider } from '../DatePickerProvider'
+import { Calendar1, CalendarDays } from 'lucide-react'
 
 const meta = {
   title: 'Components/Calendar',
@@ -33,13 +34,13 @@ const meta = {
         defaultValue: { summary: 'true' },
       },
     },
-    showLabel: {
-      control: 'boolean',
-      description: 'Whether to show the footer label with calendar information',
-      defaultValue: false,
+    footerSlot: {
+      control: false,
+      description:
+        'Render prop for custom footer content. Receives {currentDate} as parameter with full dayjs object for flexible formatting',
       table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: { summary: '(data: {currentDate: Dayjs}) => ReactNode' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     weekdayLabels: {
@@ -54,15 +55,6 @@ const meta = {
     weekdayClassName: {
       control: 'text',
       description: 'CSS classes for styling weekday labels',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'undefined' },
-      },
-    },
-    footerClassName: {
-      control: 'text',
-      description:
-        'CSS classes for styling the footer label section that shows month/year and day count',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'undefined' },
@@ -118,7 +110,24 @@ export const CustomWeekdayLabels: Story = {
 
 export const WithCalendarInfoLabels: Story = {
   args: {
-    showLabel: true,
+    footerSlot: ({ currentDate }) => (
+      <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
+        <span className='flex items-center gap-1 capitalize'>
+          <CalendarDays
+            size={12}
+            strokeWidth={1}
+          />
+          {currentDate.format('MMMM, YYYY')}
+        </span>
+        <span className='flex items-center gap-1'>
+          <Calendar1
+            size={12}
+            strokeWidth={1}
+          />
+          {currentDate.daysInMonth()}
+        </span>
+      </div>
+    ),
   } as CalendarProps,
 }
 
@@ -288,7 +297,24 @@ export const DocumentationExample: Story = {
     ),
   ],
   args: {
-    showLabel: true,
+    footerSlot: ({ currentDate }) => (
+      <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
+        <span className='flex items-center gap-1 capitalize'>
+          <CalendarDays
+            size={12}
+            strokeWidth={1}
+          />
+          {currentDate.format('MMMM, YYYY')}
+        </span>
+        <span className='flex items-center gap-1'>
+          <Calendar1
+            size={12}
+            strokeWidth={1}
+          />
+          {currentDate.daysInMonth()}
+        </span>
+      </div>
+    ),
     dayButtonClassNames: {
       base: 'rounded-md border transition-all duration-150 px-2 py-1.5 text-sm cursor-pointer flex items-center justify-center font-medium hover:shadow-sm',
 

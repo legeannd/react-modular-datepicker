@@ -1,8 +1,8 @@
-import { Meta } from '@storybook/react'
+﻿import { Meta } from '@storybook/react'
 import { DatePickerProvider } from './DatePickerProvider'
 import { Header, Button, DateSelect, MonthLabel } from './Header'
 import { Calendar } from './Calendar'
-import { ChevronLeft, ChevronRight, Calendar1 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar1, CalendarDays } from 'lucide-react'
 
 const meta = {
   title: 'Examples/Custom Styling Showcase',
@@ -76,10 +76,26 @@ export const PurpleGradientTheme = {
             </Header>
             <div className='flex gap-0'>
               <Calendar
-                showLabel={true}
                 className='bg-purple-100 p-4'
                 weekdayClassName='text-purple-700 font-semibold'
-                footerClassName='bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg border-2 border-purple-300'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded border-2 border-purple-300 bg-gradient-to-r from-purple-500 to-pink-500 p-2 text-center text-xs font-semibold text-white shadow-lg'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-150 ease-out text-purple-900 hover:bg-purple-200 hover:shadow-sm font-medium',
                   selected:
@@ -90,10 +106,26 @@ export const PurpleGradientTheme = {
                 }}
               />
               <Calendar
-                showLabel={true}
                 className='bg-purple-100 p-4'
                 weekdayClassName='text-purple-700 font-semibold'
-                footerClassName='bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg border-2 border-purple-300'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded border-2 border-purple-300 bg-gradient-to-r from-purple-500 to-pink-500 p-2 text-center text-xs font-semibold text-white shadow-lg'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-150 ease-out text-purple-900 hover:bg-purple-200 hover:shadow-sm font-medium',
                   selected:
@@ -168,10 +200,26 @@ export const DarkTheme = {
             </Header>
             <div className='flex gap-0'>
               <Calendar
-                showLabel={true}
                 className='bg-gray-800'
                 weekdayClassName='text-gray-300 font-medium'
-                footerClassName='bg-gray-700 text-gray-100 border border-r-0 rounded-r-none border-gray-600 [&_svg]:text-gray-300'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-r-none border border-r-0 border-gray-600 bg-gray-700 p-2 text-center text-xs font-light text-gray-100 [&_svg]:text-gray-300'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-150 ease-out text-gray-100 hover:bg-gray-700 hover:shadow-sm font-medium',
                   selected: 'bg-white text-gray-900 font-bold shadow-lg',
@@ -182,10 +230,26 @@ export const DarkTheme = {
                 }}
               />
               <Calendar
-                showLabel={true}
                 className='bg-gray-800'
                 weekdayClassName='text-gray-300 font-medium'
-                footerClassName='bg-gray-700 text-gray-100 border border-l-0 rounded-l-none border-gray-600 [&_svg]:text-gray-300'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-l-none border border-l-0 border-gray-600 bg-gray-700 p-2 text-center text-xs font-light text-gray-100 [&_svg]:text-gray-300'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-150 ease-out text-gray-100 hover:bg-gray-700 hover:shadow-sm font-medium',
                   selected: 'bg-white text-gray-900 font-bold shadow-lg',
@@ -259,10 +323,26 @@ export const MaterialDesignTheme = {
             </Header>
             <div className='flex gap-0'>
               <Calendar
-                showLabel={true}
                 className='bg-white'
                 weekdayClassName='text-blue-600 font-medium tracking-wide text-xs'
-                footerClassName='bg-blue-50 text-blue-700 border border-r-0 rounded-r-none border-blue-200 font-medium [&_svg]:text-blue-500'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-r-none border border-r-0 border-blue-200 bg-blue-50 p-2 text-center text-xs font-medium text-blue-700 [&_svg]:text-blue-500'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-full aspect-square px-1 py-1 text-xs transition-all duration-150 ease-out text-gray-700 hover:bg-blue-50 hover:shadow-sm font-medium',
                   selected: 'bg-blue-500 hover:bg-blue-600 text-white font-medium shadow-md',
@@ -273,10 +353,26 @@ export const MaterialDesignTheme = {
                 }}
               />
               <Calendar
-                showLabel={true}
                 className='bg-white'
                 weekdayClassName='text-blue-600 font-medium tracking-wide text-xs'
-                footerClassName='bg-blue-50 text-blue-700 border border-l-0 rounded-l-none border-blue-200 font-medium [&_svg]:text-blue-500'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-l-none border border-l-0 border-blue-200 bg-blue-50 p-2 text-center text-xs font-medium text-blue-700 [&_svg]:text-blue-500'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-full aspect-square px-1 py-1 text-xs transition-all duration-150 ease-out text-gray-700 hover:bg-blue-50 hover:shadow-sm font-medium',
                   selected: 'bg-blue-500 hover:bg-blue-600 text-white font-medium shadow-md',
@@ -354,10 +450,26 @@ export const NeumorphismTheme = {
             </Header>
             <div className='flex gap-0'>
               <Calendar
-                showLabel={true}
                 className='rounded-2xl bg-gray-100 p-4 shadow-[inset_-5px_-5px_10px_rgba(255,255,255,1),inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 weekdayClassName='text-gray-600 font-medium'
-                footerClassName='bg-gray-100 text-gray-700 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] font-medium [&_svg]:text-gray-600 border-0'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded border-0 bg-gray-100 p-2 text-center text-xs font-medium text-gray-700 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] [&_svg]:text-gray-600'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'bg-gray-100 shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg border border-transparent transition-all duration-150 ease-out px-4 py-2 text-sm cursor-pointer active:shadow-[inset_3px_3px_8px_rgba(0,0,0,0.15),inset_-3px_-3px_8px_rgba(255,255,255,1)]',
                   selected:
@@ -371,10 +483,26 @@ export const NeumorphismTheme = {
                 }}
               />
               <Calendar
-                showLabel={true}
                 className='rounded-2xl bg-gray-100 p-4 shadow-[inset_-5px_-5px_10px_rgba(255,255,255,1),inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 weekdayClassName='text-gray-600 font-medium'
-                footerClassName='bg-gray-100 text-gray-700 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] font-medium [&_svg]:text-gray-600 border-0'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded border-0 bg-gray-100 p-2 text-center text-xs font-medium text-gray-700 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,1)] [&_svg]:text-gray-600'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'bg-gray-100 shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg border border-transparent transition-all duration-150 ease-out px-4 py-2 text-sm cursor-pointer active:shadow-[inset_3px_3px_8px_rgba(0,0,0,0.15),inset_-3px_-3px_8px_rgba(255,255,255,1)]',
                   selected:
@@ -454,10 +582,26 @@ export const GreenRangeSelectionTheme = {
             </Header>
             <div className='flex gap-0'>
               <Calendar
-                showLabel={true}
                 className='bg-white'
                 weekdayClassName='text-green-600 font-medium tracking-wide text-xs'
-                footerClassName='bg-green-50 text-green-700 border border-r-0 rounded-r-none border-green-200 font-medium [&_svg]:text-green-500'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-r-none border border-r-0 border-green-200 bg-green-50 p-2 text-center text-xs font-medium text-green-700 [&_svg]:text-green-500'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-full aspect-square px-1 py-1 text-xs transition-all duration-150 ease-out text-gray-700 hover:bg-green-50 hover:shadow-sm font-medium',
                   selected: 'bg-green-500 hover:bg-green-600 text-white font-medium shadow-md',
@@ -472,10 +616,26 @@ export const GreenRangeSelectionTheme = {
                 }}
               />
               <Calendar
-                showLabel={true}
                 className='bg-white'
                 weekdayClassName='text-green-600 font-medium tracking-wide text-xs'
-                footerClassName='bg-green-50 text-green-700 border border-l-0 rounded-l-none border-green-200 font-medium [&_svg]:text-green-500'
+                footerSlot={({ currentDate }) => (
+                  <div className='flex justify-between rounded rounded-l-none border border-l-0 border-green-200 bg-green-50 p-2 text-center text-xs font-medium text-green-700 [&_svg]:text-green-500'>
+                    <span className='flex items-center gap-1 capitalize'>
+                      <CalendarDays
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.format('MMMM, YYYY')}
+                    </span>
+                    <span className='flex items-center gap-1'>
+                      <Calendar1
+                        size={12}
+                        strokeWidth={1}
+                      />
+                      {currentDate.daysInMonth()}
+                    </span>
+                  </div>
+                )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-full aspect-square px-1 py-1 text-xs transition-all duration-150 ease-out text-gray-700 hover:bg-green-50 hover:shadow-sm font-medium',
                   selected: 'bg-green-500 hover:bg-green-600 text-white font-medium shadow-md',
@@ -559,10 +719,26 @@ export const MobileResponsiveTheme = {
               </div>
             </Header>
             <Calendar
-              showLabel={true}
               className='bg-white'
               weekdayClassName='text-slate-600 font-semibold text-sm text-center py-2'
-              footerClassName='bg-slate-50 text-slate-700 border border-slate-200 rounded-b-lg font-medium [&_svg]:text-slate-500 px-3 py-2'
+              footerSlot={({ currentDate }) => (
+                <div className='flex justify-between rounded-b-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-xs font-medium text-slate-700 [&_svg]:text-slate-500'>
+                  <span className='flex items-center gap-1 capitalize'>
+                    <CalendarDays
+                      size={12}
+                      strokeWidth={1}
+                    />
+                    {currentDate.format('MMMM, YYYY')}
+                  </span>
+                  <span className='flex items-center gap-1'>
+                    <Calendar1
+                      size={12}
+                      strokeWidth={1}
+                    />
+                    {currentDate.daysInMonth()}
+                  </span>
+                </div>
+              )}
               dayButtonClassNames={{
                 base: 'flex w-full cursor-pointer items-center justify-center rounded-lg h-10 text-sm transition-all duration-150 ease-out text-slate-700 hover:bg-slate-100 hover:shadow-sm font-medium touch-manipulation',
                 selected: 'bg-slate-800 hover:bg-slate-900 text-white font-semibold',
@@ -600,3 +776,5 @@ export const MobileResponsiveTheme = {
     </div>
   ),
 }
+
+

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+﻿import { Meta, StoryObj } from '@storybook/react'
 import { DatePickerProvider } from '.'
 import { DatePickerProviderProps } from '../../types'
 import { Calendar } from '../Calendar'
@@ -106,7 +106,26 @@ export const Default: Story = {
     children: (
       <>
         <Header />
-        <Calendar />
+        <Calendar
+          footerSlot={({ currentDate }) => (
+            <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
+              <span className='flex items-center gap-1 capitalize'>
+                <CalendarDays
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.format('MMMM, YYYY')}
+              </span>
+              <span className='flex items-center gap-1'>
+                <Calendar1
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.daysInMonth()}
+              </span>
+            </div>
+          )}
+        />
       </>
     ),
   } as DatePickerProviderProps,
@@ -121,7 +140,26 @@ export const CustomLocale: Story = {
             <MonthLabel type='full' />
           </DateSelect>
         </Header>
-        <Calendar showLabel />
+        <Calendar
+          footerSlot={({ currentDate }) => (
+            <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
+              <span className='flex items-center gap-1 capitalize'>
+                <CalendarDays
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.format('MMMM, YYYY')}
+              </span>
+              <span className='flex items-center gap-1'>
+                <Calendar1
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.daysInMonth()}
+              </span>
+            </div>
+          )}
+        />
       </>
     ),
     locale: 'pt-br',
@@ -344,7 +382,26 @@ export const CustomProviderStyling: Story = {
             </Button>
           </div>
         </Header>
-        <Calendar showLabel />
+        <Calendar
+          footerSlot={({ currentDate }) => (
+            <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
+              <span className='flex items-center gap-1 capitalize'>
+                <CalendarDays
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.format('MMMM, YYYY')}
+              </span>
+              <span className='flex items-center gap-1'>
+                <Calendar1
+                  size={12}
+                  strokeWidth={1}
+                />
+                {currentDate.daysInMonth()}
+              </span>
+            </div>
+          )}
+        />
       </>
     ),
   } as DatePickerProviderProps,

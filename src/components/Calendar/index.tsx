@@ -4,15 +4,13 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '../../lib/utils'
 import { DayButton } from './DayButton'
-import { Calendar1, CalendarDays } from 'lucide-react'
 
 export function Calendar({
   showWeekdays = true,
   weekdayLabels,
   weekdayClassName,
   id,
-  showLabel,
-  footerClassName,
+  footerSlot,
   dayButtonClassNames,
   className,
   ...props
@@ -21,10 +19,10 @@ export function Calendar({
   const { header, groupingMode, handleAddCalendarRef, createMonthTable, dayjs } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
   const weekdays = dayjs().localeData().weekdaysShort()
-  const calendarLabel = dayjs(monthTable.get(1)?.[0].day.date).format('MMMM, YYYY')
+  const currentDate = dayjs(monthTable.get(1)?.[0].day.date)
+  const calendarLabel = currentDate.format('MMMM, YYYY')
   const shouldRenderInsideHeader = groupingMode === 'all' || (!!id && groupingMode.includes(id))
   const renderOnPortal = !!header && shouldRenderInsideHeader
-  const daysInCalendar = dayjs(monthTable.get(1)?.[0].day.date).daysInMonth()
 
   const getCustomWeekdayLabel = (index: number) => {
     if (weekdayLabels && weekdayLabels[index]) {
@@ -92,29 +90,7 @@ export function Calendar({
           </div>
         ))}
       </div>
-      {showLabel && (
-        <div
-          className={cn(
-            'text-footer-label flex justify-between rounded p-2 text-center text-xs font-light',
-            footerClassName
-          )}
-        >
-          <span className='flex items-center gap-1 capitalize'>
-            <CalendarDays
-              size={12}
-              strokeWidth={1}
-            />
-            {calendarLabel}
-          </span>
-          <span className='flex items-center gap-1'>
-            <Calendar1
-              size={12}
-              strokeWidth={1}
-            />
-            {daysInCalendar}
-          </span>
-        </div>
-      )}
+      {footerSlot && footerSlot({ currentDate })}
     </div>
   )
 
