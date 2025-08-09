@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Dayjs } from 'dayjs'
-import { DatePickerContext } from '../../contexts/DatePickerContext'
-import {
+import type { Dayjs } from 'dayjs'
+import { DatePickerContext } from '@/contexts/DatePickerContext'
+import type {
   CalendarRefObject,
   CurrentDay,
   DatePickerProviderProps,
@@ -9,7 +9,7 @@ import {
   HandleDateSelectType,
   InitialDatesObject,
   SelectedDate,
-} from '../../types'
+} from '@/types'
 import { useLocalizedDayjs } from '@/hooks/useLocalizedDayjs'
 import { normalizeSelection } from '@/lib/utils'
 

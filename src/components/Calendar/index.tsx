@@ -1,8 +1,8 @@
-import { useDatePicker } from '../../hooks/useDatePicker'
-import { CalendarProps } from '../../types'
+import { useDatePicker } from '@/hooks/useDatePicker'
+import type { CalendarProps } from '@/types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { cn } from '../../lib/utils'
+import { cn } from '@/lib/utils'
 import { DayButton } from './DayButton'
 
 export function Calendar({

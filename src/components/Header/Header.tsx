@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import { useDatePicker } from '../../hooks/useDatePicker'
-import { HeaderProps } from '../../types'
-import { cn } from '../../lib/utils'
+import { useDatePicker } from '@/hooks/useDatePicker'
+import type { HeaderProps } from '@/types'
+import { cn } from '@/lib/utils'
 
 export function Header({
   children,

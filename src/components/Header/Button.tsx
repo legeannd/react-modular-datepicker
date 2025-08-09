@@ -1,5 +1,5 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
-import { ButtonProps } from '@/types'
+import type { ButtonProps } from '@/types'
 
 export function Button({ type, className, children, ...props }: ButtonProps) {
   const { refDate, disablePeriodChange, handleChangeReferenceDate } = useDatePicker()

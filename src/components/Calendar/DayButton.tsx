@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import { CurrentDay, SelectedDate, DayButtonClassNames } from '../../types'
-import { useDatePicker } from '../../hooks/useDatePicker'
+import type { CurrentDay, SelectedDate, DayButtonClassNames } from '@/types'
+import { useDatePicker } from '@/hooks/useDatePicker'
 import { useEffect, useState, ButtonHTMLAttributes } from 'react'
 
 interface DayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

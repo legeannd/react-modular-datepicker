@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { SelectedDate, CurrentDay, CurrentRange, NormalizedSelection } from "../types"
+import type { SelectedDate, CurrentDay, CurrentRange, NormalizedSelection } from "@/types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -20,7 +20,6 @@ export function normalizeSelection(selectedData: SelectedDate): NormalizedSelect
 
     case 'range': {
       const rangeSelection = selection as CurrentRange
-      // Return complete range only if both start and end exist, otherwise null
       if (rangeSelection.start && rangeSelection.end) {
         return {
           start: rangeSelection.start.day.date,
