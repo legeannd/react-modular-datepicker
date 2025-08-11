@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge'
+import { cn } from '@/lib/utils'
 import type { CurrentDay, SelectedDate, DayButtonClassNames } from '@/types'
 import { useDatePicker } from '@/hooks/useDatePicker'
 import { useEffect, useState, ButtonHTMLAttributes } from 'react'
@@ -163,7 +163,7 @@ export function DayButton({
   return (
     <button
       {...props}
-      className={twMerge(
+      className={cn(
         dayButtonClassNames?.base ||
           'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-200 ease-in-out',
         today &&

@@ -7,6 +7,7 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import { globSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import dts from 'vite-plugin-dts'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const ReactCompilerConfig = {
   target: '19'
@@ -26,6 +27,11 @@ export default defineConfig({
       exclude: ['**/*.stories.tsx', 'src/test', '**/*.test.tsx'],
       tsconfigPath: 'tsconfig.app.json',
     }),
+    visualizer({
+      filename: 'dist/bundle-analysis.html',
+      open: false,
+      gzipSize: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -38,7 +44,15 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'dayjs',
+        /^dayjs\/.*/,
+        'tailwind-merge',
+        'clsx',
+      ],
       input: Object.fromEntries(
         globSync(['src/components/**/index.tsx', 'src/main.ts']).map((file) => {
           const entryName = path.relative(

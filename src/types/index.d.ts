@@ -1,4 +1,3 @@
-import { Locales } from "@/lib/locale"
 import { Dayjs } from "dayjs"
 import { ButtonHTMLAttributes, HTMLAttributes } from "react"
 
@@ -139,8 +138,8 @@ export interface DatePickerProviderProps extends HTMLAttributes<HTMLDivElement> 
   normalizeHeight?: boolean
   /** Configuration for disabling specific dates or date patterns */
   disabledDates?: DisabledDatesObject
-  /** Locale for date formatting and localization */
-  locale?: Locales
+  /** Custom dayjs instance for date formatting and localization. If not provided, uses default English dayjs */
+  dayjs?: (date?: string | Date | Dayjs) => Dayjs
   /** Callback fired when the selection changes, receives clean normalized data */
   onSelectionChange?: (selection: NormalizedSelection, type: CalendarType) => void
 }
@@ -202,3 +201,16 @@ export interface UseDateSelectReturn {
   /** Handler for year change. Update the current starting year of the calendars */
   onYearChange: (year: number) => void
 }
+
+/**
+ * Factory function type for creating localized Dayjs objects.
+ * Pass this to DatePickerProvider to control date formatting and localization.
+ *
+ * Example usage:
+ *   const portugueseDayjs: DayjsInstance = (date) => dayjs(date).locale('pt-br');
+ *   <DatePickerProvider dayjs={portugueseDayjs} />
+ *
+ * @param date - The date value to parse (string, Date, or Dayjs)
+ * @returns Localized Dayjs object
+ */
+export type DayjsInstance = (date?: dayjs.ConfigType) => Dayjs

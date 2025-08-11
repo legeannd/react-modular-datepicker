@@ -15,5 +15,6 @@ export type {
   CurrentDay,
   CalendarType,
   GroupingModeType,
+  DayjsInstance
 } from './types'
 

@@ -20,7 +20,7 @@ export function DatePickerProvider({
   normalizeHeight = false,
   defaultSelected,
   disabledDates = {},
-  locale,
+  dayjs: customDayjs,
   className,
   onSelectionChange,
   ...props
@@ -35,7 +35,7 @@ export function DatePickerProvider({
     { updateMonthTable: (newDate: string | Date) => void }[]
   >([])
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
-  const { getDayjs: dayjs } = useLocalizedDayjs(locale)
+  const { getDayjs: dayjs } = useLocalizedDayjs(customDayjs)
   const [refDate, setRefDate] = useState<Dayjs>(dayjs(initialMonth))
 
   const createMonthTable = (tableDate = initialMonth) => {

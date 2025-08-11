@@ -5,6 +5,15 @@ import { Calendar } from '../Calendar'
 import { Header, Button, MonthLabel } from '../Header'
 import { DateSelectExample } from '../../../.storybook/components/DateSelectExample'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
+import localeData from 'dayjs/plugin/localeData'
+import isToday from 'dayjs/plugin/isToday'
+
+dayjs.extend(localeData)
+dayjs.extend(isToday)
+
+const portugueseDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('pt-br')
 
 const meta = {
   title: 'Components/DatePickerProvider',
@@ -47,11 +56,11 @@ const meta = {
         defaultValue: { summary: 'false' },
       },
     },
-    locale: {
-      control: 'text',
-      description: 'Locale string for internationalization (e.g., "en", "pt-BR", "es")',
+    dayjs: {
+      control: false,
+      description: 'Custom dayjs factory function for date formatting and localization',
       table: {
-        type: { summary: 'string' },
+        type: { summary: '(date?: ConfigType) => Dayjs' },
         defaultValue: { summary: 'undefined' },
       },
     },
@@ -154,7 +163,7 @@ export const CustomLocale: Story = {
         />
       </>
     ),
-    locale: 'pt-br',
+    dayjs: portugueseDayjs,
   } as DatePickerProviderProps,
 }
 

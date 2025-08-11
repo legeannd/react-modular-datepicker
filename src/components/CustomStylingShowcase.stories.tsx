@@ -632,7 +632,6 @@ export const DarkCyberpunkTheme = {
             </DatePickerProvider>
           </div>
 
-          {/* Cyberpunk Info Panel */}
           <div className='rounded-lg border border-cyan-400/30 bg-gray-900/90 p-6 shadow-[0_0_30px_rgba(34,211,238,0.2)]'>
             <div className='mb-4 flex items-center gap-3'>
               <div className='h-2 w-2 animate-pulse rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]'></div>
