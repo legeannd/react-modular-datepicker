@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Button, DateSelect, Header, MonthLabel } from '.'
+import { Button, Header, MonthLabel } from '.'
+import { DateSelectExample } from '../../../.storybook/components/DateSelectExample'
 import { DatePickerProvider } from '../DatePickerProvider'
 import { Calendar } from '../Calendar'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
@@ -19,8 +20,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     children: {
-      description:
-        'Navigation controls and date selection components (DateSelect, Button, MonthLabel)',
+      description: 'Navigation controls and date selection components',
       control: false,
       table: {
         type: { summary: 'ReactNode' },
@@ -70,7 +70,7 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <DateSelect iconSlot={<Calendar1 />} />
+        <DateSelectExample iconSlot={<Calendar1 />} />
         <div className='flex gap-4'>
           <Button type='previous'>
             <ChevronLeft className='text-label' />
@@ -88,9 +88,9 @@ export const WithGroupOfCalendars: Story = {
   args: {
     children: (
       <>
-        <DateSelect iconSlot={<CalendarDays />}>
+        <DateSelectExample iconSlot={<CalendarDays />}>
           <MonthLabel type='full' />
-        </DateSelect>
+        </DateSelectExample>
         <div className='flex gap-4'>
           <Button type='previous'>
             <ChevronLeft className='text-label' />
@@ -118,10 +118,10 @@ export const CustomDateSelectRange: Story = {
   args: {
     children: (
       <>
-        <DateSelect
+        <DateSelectExample
           iconSlot={<CalendarRange />}
-          yearRangeStartOffset={20}
           yearRangeEndOffset={20}
+          yearRangeStartOffset={20}
         />
         <div className='flex gap-4'>
           <Button type='previous'>
@@ -151,9 +151,9 @@ export const WithGroupingDisabled: Story = {
     groupingMode: 'disabled',
     children: (
       <>
-        <DateSelect iconSlot={<Calendar1 />}>
+        <DateSelectExample iconSlot={<Calendar1 />}>
           <MonthLabel type='full' />
-        </DateSelect>
+        </DateSelectExample>
         <div className='flex gap-4'>
           <Button type='previous'>
             <ChevronLeft className='text-label' />
@@ -187,9 +187,9 @@ export const WithPartialGrouping: Story = {
     groupingMode: ['second', 'third'],
     children: (
       <>
-        <DateSelect iconSlot={<CalendarDays />}>
+        <DateSelectExample iconSlot={<CalendarDays />}>
           <MonthLabel type='full' />
-        </DateSelect>
+        </DateSelectExample>
         <div className='flex gap-4'>
           <Button type='previous'>
             <ChevronLeft className='text-label' />

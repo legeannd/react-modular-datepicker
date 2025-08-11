@@ -2,7 +2,8 @@
 import { DatePickerProvider } from '.'
 import { DatePickerProviderProps } from '../../types'
 import { Calendar } from '../Calendar'
-import { Header, Button, DateSelect, MonthLabel } from '../Header'
+import { Header, Button, MonthLabel } from '../Header'
+import { DateSelectExample } from '../../../.storybook/components/DateSelectExample'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 
 const meta = {
@@ -52,15 +53,6 @@ const meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'undefined' },
-      },
-    },
-    disablePeriodChange: {
-      control: 'boolean',
-      description: 'Whether to disable navigation between months/years',
-      defaultValue: false,
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
       },
     },
     defaultSelected: {
@@ -136,9 +128,9 @@ export const CustomLocale: Story = {
     children: (
       <>
         <Header>
-          <DateSelect>
+          <DateSelectExample>
             <MonthLabel type='full' />
-          </DateSelect>
+          </DateSelectExample>
         </Header>
         <Calendar
           footerSlot={({ currentDate }) => (
@@ -171,7 +163,7 @@ export const SelectMultipleDates: Story = {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<CalendarDays />} />
+          <DateSelectExample iconSlot={<CalendarDays />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -193,7 +185,7 @@ export const SelectDateRange: Story = {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<CalendarRange />} />
+          <DateSelectExample iconSlot={<CalendarRange />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -216,7 +208,7 @@ export const CustomStartDate: Story = {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<Calendar1 />} />
+          <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -237,7 +229,7 @@ export const InitialSelectedDates: Story = {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<Calendar1 />} />
+          <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -276,7 +268,7 @@ export const DisabledDates: Story = {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<Calendar1 />} />
+          <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -315,36 +307,12 @@ export const DisabledDates: Story = {
   } as DatePickerProviderProps,
 }
 
-export const DisabledPeriodChange: Story = {
-  args: {
-    children: (
-      <>
-        <Header>
-          <DateSelect iconSlot={<Calendar1 />} />
-          <div className='flex gap-4'>
-            <Button type='previous'>
-              <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
-              <ChevronRight className='text-label' />
-            </Button>
-          </div>
-        </Header>
-        <Calendar />
-        <Calendar />
-        <Calendar />
-      </>
-    ),
-    disablePeriodChange: true,
-  } as DatePickerProviderProps,
-}
-
 export const NormalizedMultipleCalendarsHeight: Story = {
   args: {
     children: (
       <>
         <Header>
-          <DateSelect iconSlot={<Calendar1 />} />
+          <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />
@@ -370,9 +338,9 @@ export const CustomProviderStyling: Story = {
     children: (
       <>
         <Header>
-          <DateSelect>
+          <DateSelectExample>
             <MonthLabel type='full' />
-          </DateSelect>
+          </DateSelectExample>
           <div className='flex gap-4'>
             <Button type='previous'>
               <ChevronLeft className='text-label' />

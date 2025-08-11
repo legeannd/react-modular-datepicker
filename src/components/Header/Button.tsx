@@ -2,7 +2,7 @@ import { useDatePicker } from '@/hooks/useDatePicker'
 import type { ButtonProps } from '@/types'
 
 export function Button({ type, className, children, ...props }: ButtonProps) {
-  const { refDate, disablePeriodChange, handleChangeReferenceDate } = useDatePicker()
+  const { refDate, handleChangeReferenceDate } = useDatePicker()
 
   const handleChangeCalendarRange = () => {
     if (type === 'next') {
@@ -20,7 +20,6 @@ export function Button({ type, className, children, ...props }: ButtonProps) {
         'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed'
       }
       onClick={handleChangeCalendarRange}
-      disabled={disablePeriodChange}
     >
       {children}
     </button>

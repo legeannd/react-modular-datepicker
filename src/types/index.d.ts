@@ -1,8 +1,6 @@
 import { Locales } from "@/lib/locale"
 import { Dayjs } from "dayjs"
-import { ButtonHTMLAttributes, ComponentProps, HTMLAttributes } from "react"
-import type * as PopoverPrimitive from '@radix-ui/react-popover'
-import type * as SelectPrimitive from '@radix-ui/react-select'
+import { ButtonHTMLAttributes, HTMLAttributes } from "react"
 
 /** Internal representation of a calendar day */
 export interface CurrentDay {
@@ -105,7 +103,7 @@ export type GroupingModeType = 'all' | 'disabled' | string[]
 
 /** Props for the Header component that wraps calendar navigation controls */
 export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
-  /** Navigation controls and date selection components (DateSelect, Button, MonthLabel) */
+  /** Navigation controls and date selection components (Button, MonthLabel) */
   children?: React.ReactNode
   /** Controls how calendars are grouped together. "all" groups all calendars, "disabled" shows individual calendars, or array of specific calendar IDs to group */
   groupingMode?: GroupingModeType
@@ -117,36 +115,6 @@ export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
 export interface MonthLabelProps extends HTMLAttributes<HTMLSpanElement> {
   /** Display format for the month name - 'short' for abbreviated (Jan, Feb) or 'full' for complete name (January, February) */
   type?: 'short' | 'full'
-}
-
-/** Props for the DateSelect component that provides month/year selection controls */
-export interface DateSelectProps extends HTMLAttributes<HTMLDivElement> {
-  /** Child components like MonthLabel to display inside the date selector */
-  children?: React.ReactNode
-  /** Custom icon slot to add icons in the component. If provided, this will be rendered automatically */
-  iconSlot?: React.ReactNode
-  /** Number of years to offset from current year for the start of year range selection */
-  yearRangeStartOffset?: number
-  /** Number of years to offset from current year for the end of year range selection */
-  yearRangeEndOffset?: number
-  /** Props for the root Popover component */
-  popoverProps?: ComponentProps<typeof PopoverPrimitive.Root>
-  /** Props for the Popover trigger button */
-  popoverTriggerProps?: ComponentProps<typeof PopoverPrimitive.Trigger>
-  /** Props for the Popover content container */
-  popoverContentProps?: ComponentProps<typeof PopoverPrimitive.Content>
-  /** Props for the month Select root component */
-  monthSelectProps?: ComponentProps<typeof SelectPrimitive.Root>
-  /** Props for the month Select trigger button */
-  monthSelectTriggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>
-  /** Props for the month Select content container */
-  monthSelectContentProps?: ComponentProps<typeof SelectPrimitive.Content>
-  /** Props for the year Select root component */
-  yearSelectProps?: ComponentProps<typeof SelectPrimitive.Root>
-  /** Props for the year Select trigger button */
-  yearSelectTriggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>
-  /** Props for the year Select content container */
-  yearSelectContentProps?: ComponentProps<typeof SelectPrimitive.Content>
 }
 
 /** Props for the Button component that provides navigation controls */
@@ -173,8 +141,6 @@ export interface DatePickerProviderProps extends HTMLAttributes<HTMLDivElement> 
   disabledDates?: DisabledDatesObject
   /** Locale for date formatting and localization */
   locale?: Locales
-  /** Whether to disable month/year navigation controls */
-  disablePeriodChange?: boolean
   /** Callback fired when the selection changes, receives clean normalized data */
   onSelectionChange?: (selection: NormalizedSelection, type: CalendarType) => void
 }
@@ -195,7 +161,6 @@ export type SelectedDate =
 
 /** Internal context type for date picker state management */
 export interface DatePickerContextType {
-  defaultValue: string | Date
   selected: SelectedDate
   hovered: CurrentDay | null
   type: CalendarType
@@ -203,7 +168,6 @@ export interface DatePickerContextType {
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
   groupingMode: GroupingModeType
   refDate: Dayjs
-  disablePeriodChange: boolean
   handleSetHovered: (day?: CurrentDay) => void
   handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
@@ -213,4 +177,28 @@ export interface DatePickerContextType {
   isDateDisabled: (day: string) => boolean
   dayjs: (date?: string | Date | Dayjs) => Dayjs
   handleChangeReferenceDate: (date: Dayjs) => void
+}
+
+/** Options for the useDateSelect hook */
+export interface UseDateSelectOptions {
+  /** Number of years to offset from current year for the start of year range selection */
+  yearRangeStartOffset?: number
+  /** Number of years to offset from current year for the end of year range selection */
+  yearRangeEndOffset?: number
+}
+
+/** Return type for the useDateSelect hook */
+export interface UseDateSelectReturn {
+  /** Current month index (0-11) */
+  currentMonth: number
+  /** Current year */
+  currentYear: number
+  /** Array of localized month names - use array index as month value (0-11) */
+  months: string[]
+  /** Array of years within the configured range */
+  years: number[]
+  /** Handler for month change. Update the current starting month of the calendars */
+  onMonthChange: (monthIndex: number) => void
+  /** Handler for year change. Update the current starting year of the calendars */
+  onYearChange: (year: number) => void
 }
