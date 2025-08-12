@@ -23,7 +23,6 @@ export function DatePickerProvider({
   dayjs: customDayjs,
   className,
   onSelectionChange,
-  ...props
 }: DatePickerProviderProps) {
   const [selected, setSelected] = useState<SelectedDate>({
     selection: null,
@@ -282,7 +281,6 @@ export function DatePickerProvider({
       }}
     >
       <div
-        {...props}
         id='rmdp-provider'
         className={className || 'font-display'}
       >

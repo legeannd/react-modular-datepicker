@@ -15,5 +15,5 @@ export type {
   CalendarType,
   GroupingModeType,
   DayjsInstance
-} from './types'
+} from './types/index.d'
 

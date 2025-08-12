@@ -108,6 +108,8 @@ export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   groupingMode?: GroupingModeType
   /** CSS classes for styling the calendar grid layout container */
   calendarGridClassName?: string
+  /** CSS classes for styling the header container */
+  childrenClassName?: string
 }
 
 /** Props for the MonthLabel component that displays the current month name */
@@ -125,7 +127,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /** Props for the DatePickerProvider component - the root uncontrolled date picker */
-export interface DatePickerProviderProps extends HTMLAttributes<HTMLDivElement> {
+export interface DatePickerProviderProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className'> {
   /** Child components (Calendar, Header, etc.) */
   children: React.ReactNode
   /** Initial month to display when the calendar first loads (Date object or ISO string) */
@@ -170,7 +172,7 @@ export interface DatePickerContextType {
   handleSetHovered: (day?: CurrentDay) => void
   handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
-  handleDateSelect: handleDateSelectType
+  handleDateSelect: HandleDateSelectType
   handleSetGroupingMode: (mode: GroupingModeType) => void;
   createMonthTable: (tableDate?: string | Date) => Map<number, CurrentDay[]>
   isDateDisabled: (day: string) => boolean

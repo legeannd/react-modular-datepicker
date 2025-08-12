@@ -24,8 +24,11 @@ export default defineConfig({
     }),
     libInjectCss(),
     dts({
-      exclude: ['**/*.stories.tsx', 'src/test', '**/*.test.tsx'],
+      exclude: ['**/*.stories.tsx', 'src/test', '**/*.test.tsx', '**/*.spec.tsx'],
       tsconfigPath: 'tsconfig.app.json',
+      include: ['src/**/*'],
+      insertTypesEntry: true,
+      copyDtsFiles: true,
     }),
     visualizer({
       filename: 'dist/bundle-analysis.html',
