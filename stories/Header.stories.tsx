@@ -53,6 +53,14 @@ const meta = {
         defaultValue: { summary: 'undefined' },
       },
     },
+    childrenClassName: {
+      description: 'CSS classes for styling the header container',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
   },
   decorators: [
     (Story) => (
