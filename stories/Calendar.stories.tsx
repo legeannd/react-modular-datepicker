@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Calendar } from '.'
-import { CalendarProps, DayButtonClassNames } from '../../types'
-import { DatePickerProvider } from '../DatePickerProvider'
+import { Calendar } from '../src/components/Calendar'
+import { CalendarProps, DayButtonClassNames } from '../src/types'
+import { DatePickerProvider } from '../src/components/DatePickerProvider'
 import { Calendar1, CalendarDays } from 'lucide-react'
 
 const meta = {

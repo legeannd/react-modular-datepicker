@@ -1,9 +1,9 @@
 ﻿import { Meta } from '@storybook/react'
-import { DatePickerProvider } from './DatePickerProvider'
-import { Header, Button, MonthLabel } from './Header'
-import { DateSelectExample } from '../../.storybook/components/DateSelectExample'
-import { Calendar } from './Calendar'
-import { useDateSelect } from '../hooks/useDateSelect'
+import { DatePickerProvider } from '../src/components/DatePickerProvider'
+import { Header, Button, MonthLabel } from '../src/components/Header'
+import { DateSelectExample } from '../.storybook/components/DateSelectExample'
+import { Calendar } from '../src/components/Calendar'
+import { useDateSelect } from '../src/hooks/useDateSelect'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays } from 'lucide-react'
 
 const meta = {

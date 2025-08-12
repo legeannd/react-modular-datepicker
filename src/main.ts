@@ -12,7 +12,6 @@ export type {
   ButtonProps,
   MonthLabelProps,
   DayButtonClassNames,
-  CurrentDay,
   CalendarType,
   GroupingModeType,
   DayjsInstance

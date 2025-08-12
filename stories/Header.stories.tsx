@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Button, Header, MonthLabel } from '.'
-import { DateSelectExample } from '../../../.storybook/components/DateSelectExample'
-import { DatePickerProvider } from '../DatePickerProvider'
-import { Calendar } from '../Calendar'
+import { Button, Header, MonthLabel } from '../src/components/Header'
+import { DateSelectExample } from '../.storybook/components/DateSelectExample'
+import { DatePickerProvider } from '../src/components/DatePickerProvider'
+import { Calendar } from '../src/components/Calendar'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 
 const meta = {

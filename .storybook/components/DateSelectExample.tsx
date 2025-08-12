@@ -13,7 +13,7 @@ import { cn } from '../../src/lib/utils'
 import { ComponentProps } from 'react'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { MonthLabel } from '@/main'
+import { MonthLabel } from '../../src/components/Header/MonthLabel'
 
 interface DateSelectExampleProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Child components like MonthLabel to display inside the date selector */
