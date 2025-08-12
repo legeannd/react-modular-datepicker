@@ -11,7 +11,7 @@
     "format:fix": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest",
+    "test": "vitest run",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "prepublishOnly": "vitest run && npm run build"
@@ -36,6 +36,7 @@
     "@storybook/react-vite": "8.6.12",
     "@storybook/test": "8.6.12",
     "@tailwindcss/postcss": "^4.1.6",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.14.1",
     "@types/react": "^19.0.10",
