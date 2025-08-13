@@ -102,7 +102,7 @@ export type GroupingModeType = 'all' | 'disabled' | string[]
 
 /** Props for the Header component that wraps calendar navigation controls */
 export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
-  /** Navigation controls and date selection components (Button, MonthLabel) */
+  /** Navigation controls and date selection components (Button, Label) */
   children?: React.ReactNode
   /** Controls how calendars are grouped together. "all" groups all calendars, "disabled" shows individual calendars, or array of specific calendar IDs to group */
   groupingMode?: GroupingModeType
@@ -112,8 +112,8 @@ export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   childrenClassName?: string
 }
 
-/** Props for the MonthLabel component that displays the current month name */
-export interface MonthLabelProps extends HTMLAttributes<HTMLSpanElement> {
+/** Props for the Label component that displays the current month name */
+export interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
   /** Display format for the month name - 'short' for abbreviated (Jan, Feb) or 'full' for complete name (January, February) */
   type?: 'short' | 'full'
 }

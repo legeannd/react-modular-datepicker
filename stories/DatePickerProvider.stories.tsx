@@ -1,8 +1,6 @@
-﻿import { Meta, StoryObj } from '@storybook/react'
-import { DatePickerProvider } from '../src/components/DatePickerProvider'
+import { Meta, StoryObj } from '@storybook/react'
+import { DatePicker } from '../src/main'
 import { DatePickerProviderProps } from '../src/types'
-import { Calendar } from '../src/components/Calendar'
-import { Header, Button, MonthLabel } from '../src/components/Header'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 import dayjs from 'dayjs'
@@ -17,7 +15,7 @@ const portugueseDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('pt-br')
 
 const meta = {
   title: 'Components/DatePickerProvider',
-  component: DatePickerProvider,
+  component: DatePicker.Provider,
   parameters: {
     layout: 'centered',
     docs: {
@@ -97,7 +95,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof DatePickerProvider>
+} satisfies Meta<typeof DatePicker.Provider>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -106,8 +104,8 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <Header />
-        <Calendar
+        <DatePicker.Header />
+        <DatePicker.Calendar
           footerSlot={({ currentDate }) => (
             <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
               <span className='flex items-center gap-1 capitalize'>
@@ -136,12 +134,12 @@ export const CustomLocale: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample>
-            <MonthLabel type='full' />
+            <DatePicker.Label type='full' />
           </DateSelectExample>
-        </Header>
-        <Calendar
+        </DatePicker.Header>
+        <DatePicker.Calendar
           footerSlot={({ currentDate }) => (
             <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
               <span className='flex items-center gap-1 capitalize'>
@@ -171,18 +169,18 @@ export const SelectMultipleDates: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<CalendarDays />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
       </>
     ),
     type: 'multiple',
@@ -193,18 +191,18 @@ export const SelectDateRange: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<CalendarRange />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
       </>
     ),
     type: 'range',
@@ -216,18 +214,18 @@ export const CustomStartDate: Story = {
     initialMonth: '2025-01-01',
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
       </>
     ),
   } as DatePickerProviderProps,
@@ -237,20 +235,20 @@ export const InitialSelectedDates: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
-        <Calendar />
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
       </>
     ),
     type: 'range',
@@ -276,20 +274,20 @@ export const DisabledDates: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
-        <Calendar />
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
       </>
     ),
     type: 'range',
@@ -320,20 +318,20 @@ export const NormalizedMultipleCalendarsHeight: Story = {
   args: {
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample iconSlot={<Calendar1 />} />
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar />
-        <Calendar />
-        <Calendar />
+        </DatePicker.Header>
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
       </>
     ),
     type: 'range',
@@ -346,20 +344,20 @@ export const CustomProviderStyling: Story = {
     className: 'font-mono',
     children: (
       <>
-        <Header>
+        <DatePicker.Header>
           <DateSelectExample>
-            <MonthLabel type='full' />
+            <DatePicker.Label type='full' />
           </DateSelectExample>
           <div className='flex gap-4'>
-            <Button type='previous'>
+            <DatePicker.Button type='previous'>
               <ChevronLeft className='text-label' />
-            </Button>
-            <Button type='next'>
+            </DatePicker.Button>
+            <DatePicker.Button type='next'>
               <ChevronRight className='text-label' />
-            </Button>
+            </DatePicker.Button>
           </div>
-        </Header>
-        <Calendar
+        </DatePicker.Header>
+        <DatePicker.Calendar
           footerSlot={({ currentDate }) => (
             <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
               <span className='flex items-center gap-1 capitalize'>

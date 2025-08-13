@@ -1,8 +1,6 @@
-﻿import { Meta } from '@storybook/react'
-import { DatePickerProvider } from '../src/components/DatePickerProvider'
-import { Header, Button, MonthLabel } from '../src/components/Header'
+import { Meta } from '@storybook/react'
+import { DatePicker } from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
-import { Calendar } from '../src/components/Calendar'
 import { useDateSelect } from '../src/hooks/useDateSelect'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays } from 'lucide-react'
 
@@ -58,7 +56,7 @@ export const MinimalistDesign = {
               </option>
             ))}
           </select>
-          <MonthLabel
+          <DatePicker.Label
             type='full'
             className='text-sm font-medium text-gray-700'
           />
@@ -70,43 +68,43 @@ export const MinimalistDesign = {
       <div className='min-h-screen bg-gray-50 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-lg border border-gray-200 bg-white p-6 shadow-sm'>
-            <DatePickerProvider
+            <DatePicker.Provider
               initialMonth={new Date('2025-06-15')}
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded border border-gray-300 bg-white text-gray-800 shadow-sm'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-2'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded border border-gray-300 bg-white px-3 py-2 text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-50'
                   >
                     <ChevronLeft size={16} />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded border border-gray-300 bg-white px-3 py-2 text-gray-600 transition-colors hover:border-gray-400 hover:bg-gray-50'
                   >
                     <ChevronRight size={16} />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='border border-gray-200 bg-white'
                   weekdayClassName='text-gray-600 font-medium text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
-                      <span>Clean • Simple</span>
+                      <span>Clean � Simple</span>
                       <span className='flex items-center gap-2'>
                         <span className='h-1 w-1 rounded-full bg-gray-400'></span>
                         <span>
                           Week{' '}
                           {Math.ceil((currentDate.date() + currentDate.startOf('month').day()) / 7)}{' '}
-                          • Q{Math.ceil((currentDate.month() + 1) / 3)}
+                          � Q{Math.ceil((currentDate.month() + 1) / 3)}
                         </span>
                       </span>
                     </div>
@@ -118,7 +116,7 @@ export const MinimalistDesign = {
                     weekend: 'text-gray-500',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='border border-l-0 border-gray-200 bg-white'
                   weekdayClassName='text-gray-600 font-medium text-xs'
                   footerSlot={({ currentDate }) => (
@@ -126,7 +124,7 @@ export const MinimalistDesign = {
                       <span>{currentDate.daysInMonth()} days in month</span>
                       <span className='flex items-center gap-2'>
                         <span>
-                          Q{Math.ceil((currentDate.month() + 1) / 3)} • {currentDate.format('dddd')}
+                          Q{Math.ceil((currentDate.month() + 1) / 3)} � {currentDate.format('dddd')}
                         </span>
                         <span className='h-1 w-1 rounded-full bg-gray-400'></span>
                       </span>
@@ -140,7 +138,7 @@ export const MinimalistDesign = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -157,7 +155,7 @@ export const GradientGlassStyle = {
       return (
         <div className='flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 px-6 py-3 backdrop-blur-md'>
           <div className='flex flex-col items-center gap-1'>
-            <MonthLabel
+            <DatePicker.Label
               type='full'
               className='text-lg font-bold text-white drop-shadow-lg'
             />
@@ -202,32 +200,32 @@ export const GradientGlassStyle = {
       <div className='min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl'>
-            <DatePickerProvider
+            <DatePicker.Provider
               type='range'
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded-2xl border border-white/20 bg-gradient-to-r from-white/10 to-white/5 text-white shadow-xl backdrop-blur-lg'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-3'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded-full border border-white/30 bg-white/20 px-4 py-2 text-white backdrop-blur-sm transition-all hover:bg-white/30'
                   >
                     <ChevronLeft size={18} />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded-full border border-white/30 bg-white/20 px-4 py-2 text-white backdrop-blur-sm transition-all hover:bg-white/30'
                   >
                     <ChevronRight size={18} />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
                   weekdayClassName='text-white/80 font-bold text-sm'
                   footerSlot={({ currentDate }) => (
@@ -236,12 +234,12 @@ export const GradientGlassStyle = {
                         <div className='flex items-center gap-3'>
                           <div className='flex h-2 w-2 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]'></div>
                           <span className='bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent'>
-                            Glass • Range
+                            Glass � Range
                           </span>
                         </div>
                         <div className='flex items-center gap-3'>
                           <span className='text-white/70'>
-                            {currentDate.format('ddd, MMM DD')} • Day {currentDate.date()}
+                            {currentDate.format('ddd, MMM DD')} � Day {currentDate.date()}
                           </span>
                           <div className='flex h-2 w-2 items-center justify-center rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.6)]'></div>
                         </div>
@@ -264,7 +262,7 @@ export const GradientGlassStyle = {
                       'bg-white/15 text-white backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-white/20',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
                   weekdayClassName='text-white/80 font-bold text-sm'
                   footerSlot={({ currentDate }) => (
@@ -272,7 +270,7 @@ export const GradientGlassStyle = {
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
                         <div className='flex items-center gap-3'>
                           <span className='text-white/70'>
-                            Q{Math.ceil((currentDate.month() + 1) / 3)} •{' '}
+                            Q{Math.ceil((currentDate.month() + 1) / 3)} �{' '}
                             {currentDate.daysInMonth()} days
                           </span>
                           <div className='flex h-2 w-2 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]'></div>
@@ -280,7 +278,7 @@ export const GradientGlassStyle = {
                         <div className='flex items-center gap-3'>
                           <div className='flex h-2 w-2 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 shadow-[0_0_8px_rgba(236,72,153,0.6)]'></div>
                           <span className='bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent'>
-                            Dreamy • UI
+                            Dreamy � UI
                           </span>
                         </div>
                       </div>
@@ -303,7 +301,7 @@ export const GradientGlassStyle = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -327,7 +325,7 @@ export const DarkTheme = {
             <div className='h-6 w-px bg-slate-600' />
           </div>
           <div className='flex flex-col items-center gap-1'>
-            <MonthLabel
+            <DatePicker.Label
               type='full'
               className='text-xl font-bold text-white drop-shadow-lg'
             />
@@ -372,32 +370,32 @@ export const DarkTheme = {
       <div className='min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-2xl backdrop-blur-sm'>
-            <DatePickerProvider
+            <DatePicker.Provider
               type='single'
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded-xl border border-slate-700 bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-xl'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-3'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-400 transition-all hover:bg-emerald-500/20 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]'
                   >
                     <ChevronLeft size={18} />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-400 transition-all hover:bg-emerald-500/20 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]'
                   >
                     <ChevronRight size={18} />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-xl border border-slate-700 bg-slate-800/30 p-4 backdrop-blur-sm'
                   weekdayClassName='text-emerald-300 font-semibold text-sm'
                   footerSlot={({ currentDate }) => (
@@ -405,11 +403,11 @@ export const DarkTheme = {
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
                         <div className='flex items-center gap-3'>
                           <div className='h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'></div>
-                          <span className='text-emerald-300'>Dark • Modern</span>
+                          <span className='text-emerald-300'>Dark � Modern</span>
                         </div>
                         <div className='flex items-center gap-3'>
                           <span className='text-slate-400'>
-                            {currentDate.format('ddd, MMM DD')} • Day {currentDate.date()}
+                            {currentDate.format('ddd, MMM DD')} � Day {currentDate.date()}
                           </span>
                           <div className='h-2 w-2 rounded-full bg-slate-500'></div>
                         </div>
@@ -427,7 +425,7 @@ export const DarkTheme = {
                     differentMonth: 'text-slate-500',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-xl border border-l-0 border-slate-700 bg-slate-800/30 p-4 backdrop-blur-sm'
                   weekdayClassName='text-emerald-300 font-semibold text-sm'
                   footerSlot={({ currentDate }) => (
@@ -435,14 +433,14 @@ export const DarkTheme = {
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
                         <div className='flex items-center gap-3'>
                           <span className='text-slate-400'>
-                            Q{Math.ceil((currentDate.month() + 1) / 3)} •{' '}
+                            Q{Math.ceil((currentDate.month() + 1) / 3)} �{' '}
                             {currentDate.daysInMonth()} days
                           </span>
                           <div className='h-2 w-2 rounded-full bg-slate-500'></div>
                         </div>
                         <div className='flex items-center gap-3'>
                           <div className='h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'></div>
-                          <span className='text-emerald-300'>Elegant • UI</span>
+                          <span className='text-emerald-300'>Elegant � UI</span>
                         </div>
                       </div>
                     </div>
@@ -459,7 +457,7 @@ export const DarkTheme = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -500,7 +498,7 @@ export const DarkCyberpunkTheme = {
             </select>
           </div>
           <div className='flex flex-col items-center'>
-            <MonthLabel
+            <DatePicker.Label
               type='full'
               className='font-mono text-lg font-bold tracking-wider text-cyan-400'
             />
@@ -530,7 +528,7 @@ export const DarkCyberpunkTheme = {
       <div className='min-h-screen bg-black p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-lg border border-cyan-400/30 bg-gray-900/90 p-6 shadow-[0_0_30px_rgba(34,211,238,0.2)]'>
-            <DatePickerProvider
+            <DatePicker.Provider
               initialMonth={new Date('2025-12-25')}
               normalizeHeight={true}
               disabledDates={{
@@ -538,28 +536,28 @@ export const DarkCyberpunkTheme = {
                 every: 'weekend', // Weekends are system downtime
               }}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded border border-cyan-400/50 bg-black/80 text-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.3)]'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-3'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded border border-cyan-400/50 bg-cyan-400/10 px-3 py-2 text-cyan-400 transition-all hover:bg-cyan-400/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)]'
                   >
                     <ChevronLeft size={16} />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded border border-cyan-400/50 bg-cyan-400/10 px-3 py-2 text-cyan-400 transition-all hover:bg-cyan-400/20 hover:shadow-[0_0_15px_rgba(34,211,238,0.5)]'
                   >
                     <ChevronRight size={16} />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='border border-cyan-400/30 bg-gray-900/50'
                   weekdayClassName='text-cyan-300 font-mono font-bold text-xs'
                   footerSlot={({ currentDate }) => (
@@ -591,7 +589,7 @@ export const DarkCyberpunkTheme = {
                       'bg-red-900/30 text-red-400 border-red-500/30 cursor-not-allowed shadow-[0_0_8px_rgba(239,68,68,0.3)] relative after:content-["X"] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:text-red-300 after:font-bold after:animate-pulse',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='border border-l-0 border-cyan-400/30 bg-gray-900/50'
                   weekdayClassName='text-cyan-300 font-mono font-bold text-xs'
                   footerSlot={({ currentDate }) => (
@@ -629,7 +627,7 @@ export const DarkCyberpunkTheme = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
 
           <div className='rounded-lg border border-cyan-400/30 bg-gray-900/90 p-6 shadow-[0_0_30px_rgba(34,211,238,0.2)]'>
@@ -667,10 +665,10 @@ export const DarkCyberpunkTheme = {
                   <div className='h-px flex-1 bg-gradient-to-r from-cyan-400/50 to-transparent'></div>
                 </div>
                 <div className='text-xs text-cyan-100/80'>
-                  <div>• System maintenance on specified dates</div>
-                  <div>• Weekend access restricted</div>
-                  <div>• X marks indicate blocked access</div>
-                  <div>• Red glow indicates security lockdown</div>
+                  <div>� System maintenance on specified dates</div>
+                  <div>� Weekend access restricted</div>
+                  <div>� X marks indicate blocked access</div>
+                  <div>� Red glow indicates security lockdown</div>
                 </div>
               </div>
             </div>
@@ -721,7 +719,7 @@ export const NeumorphismStyle = {
               ))}
             </select>
           </div>
-          <MonthLabel
+          <DatePicker.Label
             type='full'
             className='text-sm font-semibold text-gray-700'
           />
@@ -733,32 +731,32 @@ export const NeumorphismStyle = {
       <div className='min-h-screen bg-gray-200 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-3xl bg-gray-200 p-8 shadow-[20px_20px_40px_rgba(0,0,0,0.1),-20px_-20px_40px_rgba(255,255,255,1)]'>
-            <DatePickerProvider
+            <DatePicker.Provider
               initialMonth={new Date('2025-03-20')}
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded-2xl bg-gray-200 text-gray-700 shadow-[inset_-5px_-5px_10px_rgba(255,255,255,1),inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-3'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded-full bg-gray-200 px-4 py-2 text-gray-700 shadow-[4px_4px_8px_rgba(0,0,0,0.1),-4px_-4px_8px_rgba(255,255,255,1)] transition-all hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.15)]'
                   >
                     <ChevronLeft size={18} />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded-full bg-gray-200 px-4 py-2 text-gray-700 shadow-[4px_4px_8px_rgba(0,0,0,0.1),-4px_-4px_8px_rgba(255,255,255,1)] transition-all hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.15)]'
                   >
                     <ChevronRight size={18} />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-2xl bg-gray-200 p-4 shadow-[inset_-8px_-8px_15px_rgba(255,255,255,1),inset_8px_8px_15px_rgba(0,0,0,0.1)]'
                   weekdayClassName='text-gray-600 font-semibold'
                   footerSlot={({ currentDate }) => (
@@ -770,7 +768,7 @@ export const NeumorphismStyle = {
                         </div>
                         <div className='h-3 w-px bg-gray-400 shadow-[inset_1px_0px_1px_rgba(0,0,0,0.1)]'></div>
                         <span>
-                          {currentDate.format('MMM YYYY')} • Q
+                          {currentDate.format('MMM YYYY')} � Q
                           {Math.ceil((currentDate.month() + 1) / 3)}
                         </span>
                         <div className='h-3 w-px bg-gray-400 shadow-[inset_1px_0px_1px_rgba(0,0,0,0.1)]'></div>
@@ -790,7 +788,7 @@ export const NeumorphismStyle = {
                     weekend: 'text-red-500 font-medium',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='rounded-2xl bg-gray-200 p-4 shadow-[inset_-8px_-8px_15px_rgba(255,255,255,1),inset_8px_8px_15px_rgba(0,0,0,0.1)]'
                   weekdayClassName='text-gray-600 font-semibold'
                   footerSlot={({ currentDate }) => (
@@ -820,7 +818,7 @@ export const NeumorphismStyle = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -841,7 +839,7 @@ export const RetroVintageStyle = {
             className='text-amber-700'
           />
           <div className='flex flex-col items-center'>
-            <MonthLabel
+            <DatePicker.Label
               type='full'
               className='font-serif text-xl font-bold text-amber-800'
             />
@@ -890,17 +888,17 @@ export const RetroVintageStyle = {
       <div className='min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-2xl border-4 border-amber-600 bg-gradient-to-b from-amber-100 to-orange-200 p-8 shadow-2xl'>
-            <DatePickerProvider
+            <DatePicker.Provider
               initialMonth={new Date('2025-07-04')}
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='rounded-lg border-2 border-amber-600 bg-gradient-to-r from-amber-200 to-orange-300 text-amber-900 shadow-lg'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-4'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer rounded-full border-2 border-amber-600 bg-amber-300 px-4 py-3 text-amber-800 shadow-lg transition-all hover:bg-amber-400 active:translate-y-px active:shadow-md'
                   >
@@ -908,8 +906,8 @@ export const RetroVintageStyle = {
                       size={20}
                       strokeWidth={3}
                     />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer rounded-full border-2 border-amber-600 bg-amber-300 px-4 py-3 text-amber-800 shadow-lg transition-all hover:bg-amber-400 active:translate-y-px active:shadow-md'
                   >
@@ -917,11 +915,11 @@ export const RetroVintageStyle = {
                       size={20}
                       strokeWidth={3}
                     />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='border-2 border-amber-600 bg-gradient-to-b from-amber-50 to-amber-100 p-4'
                   weekdayClassName='text-amber-700 font-serif font-bold'
                   footerSlot={({ currentDate }) => (
@@ -947,7 +945,7 @@ export const RetroVintageStyle = {
                     weekend: 'text-red-700 font-bold',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='border-2 border-l-0 border-amber-600 bg-gradient-to-b from-amber-50 to-amber-100 p-4'
                   weekdayClassName='text-amber-700 font-serif font-bold'
                   footerSlot={() => (
@@ -974,7 +972,7 @@ export const RetroVintageStyle = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -1010,7 +1008,7 @@ export const ModernBrutalistStyle = {
               </select>
             </div>
             <div className='flex flex-col items-center border-4 border-black bg-white px-6 py-3'>
-              <MonthLabel
+              <DatePicker.Label
                 type='full'
                 className='font-mono text-2xl font-black tracking-wider text-black uppercase'
               />
@@ -1045,17 +1043,17 @@ export const ModernBrutalistStyle = {
             className='border-8 border-black bg-white p-8'
             style={{ boxShadow: '12px 12px 0px 0px black' }}
           >
-            <DatePickerProvider
+            <DatePicker.Provider
               initialMonth={new Date('2025-01-01')}
               normalizeHeight={true}
             >
-              <Header
+              <DatePicker.Header
                 className='border-4 border-black bg-red-500 text-black'
                 calendarGridClassName='gap-x-0'
               >
                 <CustomDateSelect />
                 <div className='flex gap-4'>
-                  <Button
+                  <DatePicker.Button
                     type='previous'
                     className='cursor-pointer border-4 border-black bg-blue-400 px-4 py-2 text-black transition-all hover:bg-blue-300 active:translate-x-1 active:translate-y-1 active:shadow-none'
                     style={{ boxShadow: '4px 4px 0px 0px black' }}
@@ -1064,8 +1062,8 @@ export const ModernBrutalistStyle = {
                       size={20}
                       strokeWidth={4}
                     />
-                  </Button>
-                  <Button
+                  </DatePicker.Button>
+                  <DatePicker.Button
                     type='next'
                     className='cursor-pointer border-4 border-black bg-blue-400 px-4 py-2 text-black transition-all hover:bg-blue-300 active:translate-x-1 active:translate-y-1 active:shadow-none'
                     style={{ boxShadow: '4px 4px 0px 0px black' }}
@@ -1074,11 +1072,11 @@ export const ModernBrutalistStyle = {
                       size={20}
                       strokeWidth={4}
                     />
-                  </Button>
+                  </DatePicker.Button>
                 </div>
-              </Header>
+              </DatePicker.Header>
               <div className='flex gap-0'>
-                <Calendar
+                <DatePicker.Calendar
                   className='border-4 border-black bg-white'
                   weekdayClassName='text-black font-mono font-black text-sm'
                   footerSlot={({ currentDate }) => (
@@ -1109,7 +1107,7 @@ export const ModernBrutalistStyle = {
                     weekend: 'bg-red-200 font-black',
                   }}
                 />
-                <Calendar
+                <DatePicker.Calendar
                   className='border-4 border-l-0 border-black bg-white'
                   weekdayClassName='text-black font-mono font-black text-sm'
                   footerSlot={({ currentDate }) => (
@@ -1125,7 +1123,7 @@ export const ModernBrutalistStyle = {
                             {Math.ceil(
                               (currentDate.date() + currentDate.startOf('month').day()) / 7
                             )}{' '}
-                            • {currentDate.format('dddd').toUpperCase()}
+                            � {currentDate.format('dddd').toUpperCase()}
                           </span>
                         </div>
                         <div className='flex items-center gap-2'>
@@ -1145,7 +1143,7 @@ export const ModernBrutalistStyle = {
                   }}
                 />
               </div>
-            </DatePickerProvider>
+            </DatePicker.Provider>
           </div>
         </div>
       </div>
@@ -1158,11 +1156,11 @@ export const MobileResponsiveTheme = {
     <div className='min-h-screen bg-gray-50 p-3 sm:p-8'>
       <div className='mx-auto max-w-sm space-y-6 sm:max-w-lg'>
         <div className='rounded-2xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <DatePickerProvider
+          <DatePicker.Provider
             type='single'
             normalizeHeight={true}
           >
-            <Header
+            <DatePicker.Header
               className='mb-6 rounded-xl bg-gray-900 p-4 text-white shadow-sm'
               calendarGridClassName='gap-x-0'
             >
@@ -1190,31 +1188,31 @@ export const MobileResponsiveTheme = {
                   className: 'bg-white border-gray-300 text-gray-700 rounded-xl shadow-lg',
                 }}
               >
-                <MonthLabel
+                <DatePicker.Label
                   type='short'
                   className='font-medium text-gray-700 sm:hidden'
                 />
-                <MonthLabel
+                <DatePicker.Label
                   type='full'
                   className='hidden font-medium text-gray-700 sm:block'
                 />
               </DateSelectExample>
               <div className='flex gap-3'>
-                <Button
+                <DatePicker.Button
                   type='previous'
                   className='cursor-pointer rounded-lg bg-gray-700 p-3 text-gray-200 transition-colors duration-200 hover:bg-gray-600'
                 >
                   <ChevronLeft className='h-5 w-5 stroke-2' />
-                </Button>
-                <Button
+                </DatePicker.Button>
+                <DatePicker.Button
                   type='next'
                   className='cursor-pointer rounded-lg bg-gray-700 p-3 text-gray-200 transition-colors duration-200 hover:bg-gray-600'
                 >
                   <ChevronRight className='h-5 w-5 stroke-2' />
-                </Button>
+                </DatePicker.Button>
               </div>
-            </Header>
-            <Calendar
+            </DatePicker.Header>
+            <DatePicker.Calendar
               className='rounded-xl bg-white'
               weekdayClassName='text-gray-600 font-medium text-sm text-center py-3'
               footerSlot={({ currentDate }) => (
@@ -1246,7 +1244,7 @@ export const MobileResponsiveTheme = {
                 differentMonth: 'text-gray-300 opacity-50',
               }}
             />
-          </DatePickerProvider>
+          </DatePicker.Provider>
         </div>
       </div>
     </div>
@@ -1258,8 +1256,8 @@ export const PurpleGradientTheme = {
     <div className='min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-indigo-100 p-8'>
       <div className='mx-auto max-w-4xl space-y-8'>
         <div className='rounded-2xl bg-white p-6 shadow-xl'>
-          <DatePickerProvider normalizeHeight={true}>
-            <Header
+          <DatePicker.Provider normalizeHeight={true}>
+            <DatePicker.Header
               className='border-2 border-purple-400 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl'
               calendarGridClassName='gap-x-0'
             >
@@ -1287,13 +1285,13 @@ export const PurpleGradientTheme = {
                   className: 'bg-white border-purple-400 text-purple-800 rounded-lg shadow-2xl',
                 }}
               >
-                <MonthLabel
+                <DatePicker.Label
                   type='full'
                   className='bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-300 bg-clip-text text-lg font-extrabold tracking-wide text-transparent drop-shadow-sm'
                 />
               </DateSelectExample>
               <div className='flex gap-4'>
-                <Button
+                <DatePicker.Button
                   type='previous'
                   className='hover:bg-opacity-30 border-opacity-50 bg-opacity-10 cursor-pointer rounded-full border-2 border-white bg-white px-4 py-2 text-white shadow-lg transition-all duration-150 ease-out hover:bg-white hover:shadow-xl'
                 >
@@ -1301,8 +1299,8 @@ export const PurpleGradientTheme = {
                     className='text-purple-600'
                     strokeWidth={3}
                   />
-                </Button>
-                <Button
+                </DatePicker.Button>
+                <DatePicker.Button
                   type='next'
                   className='hover:bg-opacity-30 border-opacity-50 bg-opacity-10 cursor-pointer rounded-full border-2 border-white bg-white px-4 py-2 text-white shadow-lg transition-all duration-150 ease-out hover:bg-white hover:shadow-xl'
                 >
@@ -1310,11 +1308,11 @@ export const PurpleGradientTheme = {
                     className='text-purple-600'
                     strokeWidth={3}
                   />
-                </Button>
+                </DatePicker.Button>
               </div>
-            </Header>
+            </DatePicker.Header>
             <div className='flex gap-0'>
-              <Calendar
+              <DatePicker.Calendar
                 className='bg-purple-100 p-4'
                 weekdayClassName='text-purple-700 font-semibold'
                 footerSlot={({ currentDate }) => (
@@ -1344,7 +1342,7 @@ export const PurpleGradientTheme = {
                   weekend: 'text-purple-700 font-semibold',
                 }}
               />
-              <Calendar
+              <DatePicker.Calendar
                 className='bg-purple-100 p-4'
                 weekdayClassName='text-purple-700 font-semibold'
                 footerSlot={({ currentDate }) => (
@@ -1375,7 +1373,7 @@ export const PurpleGradientTheme = {
                 }}
               />
             </div>
-          </DatePickerProvider>
+          </DatePicker.Provider>
         </div>
       </div>
     </div>
@@ -1387,11 +1385,11 @@ export const MaterialDesignTheme = {
     <div className='min-h-screen bg-blue-50 p-8'>
       <div className='mx-auto max-w-4xl space-y-8'>
         <div className='rounded-3xl border border-blue-100 bg-white p-8 shadow-2xl'>
-          <DatePickerProvider
+          <DatePicker.Provider
             type='range'
             normalizeHeight={true}
           >
-            <Header
+            <DatePicker.Header
               className='rounded-2xl bg-blue-500 text-white shadow-2xl'
               calendarGridClassName='gap-x-0'
             >
@@ -1419,13 +1417,13 @@ export const MaterialDesignTheme = {
                   className: 'bg-white border-blue-200 text-blue-700 rounded-xl shadow-2xl',
                 }}
               >
-                <MonthLabel
+                <DatePicker.Label
                   type='full'
                   className='font-semibold tracking-wide text-blue-600 drop-shadow-lg'
                 />
               </DateSelectExample>
               <div className='flex gap-4'>
-                <Button
+                <DatePicker.Button
                   type='previous'
                   className='cursor-pointer rounded-full bg-white/20 px-4 py-4 text-white shadow-xl transition-all duration-200 ease-out hover:bg-white/30 hover:shadow-2xl'
                 >
@@ -1434,8 +1432,8 @@ export const MaterialDesignTheme = {
                     strokeWidth={3}
                     className='text-white'
                   />
-                </Button>
-                <Button
+                </DatePicker.Button>
+                <DatePicker.Button
                   type='next'
                   className='cursor-pointer rounded-full bg-white/20 px-4 py-4 text-white shadow-xl transition-all duration-200 ease-out hover:bg-white/30 hover:shadow-2xl'
                 >
@@ -1444,11 +1442,11 @@ export const MaterialDesignTheme = {
                     strokeWidth={3}
                     className='text-white'
                   />
-                </Button>
+                </DatePicker.Button>
               </div>
-            </Header>
+            </DatePicker.Header>
             <div className='flex gap-0'>
-              <Calendar
+              <DatePicker.Calendar
                 className='rounded-2xl border border-blue-100 bg-white p-6 shadow-xl'
                 weekdayClassName='text-blue-600 font-bold tracking-widest text-sm'
                 footerSlot={({ currentDate }) => (
@@ -1487,7 +1485,7 @@ export const MaterialDesignTheme = {
                   weekend: 'text-gray-500 font-bold',
                 }}
               />
-              <Calendar
+              <DatePicker.Calendar
                 className='rounded-2xl border border-l-0 border-blue-100 bg-white p-6 shadow-xl'
                 weekdayClassName='text-blue-600 font-bold tracking-widest text-sm'
                 footerSlot={({ currentDate }) => (
@@ -1520,7 +1518,7 @@ export const MaterialDesignTheme = {
                 }}
               />
             </div>
-          </DatePickerProvider>
+          </DatePicker.Provider>
         </div>
       </div>
     </div>
