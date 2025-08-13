@@ -98,13 +98,13 @@ export const MinimalistDesign = {
                   weekdayClassName='text-gray-600 font-medium text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
-                      <span>Clean � Simple</span>
+                      <span>Clean • Simple</span>
                       <span className='flex items-center gap-2'>
                         <span className='h-1 w-1 rounded-full bg-gray-400'></span>
                         <span>
                           Week{' '}
                           {Math.ceil((currentDate.date() + currentDate.startOf('month').day()) / 7)}{' '}
-                          � Q{Math.ceil((currentDate.month() + 1) / 3)}
+                          • Q{Math.ceil((currentDate.month() + 1) / 3)}
                         </span>
                       </span>
                     </div>
@@ -124,7 +124,7 @@ export const MinimalistDesign = {
                       <span>{currentDate.daysInMonth()} days in month</span>
                       <span className='flex items-center gap-2'>
                         <span>
-                          Q{Math.ceil((currentDate.month() + 1) / 3)} � {currentDate.format('dddd')}
+                          Q{Math.ceil((currentDate.month() + 1) / 3)} • {currentDate.format('dddd')}
                         </span>
                         <span className='h-1 w-1 rounded-full bg-gray-400'></span>
                       </span>
@@ -234,12 +234,12 @@ export const GradientGlassStyle = {
                         <div className='flex items-center gap-3'>
                           <div className='flex h-2 w-2 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]'></div>
                           <span className='bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent'>
-                            Glass � Range
+                            Glass • Range
                           </span>
                         </div>
                         <div className='flex items-center gap-3'>
                           <span className='text-white/70'>
-                            {currentDate.format('ddd, MMM DD')} � Day {currentDate.date()}
+                            {currentDate.format('ddd, MMM DD')} • Day {currentDate.date()}
                           </span>
                           <div className='flex h-2 w-2 items-center justify-center rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 shadow-[0_0_8px_rgba(59,130,246,0.6)]'></div>
                         </div>
@@ -270,7 +270,7 @@ export const GradientGlassStyle = {
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
                         <div className='flex items-center gap-3'>
                           <span className='text-white/70'>
-                            Q{Math.ceil((currentDate.month() + 1) / 3)} �{' '}
+                            Q{Math.ceil((currentDate.month() + 1) / 3)} •{' '}
                             {currentDate.daysInMonth()} days
                           </span>
                           <div className='flex h-2 w-2 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]'></div>
@@ -278,7 +278,7 @@ export const GradientGlassStyle = {
                         <div className='flex items-center gap-3'>
                           <div className='flex h-2 w-2 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 shadow-[0_0_8px_rgba(236,72,153,0.6)]'></div>
                           <span className='bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent'>
-                            Dreamy � UI
+                            Dreamy • UI
                           </span>
                         </div>
                       </div>
@@ -403,11 +403,11 @@ export const DarkTheme = {
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
                         <div className='flex items-center gap-3'>
                           <div className='h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'></div>
-                          <span className='text-emerald-300'>Dark � Modern</span>
+                          <span className='text-emerald-300'>Dark • Modern</span>
                         </div>
                         <div className='flex items-center gap-3'>
                           <span className='text-slate-400'>
-                            {currentDate.format('ddd, MMM DD')} � Day {currentDate.date()}
+                            {currentDate.format('ddd, MMM DD')} • Day {currentDate.date()}
                           </span>
                           <div className='h-2 w-2 rounded-full bg-slate-500'></div>
                         </div>
@@ -433,14 +433,14 @@ export const DarkTheme = {
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
                         <div className='flex items-center gap-3'>
                           <span className='text-slate-400'>
-                            Q{Math.ceil((currentDate.month() + 1) / 3)} �{' '}
+                            Q{Math.ceil((currentDate.month() + 1) / 3)} •{' '}
                             {currentDate.daysInMonth()} days
                           </span>
                           <div className='h-2 w-2 rounded-full bg-slate-500'></div>
                         </div>
                         <div className='flex items-center gap-3'>
                           <div className='h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'></div>
-                          <span className='text-emerald-300'>Elegant � UI</span>
+                          <span className='text-emerald-300'>Elegant • UI</span>
                         </div>
                       </div>
                     </div>
@@ -665,10 +665,10 @@ export const DarkCyberpunkTheme = {
                   <div className='h-px flex-1 bg-gradient-to-r from-cyan-400/50 to-transparent'></div>
                 </div>
                 <div className='text-xs text-cyan-100/80'>
-                  <div>� System maintenance on specified dates</div>
-                  <div>� Weekend access restricted</div>
-                  <div>� X marks indicate blocked access</div>
-                  <div>� Red glow indicates security lockdown</div>
+                  <div>• System maintenance on specified dates</div>
+                  <div>• Weekend access restricted</div>
+                  <div>• X marks indicate blocked access</div>
+                  <div>• Red glow indicates security lockdown</div>
                 </div>
               </div>
             </div>
@@ -768,7 +768,7 @@ export const NeumorphismStyle = {
                         </div>
                         <div className='h-3 w-px bg-gray-400 shadow-[inset_1px_0px_1px_rgba(0,0,0,0.1)]'></div>
                         <span>
-                          {currentDate.format('MMM YYYY')} � Q
+                          {currentDate.format('MMM YYYY')} • Q
                           {Math.ceil((currentDate.month() + 1) / 3)}
                         </span>
                         <div className='h-3 w-px bg-gray-400 shadow-[inset_1px_0px_1px_rgba(0,0,0,0.1)]'></div>
@@ -1123,7 +1123,7 @@ export const ModernBrutalistStyle = {
                             {Math.ceil(
                               (currentDate.date() + currentDate.startOf('month').day()) / 7
                             )}{' '}
-                            � {currentDate.format('dddd').toUpperCase()}
+                            • {currentDate.format('dddd').toUpperCase()}
                           </span>
                         </div>
                         <div className='flex items-center gap-2'>
