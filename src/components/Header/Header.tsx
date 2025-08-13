@@ -8,6 +8,7 @@ export function Header({
   groupingMode,
   className,
   calendarGridClassName,
+  childrenClassName,
   ...props
 }: HeaderProps) {
   const { refDate, calendarRefs, handleSetHeaderRef, handleSetGroupingMode } = useDatePicker()
@@ -34,7 +35,12 @@ export function Header({
       className={className || 'rounded-lg bg-white shadow-md'}
     >
       {children && (
-        <div className='text-label flex w-full items-center justify-between gap-8 p-4 text-sm font-bold'>
+        <div
+          className={
+            childrenClassName ||
+            'text-label flex w-full items-center justify-between gap-8 p-4 text-sm font-bold'
+          }
+        >
           {children}
         </div>
       )}

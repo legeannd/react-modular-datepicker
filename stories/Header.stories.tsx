@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Button, Header, MonthLabel } from '../src/components/Header'
+import { DatePicker } from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
-import { DatePickerProvider } from '../src/components/DatePickerProvider'
-import { Calendar } from '../src/components/Calendar'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 
 const meta = {
   title: 'Components/Header',
-  component: Header,
+  component: DatePicker.Header,
   parameters: {
     layout: 'centered',
     docs: {
@@ -53,15 +51,23 @@ const meta = {
         defaultValue: { summary: 'undefined' },
       },
     },
+    childrenClassName: {
+      description: 'CSS classes for styling the header container',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
   },
   decorators: [
     (Story) => (
-      <DatePickerProvider normalizeHeight={true}>
+      <DatePicker.Provider normalizeHeight={true}>
         <Story />
-      </DatePickerProvider>
+      </DatePicker.Provider>
     ),
   ],
-} satisfies Meta<typeof Header>
+} satisfies Meta<typeof DatePicker.Header>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -72,12 +78,12 @@ export const Default: Story = {
       <>
         <DateSelectExample iconSlot={<Calendar1 />} />
         <div className='flex gap-4'>
-          <Button type='previous'>
+          <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
-          </Button>
-          <Button type='next'>
+          </DatePicker.Button>
+          <DatePicker.Button type='next'>
             <ChevronRight className='text-label' />
-          </Button>
+          </DatePicker.Button>
         </div>
       </>
     ),
@@ -89,15 +95,15 @@ export const WithGroupOfCalendars: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<CalendarDays />}>
-          <MonthLabel type='full' />
+          <DatePicker.Label type='full' />
         </DateSelectExample>
         <div className='flex gap-4'>
-          <Button type='previous'>
+          <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
-          </Button>
-          <Button type='next'>
+          </DatePicker.Button>
+          <DatePicker.Button type='next'>
             <ChevronRight className='text-label' />
-          </Button>
+          </DatePicker.Button>
         </div>
       </>
     ),
@@ -106,9 +112,9 @@ export const WithGroupOfCalendars: Story = {
     (Story) => (
       <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
         <Story />
-        <Calendar />
-        <Calendar />
-        <Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
       </div>
     ),
   ],
@@ -124,12 +130,12 @@ export const CustomDateSelectRange: Story = {
           yearRangeStartOffset={20}
         />
         <div className='flex gap-4'>
-          <Button type='previous'>
+          <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
-          </Button>
-          <Button type='next'>
+          </DatePicker.Button>
+          <DatePicker.Button type='next'>
             <ChevronRight className='text-label' />
-          </Button>
+          </DatePicker.Button>
         </div>
       </>
     ),
@@ -138,9 +144,9 @@ export const CustomDateSelectRange: Story = {
     (Story) => (
       <div className='flex items-start gap-4 rounded-xl bg-red-100 p-8'>
         <Story />
-        <Calendar />
-        <Calendar />
-        <Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar />
       </div>
     ),
   ],
@@ -152,15 +158,15 @@ export const WithGroupingDisabled: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<Calendar1 />}>
-          <MonthLabel type='full' />
+          <DatePicker.Label type='full' />
         </DateSelectExample>
         <div className='flex gap-4'>
-          <Button type='previous'>
+          <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
-          </Button>
-          <Button type='next'>
+          </DatePicker.Button>
+          <DatePicker.Button type='next'>
             <ChevronRight className='text-label' />
-          </Button>
+          </DatePicker.Button>
         </div>
       </>
     ),
@@ -172,10 +178,10 @@ export const WithGroupingDisabled: Story = {
           <Story />
         </div>
         <div className='grid grid-cols-2 gap-4'>
-          <Calendar />
-          <Calendar />
-          <Calendar />
-          <Calendar />
+          <DatePicker.Calendar />
+          <DatePicker.Calendar />
+          <DatePicker.Calendar />
+          <DatePicker.Calendar />
         </div>
       </div>
     ),
@@ -188,15 +194,15 @@ export const WithPartialGrouping: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<CalendarDays />}>
-          <MonthLabel type='full' />
+          <DatePicker.Label type='full' />
         </DateSelectExample>
         <div className='flex gap-4'>
-          <Button type='previous'>
+          <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
-          </Button>
-          <Button type='next'>
+          </DatePicker.Button>
+          <DatePicker.Button type='next'>
             <ChevronRight className='text-label' />
-          </Button>
+          </DatePicker.Button>
         </div>
       </>
     ),
@@ -204,11 +210,11 @@ export const WithPartialGrouping: Story = {
   decorators: [
     (Story) => (
       <div className='flex w-full items-start gap-4 rounded-xl bg-red-100 p-8'>
-        <Calendar />
-        <Calendar id='second' />
+        <DatePicker.Calendar />
+        <DatePicker.Calendar id='second' />
         <Story />
-        <Calendar id='third' />
-        <Calendar />
+        <DatePicker.Calendar id='third' />
+        <DatePicker.Calendar />
       </div>
     ),
   ],

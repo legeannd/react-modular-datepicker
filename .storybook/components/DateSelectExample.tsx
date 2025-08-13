@@ -13,7 +13,7 @@ import { cn } from '../../src/lib/utils'
 import { ComponentProps } from 'react'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { MonthLabel } from '../../src/components/Header/MonthLabel'
+import { Label } from '../../src/components/Header/Label'
 
 interface DateSelectExampleProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Child components like MonthLabel to display inside the date selector */
@@ -88,7 +88,7 @@ export function DateSelectExample({
               popoverTriggerProps?.className
             )}
           >
-            {children ?? <MonthLabel />}
+            {children ?? <Label />}
           </PopoverTrigger>
           <PopoverContent
             {...popoverContentProps}

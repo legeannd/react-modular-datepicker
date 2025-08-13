@@ -1,8 +1,8 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
-import { MonthLabelProps } from '@/types'
+import { LabelProps } from '@/types'
 import { useEffect, useState } from 'react'
 
-export function MonthLabel({ type = 'short', className, ...props }: MonthLabelProps) {
+export function Label({ type = 'short', className, ...props }: LabelProps) {
   const { calendarRefs, refDate, dayjs } = useDatePicker()
 
   const getMonths = () => {
