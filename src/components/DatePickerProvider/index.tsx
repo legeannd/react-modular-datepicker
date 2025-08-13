@@ -70,7 +70,8 @@ export function DatePickerProvider({
       case 'single': {
         const day = dayjs(selectedData?.days?.[0])
         if (day.isValid()) {
-          handleDateSelect({ day: { date: day.toISOString(), label: day.date() } })
+          const selected = { day: { date: day.toISOString(), label: day.date() } }
+          setSelected({ type, selection: selected })
         }
         break
       }
@@ -157,9 +158,9 @@ export function DatePickerProvider({
       case 'multiple': {
         const currentSelection = Array.isArray(selected.selection) ? selected.selection : []
         const filteredSelection = currentSelection.filter(
-          (selected) => selected.day.date !== day.day.date
+          (selectedItem) => selectedItem.day.date !== day.day.date
         )
-        if (currentSelection.some((selected) => selected.day.date === day.day.date)) {
+        if (currentSelection.some((selectedItem) => selectedItem.day.date === day.day.date)) {
           setSelected({
             type,
             selection: [...filteredSelection],

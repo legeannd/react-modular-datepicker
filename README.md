@@ -7,7 +7,7 @@ function App() {
   return (
     <DatePicker.Provider>
       <DatePicker.Header>
-        <DatePicker.Button type='prev'>←</DatePicker.Button>
+        <DatePicker.Button type='previous'>←</DatePicker.Button>
         <DatePicker.Label />
         <DatePicker.Button type='next'>→</DatePicker.Button>
       </DatePicker.Header>
@@ -29,6 +29,71 @@ A modern, customizable datepicker component library for React applications. Buil
 - 🎪 **Storybook Documentation** - Interactive component playground
 - 📦 **Optimized Bundle** - Tree-shakable with minimal dependencies
 - ⚡ **TypeScript First** - Full type safety and IntelliSense support
+- 🚀 **React Compiler Optimized** - Built with React's new compiler for optimal performance
+
+## Requirements
+
+This library is built using React's new compiler for optimal performance and requires the React Compiler to be configured in your project.
+
+### React Compiler Setup
+
+Install the React Compiler:
+
+```bash
+npm install babel-plugin-react-compiler
+# or
+pnpm add babel-plugin-react-compiler
+# or
+yarn add babel-plugin-react-compiler
+```
+
+Configure your build tool:
+
+**For Vite:**
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+const ReactCompilerConfig = {
+  target: '19',
+}
+
+export default defineConfig({
+  plugins: [
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
+      },
+    }),
+  ],
+})
+```
+
+**For Next.js:**
+
+```js
+// next.config.js
+const nextConfig = {
+  experimental: {
+    reactCompiler: {
+      target: '19',
+    },
+  },
+}
+
+module.exports = nextConfig
+```
+
+**For Create React App:**
+
+```js
+// babel.config.js
+module.exports = {
+  plugins: [['babel-plugin-react-compiler', { target: '19' }]],
+}
+```
 
 ## Installation
 
@@ -67,7 +132,7 @@ function App() {
   return (
     <DatePicker.Provider>
       <DatePicker.Header>
-        <DatePicker.Button type='prev'>←</DatePicker.Button>
+        <DatePicker.Button type='previous'>←</DatePicker.Button>
         <DatePicker.Label />
         <DatePicker.Button type='next'>→</DatePicker.Button>
       </DatePicker.Header>
@@ -157,7 +222,7 @@ A flexible container for navigation controls.
 
 ```tsx
 <DatePicker.Header groupingMode='all'>
-  <DatePicker.Button type='prev'>Previous</DatePicker.Button>
+  <DatePicker.Button type='previous'>Previous</DatePicker.Button>
   <DatePicker.Label />
   <DatePicker.Button type='next'>Next</DatePicker.Button>
 </DatePicker.Header>
@@ -168,7 +233,7 @@ A flexible container for navigation controls.
 Navigation buttons for month/year changes.
 
 ```tsx
-<DatePicker.Button type="prev" className="custom-button">
+<DatePicker.Button type="previous" className="custom-button">
   ← Previous
 </DatePicker.Button>
 <DatePicker.Button type="next" className="custom-button">
@@ -253,13 +318,27 @@ Works with styled-components, emotion, CSS modules, or any styling solution.
 
 ### Localization
 
+The library uses Day.js for date formatting and localization. You can provide a custom Day.js instance with your desired locale:
+
 ```tsx
 import dayjs from 'dayjs'
-import 'dayjs/locale/es'
-;<DatePicker.Provider dayjs={dayjs.locale('es')}>
+import 'dayjs/locale/es' // Import Spanish locale
+import localeData from 'dayjs/plugin/localeData'
+import isToday from 'dayjs/plugin/isToday'
+
+// Extend dayjs with required plugins
+dayjs.extend(localeData)
+dayjs.extend(isToday)
+
+// Create a custom dayjs factory function
+const spanishDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('es')
+
+<DatePicker.Provider dayjs={spanishDayjs}>
   <DatePicker.Calendar />
 </DatePicker.Provider>
 ```
+
+**Required Plugins:** The custom dayjs instance must include `localeData` and `isToday` plugins for the library to function correctly.
 
 ## Development & Storybook
 
@@ -362,6 +441,7 @@ import { DatePickerProvider, Calendar } from '@legeannd/react-modular-datepicker
 ## Dependencies
 
 - **React 19+** - Required for the component library
+- **React Compiler** - Required for optimal performance (babel-plugin-react-compiler)
 - **Day.js** (peer dependency) - For date manipulation and formatting
 - **CSS** - Default styles included (built with Tailwind CSS v4, but Tailwind is not required for usage)
 
