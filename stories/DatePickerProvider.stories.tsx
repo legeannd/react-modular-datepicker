@@ -136,7 +136,7 @@ export const CustomLocale: Story = {
       <>
         <DatePicker.Header>
           <DateSelectExample>
-            <DatePicker.Label type='full' />
+            <DatePicker.Label type='long' />
           </DateSelectExample>
         </DatePicker.Header>
         <DatePicker.Calendar
@@ -346,7 +346,7 @@ export const CustomProviderStyling: Story = {
       <>
         <DatePicker.Header>
           <DateSelectExample>
-            <DatePicker.Label type='full' />
+            <DatePicker.Label type='long' />
           </DateSelectExample>
           <div className='flex gap-4'>
             <DatePicker.Button type='previous'>
