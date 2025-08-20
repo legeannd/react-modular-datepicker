@@ -32,10 +32,9 @@ export function Calendar({
   }
 
   useEffect(() => {
-    if (header && calendarRef.current) {
+    if (!!header && calendarRef.current) {
       handleAddCalendarRef({ current: calendarRef.current })
     }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [header])
 
   useImperativeHandle(

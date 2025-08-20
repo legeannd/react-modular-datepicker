@@ -65,10 +65,10 @@ export function DatePickerProvider({
     return monthTable
   }
 
-  const setDefaultSelected = (selectedData: InitialDatesObject) => {
+  const handleSetDefaultSelected = (initialSelectedDays: InitialDatesObject) => {
     switch (type) {
       case 'single': {
-        const day = dayjs(selectedData?.days?.[0])
+        const day = dayjs(initialSelectedDays?.days?.[0])
         if (day.isValid()) {
           const selected = { day: { date: day.toISOString(), label: day.date() } }
           setSelected({ type, selection: selected })
@@ -76,8 +76,8 @@ export function DatePickerProvider({
         break
       }
       case 'multiple': {
-        const selected = selectedData?.days?.length
-          ? selectedData?.days
+        const selected = initialSelectedDays?.days?.length
+          ? initialSelectedDays?.days
               ?.map((initial) => {
                 const day = dayjs(initial)
                 if (day.isValid()) {
@@ -91,8 +91,8 @@ export function DatePickerProvider({
         break
       }
       case 'range': {
-        const start = dayjs(selectedData?.start)
-        const end = dayjs(selectedData?.end)
+        const start = dayjs(initialSelectedDays?.start)
+        const end = dayjs(initialSelectedDays?.end)
 
         if (start.isValid() && end.isValid()) {
           setSelected({
@@ -228,13 +228,15 @@ export function DatePickerProvider({
   }
 
   const handleSetHovered = (day?: CurrentDay) => {
-    if (type === 'range') {
-      if (day && selected.selection && 'start' in selected.selection) {
-        setHovered(day)
-      }
-      if (selected.selection && 'end' in selected.selection) {
-        setHovered(null)
-      }
+    if (type !== 'range') return
+
+    const { selection } = selected
+
+    if (day && selection && 'start' in selection) {
+      setHovered(day)
+    }
+    if (selection && 'end' in selection) {
+      setHovered(null)
     }
   }
 
@@ -247,40 +249,39 @@ export function DatePickerProvider({
   }
 
   useEffect(() => {
-    if (defaultSelected) {
-      setDefaultSelected(defaultSelected)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!defaultSelected) return
+
+    handleSetDefaultSelected(defaultSelected)
   }, [defaultSelected])
 
   useEffect(() => {
     if (onSelectionChange) {
       const normalized = normalizeSelection(selected)
-      onSelectionChange(normalized, type)
+      onSelectionChange(normalized)
     }
-  }, [selected, onSelectionChange, type])
+  }, [selected, onSelectionChange])
+
+  const contextValue = {
+    selected,
+    hovered,
+    type,
+    header: headerRef,
+    calendarRefs,
+    groupingMode,
+    refDate,
+    handleSetHovered,
+    handleSetHeaderRef,
+    handleDateSelect,
+    handleAddCalendarRef,
+    handleSetGroupingMode,
+    createMonthTable,
+    isDateDisabled,
+    dayjs,
+    handleChangeReferenceDate,
+  }
 
   return (
-    <DatePickerContext.Provider
-      value={{
-        selected,
-        hovered,
-        type,
-        header: headerRef,
-        calendarRefs,
-        groupingMode,
-        refDate,
-        handleSetHovered,
-        handleSetHeaderRef,
-        handleDateSelect,
-        handleAddCalendarRef,
-        handleSetGroupingMode,
-        createMonthTable,
-        isDateDisabled,
-        dayjs,
-        handleChangeReferenceDate,
-      }}
-    >
+    <DatePickerContext.Provider value={contextValue}>
       <div
         id='rmdp-provider'
         className={className || 'font-display'}

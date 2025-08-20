@@ -33,19 +33,19 @@ export interface DisabledDatesObject extends InitialDatesObject {
 export type CalendarType = 'single' | 'multiple' | 'range'
 
 /** Single date selection as ISO string or null */
-export type NormalizedSingleSelection = string | null
+export type SingleSelection = string | null
 
 /** Multiple date selection as array of ISO strings or null */
-export type NormalizedMultipleSelection = string[] | null
+export type MultipleSelection = string[] | null
 
 /** Range selection with both start and end dates, or null if no complete range */
-export type NormalizedRangeSelection = { start: string; end: string } | null
+export type RangeSelection = { start: string; end: string } | null
 
 /** Normalized selection data returned in onSelectionChange callback */
-export type NormalizedSelection =
-  | NormalizedSingleSelection
-  | NormalizedMultipleSelection
-  | NormalizedRangeSelection
+export type DatePickerSelection =
+  | SingleSelection
+  | MultipleSelection
+  | RangeSelection
 
 /** CSS classes for day button states */
 export interface DayButtonClassNames {
@@ -112,10 +112,23 @@ export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   childrenClassName?: string
 }
 
+interface LabelRangeProps {
+  start: {
+    month: string
+    year: number
+  }
+  end: {
+    month: string
+    year: number
+  }
+}
+
 /** Props for the Label component that displays the current month name */
 export interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Display format for the month name - 'short' for abbreviated (Jan, Feb) or 'full' for complete name (January, February) */
-  type?: 'short' | 'full'
+  /** Display format for the month name - 'short' for abbreviated (Jan, Feb) or 'long' for complete name (January, February) */
+  type?: 'short' | 'long'
+  /** Custom content to display inside the months label using the month range */
+  children?: (data: LabelRangeProps) => React.ReactNode
 }
 
 /** Props for the Button component that provides navigation controls */
@@ -143,7 +156,7 @@ export interface DatePickerProviderProps extends Pick<HTMLAttributes<HTMLDivElem
   /** Custom dayjs instance for date formatting and localization. If not provided, uses default English dayjs */
   dayjs?: (date?: string | Date | Dayjs) => Dayjs
   /** Callback fired when the selection changes, receives clean normalized data */
-  onSelectionChange?: (selection: NormalizedSelection, type: CalendarType) => void
+  onSelectionChange?: (selection: DatePickerSelection) => void
 }
 
 /** Internal calendar reference type for programmatic updates */
