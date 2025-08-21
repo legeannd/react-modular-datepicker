@@ -16,15 +16,18 @@ export function Label({ type = 'short', className, children, ...props }: LabelPr
     year: refDate.year(),
   })
 
+  const startMonthName = monthNames[type][startRange.month]
+  const endMonthName = monthNames[type][endRange.month]
+
   const monthRange =
     startRange.month !== endRange.month
-      ? `${monthNames[type][startRange.month]} ${startRange.year !== endRange.year ? startRange.year : ''} - ${monthNames[type][endRange.month]} ${endRange.year}`
-      : `${monthNames[type][startRange.month]} ${startRange.year}`
+      ? `${startMonthName} ${startRange.year !== endRange.year ? startRange.year : ''} - ${endMonthName} ${endRange.year}`
+      : `${startMonthName} ${startRange.year}`
 
   const monthAriaLabel =
     startRange.month !== endRange.month
-      ? `${monthNames[type][startRange.month]}${startRange.year !== endRange.year ? ' of ' + startRange.year : ''} to ${monthNames[type][endRange.month]} of ${endRange.year}`
-      : `${monthNames[type][startRange.month]} of ${startRange.year}`
+      ? `${startMonthName}${startRange.year !== endRange.year ? ' of ' + startRange.year : ''} to ${endMonthName} of ${endRange.year}`
+      : `${startMonthName} of ${startRange.year}`
 
   useEffect(() => {
     const newDate = dayjs(refDate.add(calendarRefs.length - 1, 'M'))
@@ -44,8 +47,8 @@ export function Label({ type = 'short', className, children, ...props }: LabelPr
     >
       {children
         ? children({
-            start: { month: monthNames[type][startRange.month], year: startRange.year },
-            end: { month: monthNames[type][endRange.month], year: endRange.year },
+            start: { month: startMonthName, year: startRange.year },
+            end: { month: endMonthName, year: endRange.year },
           })
         : monthRange}
     </span>

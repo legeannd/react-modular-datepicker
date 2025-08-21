@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react'
-import { DatePicker } from '../src/main'
+import * as DatePicker from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
 import { useDateSelect } from '../src/hooks/useDateSelect'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays } from 'lucide-react'

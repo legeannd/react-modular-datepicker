@@ -1,7 +1,7 @@
 # React Modular DatePicker
 
 ```tsx
-import { DatePicker } from '@legeannd/react-modular-datepicker'
+import * as DatePicker from '@legeannd/react-modular-datepicker'
 
 function App() {
   return (
