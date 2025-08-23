@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { DatePicker } from '../src/main'
+import { DatePicker, Label } from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 
@@ -95,7 +95,7 @@ export const WithGroupOfCalendars: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<CalendarDays />}>
-          <DatePicker.Label type='full' />
+          <DatePicker.Label type='long' />
         </DateSelectExample>
         <div className='flex gap-4'>
           <DatePicker.Button type='previous'>
@@ -120,7 +120,7 @@ export const WithGroupOfCalendars: Story = {
   ],
 }
 
-export const CustomDateSelectRange: Story = {
+export const CustomLabelChildren: Story = {
   args: {
     children: (
       <>
@@ -128,7 +128,41 @@ export const CustomDateSelectRange: Story = {
           iconSlot={<CalendarRange />}
           yearRangeEndOffset={20}
           yearRangeStartOffset={20}
-        />
+        >
+          <Label>
+            {({ start, end }) => (
+              <div className='flex flex-col gap-2 rounded-lg border-2 border-red-400 bg-red-100 p-4 shadow-lg'>
+                <div className='flex items-center gap-4'>
+                  <div className='flex flex-col items-center'>
+                    <span className='text-xs text-red-700'>Start Month</span>
+                    <span className='text-lg font-semibold text-red-900'>{start.month}</span>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <span className='text-xs text-red-700'>Start Year</span>
+                    <span className='text-lg font-semibold text-red-900'>{start.year}</span>
+                  </div>
+                  <span className='mx-2 text-2xl text-red-400'>
+                    <Calendar1 className='mr-1 inline-block' />
+                    <ChevronRight className='inline-block' />
+                    <CalendarDays className='ml-1 inline-block' />
+                  </span>
+                  <div className='flex flex-col items-center'>
+                    <span className='text-xs text-red-700'>End Month</span>
+                    <span className='text-lg font-semibold text-red-900'>{end.month}</span>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <span className='text-xs text-red-700'>End Year</span>
+                    <span className='text-lg font-semibold text-red-900'>{end.year}</span>
+                  </div>
+                </div>
+                <div className='mt-2 text-sm text-red-800'>
+                  <span className='font-bold'>Selected Range:</span> {start.month} {start.year} to{' '}
+                  {end.month} {end.year}
+                </div>
+              </div>
+            )}
+          </Label>
+        </DateSelectExample>
         <div className='flex gap-4'>
           <DatePicker.Button type='previous'>
             <ChevronLeft className='text-label' />
@@ -158,7 +192,7 @@ export const WithGroupingDisabled: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<Calendar1 />}>
-          <DatePicker.Label type='full' />
+          <DatePicker.Label type='long' />
         </DateSelectExample>
         <div className='flex gap-4'>
           <DatePicker.Button type='previous'>
@@ -194,7 +228,7 @@ export const WithPartialGrouping: Story = {
     children: (
       <>
         <DateSelectExample iconSlot={<CalendarDays />}>
-          <DatePicker.Label type='full' />
+          <DatePicker.Label type='long' />
         </DateSelectExample>
         <div className='flex gap-4'>
           <DatePicker.Button type='previous'>

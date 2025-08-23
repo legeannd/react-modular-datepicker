@@ -84,11 +84,11 @@ export function DateSelectExample({
           <PopoverTrigger
             {...popoverTriggerProps}
             className={cn(
-              'hover:bg-hover cursor-pointer rounded px-2 py-1 capitalize transition-colors duration-200 ease-in-out',
+              'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out',
               popoverTriggerProps?.className
             )}
           >
-            {children ?? <Label />}
+            {children ?? <Label className='capitalize' />}
           </PopoverTrigger>
           <PopoverContent
             {...popoverContentProps}

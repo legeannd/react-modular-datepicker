@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import storybook from 'eslint-plugin-storybook'
+import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default tseslint.config(
   { ignores: ['dist', '.storybook'] },
@@ -18,10 +19,12 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'react-compiler': reactCompiler,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react-compiler/react-compiler': 'error',
     },
   },
   {

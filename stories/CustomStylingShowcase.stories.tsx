@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react'
-import { DatePicker } from '../src/main'
+import * as DatePicker from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
 import { useDateSelect } from '../src/hooks/useDateSelect'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays } from 'lucide-react'
@@ -57,7 +57,7 @@ export const MinimalistDesign = {
             ))}
           </select>
           <DatePicker.Label
-            type='full'
+            type='long'
             className='text-sm font-medium text-gray-700'
           />
         </div>
@@ -156,7 +156,7 @@ export const GradientGlassStyle = {
         <div className='flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 px-6 py-3 backdrop-blur-md'>
           <div className='flex flex-col items-center gap-1'>
             <DatePicker.Label
-              type='full'
+              type='long'
               className='text-lg font-bold text-white drop-shadow-lg'
             />
             <div className='mt-2 flex items-center gap-3'>
@@ -326,7 +326,7 @@ export const DarkTheme = {
           </div>
           <div className='flex flex-col items-center gap-1'>
             <DatePicker.Label
-              type='full'
+              type='long'
               className='text-xl font-bold text-white drop-shadow-lg'
             />
             <div className='mt-2 flex items-center gap-3'>
@@ -499,7 +499,7 @@ export const DarkCyberpunkTheme = {
           </div>
           <div className='flex flex-col items-center'>
             <DatePicker.Label
-              type='full'
+              type='long'
               className='font-mono text-lg font-bold tracking-wider text-cyan-400'
             />
           </div>
@@ -720,7 +720,7 @@ export const NeumorphismStyle = {
             </select>
           </div>
           <DatePicker.Label
-            type='full'
+            type='long'
             className='text-sm font-semibold text-gray-700'
           />
         </div>
@@ -840,7 +840,7 @@ export const RetroVintageStyle = {
           />
           <div className='flex flex-col items-center'>
             <DatePicker.Label
-              type='full'
+              type='long'
               className='font-serif text-xl font-bold text-amber-800'
             />
             <div className='mt-2 flex items-center gap-3'>
@@ -1009,7 +1009,7 @@ export const ModernBrutalistStyle = {
             </div>
             <div className='flex flex-col items-center border-4 border-black bg-white px-6 py-3'>
               <DatePicker.Label
-                type='full'
+                type='long'
                 className='font-mono text-2xl font-black tracking-wider text-black uppercase'
               />
             </div>
@@ -1193,7 +1193,7 @@ export const MobileResponsiveTheme = {
                   className='font-medium text-gray-700 sm:hidden'
                 />
                 <DatePicker.Label
-                  type='full'
+                  type='long'
                   className='hidden font-medium text-gray-700 sm:block'
                 />
               </DateSelectExample>
@@ -1286,7 +1286,7 @@ export const PurpleGradientTheme = {
                 }}
               >
                 <DatePicker.Label
-                  type='full'
+                  type='long'
                   className='bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-300 bg-clip-text text-lg font-extrabold tracking-wide text-transparent drop-shadow-sm'
                 />
               </DateSelectExample>
@@ -1418,7 +1418,7 @@ export const MaterialDesignTheme = {
                 }}
               >
                 <DatePicker.Label
-                  type='full'
+                  type='long'
                   className='font-semibold tracking-wide text-blue-600 drop-shadow-lg'
                 />
               </DateSelectExample>

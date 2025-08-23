@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
-import type { CurrentDay, SelectedDate, DayButtonClassNames } from '@/types'
+import type { CurrentDay, DayButtonClassNames } from '@/types'
 import { useDatePicker } from '@/hooks/useDatePicker'
-import { useEffect, useState, ButtonHTMLAttributes } from 'react'
+import { useState, ButtonHTMLAttributes } from 'react'
 
 interface DayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   currentDay: CurrentDay
@@ -14,14 +14,7 @@ export function DayButton({
   className,
   ...props
 }: DayButtonProps) {
-  const [visualSelected, setVisualSelected] = useState(false)
   const [visualHovered, setVisualHovered] = useState(false)
-  const [startMonth, setStartMonth] = useState(false)
-  const [endMonth, setEndMonth] = useState(false)
-  const [startRange, setStartRange] = useState(false)
-  const [endRange, setEndRange] = useState(false)
-  const [betweenRange, setBetweenRange] = useState(false)
-  const [weekend, setWeekend] = useState(false)
   const {
     selected,
     hovered,
@@ -32,56 +25,48 @@ export function DayButton({
     isDateDisabled,
     dayjs,
   } = useDatePicker()
-  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
-  const thisMonth = currentDay.isCurrentMonth ?? false
-  const disabled = isDateDisabled(currentDay.day.date)
 
-  const isWeekend = (date: string) => {
-    const dayOfWeek = dayjs(date).day()
+  const isWeekend = () => {
+    const dayOfWeek = dayjs(currentDay.day.date).day()
     return dayOfWeek === 0 || dayOfWeek === 6
   }
 
-  const getStartAndEndRangeDates = ({
-    selected,
-    type,
-    day: dayToCompare,
-  }: {
-    selected: SelectedDate
-    type: 'start' | 'end'
-    day: CurrentDay['day']
-  }) => {
-    if (selected.selection && selected.type === 'range' && selected.selection[type]) {
-      return dayjs(selected.selection[type]?.day.date).isSame(dayToCompare.date)
-    }
-    return false
-  }
-
-  const getStartAndEndMonth = (day: CurrentDay) => {
+  const isStartMonth = () => {
     return (
-      ((dayjs(day.day.date).isSame(dayjs(day.day.date).startOf('M').startOf('D')) &&
-        day.isCurrentMonth) ||
-        (dayjs(day.day.date).isSame(dayjs(day.day.date).endOf('M').startOf('D')) &&
-          day.isCurrentMonth)) ??
+      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).startOf('M').startOf('D')) &&
+        currentDay.isCurrentMonth) ||
       false
     )
   }
 
-  const getBetweenRangeDates = ({
-    hasHeader,
-    selected,
-    hovered,
-    day,
-  }: {
-    hasHeader: boolean
-    selected: SelectedDate
-    hovered: CurrentDay | null
-    day: CurrentDay
-  }) => {
-    if (hasHeader && !day.isCurrentMonth) {
+  const isEndMonth = () => {
+    return (
+      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).endOf('M').startOf('D')) &&
+        currentDay.isCurrentMonth) ||
+      false
+    )
+  }
+
+  const isStartRangeDate = () => {
+    if (selected.selection && selected.type === 'range' && selected.selection.start) {
+      return dayjs(selected.selection.start.day.date).isSame(currentDay.day.date)
+    }
+    return false
+  }
+
+  const isEndRangeDate = () => {
+    if (selected.selection && selected.type === 'range' && selected.selection.end) {
+      return dayjs(selected.selection.end.day.date).isSame(currentDay.day.date)
+    }
+    return false
+  }
+
+  const isBetweenRangeDates = () => {
+    if (!!header && !currentDay.isCurrentMonth) {
       return false
     }
     if (selected.type === 'range') {
-      const current = dayjs(day.day.date)
+      const current = dayjs(currentDay.day.date)
       if (selected.selection?.start && selected.selection?.end) {
         return (
           current.isAfter(selected.selection?.start?.day.date, 'day') &&
@@ -100,35 +85,33 @@ export function DayButton({
     return false
   }
 
-  const getSelectedDates = ({
-    selected,
-    hasHeader,
-    hasMultipleCalendars,
-    clicked,
-  }: {
-    selected: SelectedDate
-    hasHeader: boolean
-    hasMultipleCalendars: boolean
-    clicked: CurrentDay
-  }) => {
-    if (hasHeader && hasMultipleCalendars && !clicked.isCurrentMonth) {
+  const isVisualSelected = () => {
+    if (!!header && calendarRefs.length > 1 && !currentDay.isCurrentMonth) {
       return false
     }
-    const { day } = clicked
+    const { day } = currentDay
     switch (selected.type) {
       case 'single':
         return dayjs(selected.selection?.day.date).isSame(day.date)
       case 'multiple':
         return selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date)) ?? false
       case 'range':
-        return (
-          getStartAndEndRangeDates({ selected, type: 'start', day: clicked.day }) ||
-          getStartAndEndRangeDates({ selected, type: 'end', day: clicked.day })
-        )
+        return isStartRangeDate() || isEndRangeDate()
       default:
         return false
     }
   }
+
+  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
+  const thisMonth = currentDay.isCurrentMonth ?? false
+  const disabled = isDateDisabled(currentDay.day.date)
+  const startMonth = isStartMonth()
+  const endMonth = isEndMonth()
+  const weekend = isWeekend()
+  const startRange = isStartRangeDate()
+  const endRange = isEndRangeDate()
+  const betweenRange = isBetweenRangeDates()
+  const visualSelected = isVisualSelected()
 
   const handleHover = (day?: CurrentDay) => {
     if (day) {
@@ -139,26 +122,6 @@ export function DayButton({
       handleSetHovered()
     }
   }
-
-  useEffect(() => {
-    setVisualSelected(
-      getSelectedDates({
-        selected,
-        hasHeader: !!header,
-        hasMultipleCalendars: calendarRefs.length > 1,
-        clicked: currentDay,
-      })
-    )
-    setWeekend(isWeekend(currentDay.day.date))
-    setStartMonth(getStartAndEndMonth(currentDay))
-    setEndMonth(getStartAndEndMonth(currentDay))
-    setStartRange(getStartAndEndRangeDates({ selected, type: 'start', day: currentDay.day }))
-    setEndRange(getStartAndEndRangeDates({ selected, type: 'end', day: currentDay.day }))
-    setBetweenRange(
-      getBetweenRangeDates({ selected, hovered, day: currentDay, hasHeader: !!header })
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarRefs.length, currentDay, header, selected, hovered])
 
   return (
     <button

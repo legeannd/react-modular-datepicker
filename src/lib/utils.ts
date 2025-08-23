@@ -1,12 +1,12 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import type { SelectedDate, CurrentDay, CurrentRange, NormalizedSelection } from "@/types"
+import type { SelectedDate, CurrentDay, CurrentRange, DatePickerSelection } from "@/types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function normalizeSelection(selectedData: SelectedDate): NormalizedSelection {
+export function normalizeSelection(selectedData: SelectedDate): DatePickerSelection {
   const { selection, type } = selectedData
 
   if (!selection) return null
