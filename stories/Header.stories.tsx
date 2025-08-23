@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { DatePicker, Label } from '../src/main'
+import * as DatePicker from '../src/main'
 import { DateSelectExample } from '../.storybook/components/DateSelectExample'
 import { ChevronLeft, ChevronRight, Calendar1, CalendarDays, CalendarRange } from 'lucide-react'
 
@@ -129,7 +129,7 @@ export const CustomLabelChildren: Story = {
           yearRangeEndOffset={20}
           yearRangeStartOffset={20}
         >
-          <Label>
+          <DatePicker.Label>
             {({ start, end }) => (
               <div className='flex flex-col gap-2 rounded-lg border-2 border-red-400 bg-red-100 p-4 shadow-lg'>
                 <div className='flex items-center gap-4'>
@@ -161,7 +161,7 @@ export const CustomLabelChildren: Story = {
                 </div>
               </div>
             )}
-          </Label>
+          </DatePicker.Label>
         </DateSelectExample>
         <div className='flex gap-4'>
           <DatePicker.Button type='previous'>
