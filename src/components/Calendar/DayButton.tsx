@@ -1,7 +1,8 @@
-import { cn } from '@/lib/utils'
+import { clsx } from 'clsx'
 import type { CurrentDay, DayButtonClassNames } from '@/types'
 import { useDatePicker } from '@/hooks/useDatePicker'
 import { useState, ButtonHTMLAttributes } from 'react'
+import styles from './DayButton.module.css'
 
 interface DayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   currentDay: CurrentDay
@@ -126,35 +127,19 @@ export function DayButton({
   return (
     <button
       {...props}
-      className={cn(
-        dayButtonClassNames?.base ||
-          'text-primary text-button flex w-full cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-sm transition-all duration-200 ease-in-out',
-        today &&
-          !betweenRange &&
-          (dayButtonClassNames?.today || 'outline-today outline -outline-offset-1'),
-        visualSelected &&
-          (dayButtonClassNames?.selected || 'bg-selected text-highlight font-bold outline-0'),
-        !thisMonth && !visualSelected && (dayButtonClassNames?.differentMonth || 'text-disabled'),
-        (startMonth || endMonth) && (dayButtonClassNames?.monthBoundary || 'font-bold'),
-        startRange && (dayButtonClassNames?.rangeStart || 'rounded-r-none'),
-        endRange && (dayButtonClassNames?.rangeEnd || 'rounded-l-none'),
-        betweenRange && (dayButtonClassNames?.betweenRange || 'bg-range rounded-none'),
-        visualHovered &&
-          !visualSelected &&
-          !betweenRange &&
-          (dayButtonClassNames?.hovered || 'bg-hover outline-0'),
-        weekend &&
-          !visualHovered &&
-          !visualSelected &&
-          !betweenRange &&
-          !(startMonth || endMonth) &&
-          thisMonth &&
-          (dayButtonClassNames?.weekend || 'text-weekend'),
-        disabled &&
-          (dayButtonClassNames?.disabled || 'text-muted-foreground/20 cursor-not-allowed'),
-        disabled &&
-          betweenRange &&
-          (dayButtonClassNames?.disabledInRange || 'bg-red-500/10 text-red-500/70'),
+      className={clsx(
+        dayButtonClassNames?.base || styles.dayButton,
+        today && !betweenRange && (dayButtonClassNames?.today || styles.today),
+        visualSelected && (dayButtonClassNames?.selected || styles.selected),
+        !thisMonth && !visualSelected && (dayButtonClassNames?.differentMonth || styles.differentMonth),
+        (startMonth || endMonth) && (dayButtonClassNames?.monthBoundary || styles.monthBoundary),
+        startRange && (dayButtonClassNames?.rangeStart || styles.rangeStart),
+        endRange && (dayButtonClassNames?.rangeEnd || styles.rangeEnd),
+        betweenRange && (dayButtonClassNames?.betweenRange || styles.betweenRange),
+        visualHovered && !visualSelected && !betweenRange && (dayButtonClassNames?.hovered || styles.hovered),
+        weekend && !visualHovered && !visualSelected && !betweenRange && !(startMonth || endMonth) && thisMonth && (dayButtonClassNames?.weekend || styles.weekend),
+        disabled && (dayButtonClassNames?.disabled || styles.disabled),
+        disabled && betweenRange && (dayButtonClassNames?.disabledInRange || styles.disabledInRange),
         !dayButtonClassNames && className
       )}
       data-today={today}

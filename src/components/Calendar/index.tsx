@@ -2,8 +2,9 @@ import { useDatePicker } from '@/hooks/useDatePicker'
 import type { CalendarProps } from '@/types'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { cn } from '@/lib/utils'
+import { clsx } from 'clsx'
 import { DayButton } from './DayButton'
+import styles from './Calendar.module.css'
 
 export function Calendar({
   showWeekdays = true,
@@ -55,29 +56,29 @@ export function Calendar({
       aria-label={calendarLabel}
       className={
         className ||
-        cn(
-          'flex flex-col gap-1 rounded-lg bg-white p-1',
-          (!header || !shouldRenderInsideHeader) && 'shadow-md'
+        clsx(
+          styles.calendar,
+          (!header || !shouldRenderInsideHeader) && styles.calendarWithShadow
         )
       }
     >
       {showWeekdays && (
-        <span className={cn('text-label grid grid-cols-7 text-xs', weekdayClassName)}>
+        <div className={clsx(styles.weekdays, weekdayClassName)}>
           {weekdays.map((_, index) => (
             <span
-              className={'flex items-center justify-center px-0 py-2 capitalize'}
+              className={styles.weekday}
               key={index}
             >
               {getCustomWeekdayLabel(index)}
             </span>
           ))}
-        </span>
+        </div>
       )}
-      <div className={'flex flex-col gap-1'}>
+      <div className={styles.daysContainer}>
         {Array.from(monthTable.keys()).map((week) => (
           <div
             key={week}
-            className={'grid grid-cols-7 gap-0.5'}
+            className={styles.daysGrid}
           >
             {monthTable.get(week)?.map((currentDay) => (
               <DayButton

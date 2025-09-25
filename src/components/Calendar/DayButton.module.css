@@ -1,0 +1,100 @@
+.dayButton {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-sm);
+  line-height: var(--line-height-sm);
+  transition: all var(--transition-normal);
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+}
+
+.today {
+  outline: 2px solid var(--color-today);
+  outline-offset: -1px;
+}
+
+.selected {
+  background-color: var(--color-selected);
+  color: var(--color-highlight);
+  font-weight: var(--font-weight-bold);
+  outline: none;
+}
+
+.differentMonth {
+  color: var(--color-disabled);
+}
+
+.monthBoundary {
+  font-weight: var(--font-weight-bold);
+}
+
+.rangeStart {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rangeEnd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.betweenRange {
+  background-color: var(--color-range);
+  border-radius: 0;
+}
+
+.hovered {
+  background-color: var(--color-hover);
+  outline: none;
+}
+
+.weekend {
+  color: var(--color-weekend);
+  background-color: var(--color-weekend-background);
+}
+
+.disabled {
+  color: rgba(107, 114, 128, 0.2);
+  cursor: not-allowed;
+}
+
+.disabledInRange {
+  background-color: var(--color-error-subtle);
+  color: rgba(239, 68, 68, 0.7);
+}
+
+.dayButton:hover:not(.disabled) {
+  background-color: var(--color-hover);
+}
+
+.dayButton:hover.selected {
+  background-color: var(--color-selected);
+}
+
+.dayButton:hover.betweenRange {
+  background-color: rgba(24, 24, 27, 0.15);
+}
+
+.dayButton:hover.weekend {
+  background-color: var(--color-weekend-background);
+}
+
+.dayButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.dayButton.selected.today {
+  outline: none;
+}
+
+.dayButton.hovered.today {
+  outline: none;
+}

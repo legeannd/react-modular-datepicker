@@ -20,9 +20,6 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
-      tailwind-merge:
-        specifier: ^3.3.0
-        version: 3.3.0
     devDependencies:
       '@chromatic-com/storybook':
         specifier: '3'
@@ -141,6 +138,9 @@ importers:
       storybook:
         specifier: 8.6.12
         version: 8.6.12(prettier@3.5.3)
+      tailwind-merge:
+        specifier: ^3.3.0
+        version: 3.3.0
       tailwindcss:
         specifier: 4.1.6
         version: 4.1.6

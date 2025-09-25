@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useDatePicker } from '@/hooks/useDatePicker'
 import type { HeaderProps } from '@/types'
-import { cn } from '@/lib/utils'
+import { clsx } from 'clsx'
+import styles from './Header.module.css'
 
 export function Header({
   children,
@@ -32,21 +33,13 @@ export function Header({
   return (
     <div
       {...props}
-      className={className || 'rounded-lg bg-white shadow-md'}
+      className={className || styles.header}
     >
-      {children && (
-        <div
-          className={
-            childrenClassName ||
-            'text-label flex w-full items-center justify-between gap-8 p-4 text-sm font-bold'
-          }
-        >
-          {children}
-        </div>
-      )}
+      {children && <div className={childrenClassName || styles.children}>{children}</div>}
       <div
-        className={cn(
-          'grid grid-cols-3 items-end gap-x-4 gap-y-2 [&:has(>*:nth-child(2)):not(:has(>*:nth-child(3)))]:grid-cols-2 [&:has(>*:only-child)]:grid-cols-1',
+        className={clsx(
+          styles.calendarGrid,
+          !calendarGridClassName && styles.defaultSpacing,
           calendarGridClassName
         )}
         id='rmdp-header'

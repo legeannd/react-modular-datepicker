@@ -45,12 +45,9 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-        'dayjs',
-        /^dayjs\/.*/,
-        'tailwind-merge',
+        /^react(\/.*)?$/,
+        /^react-dom(\/.*)?$/,
+        /^dayjs(\/.*)?$/,
         'clsx',
       ],
       input: Object.fromEntries(
@@ -65,7 +62,13 @@ export default defineConfig({
       ),
       output: {
         entryFileNames: '[name].js',
-        assetFileNames: 'assets/[name][extname]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'main.css') {
+            return 'assets/main.css'
+          }
+          return 'assets/[name][extname]'
+        },
+        preserveModules: true,
         globals: {
           react: 'React',
           'react-dom': 'React-dom',
