@@ -1,0 +1,40 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  padding: var(--spacing-1);
+}
+
+.calendarWithShadow {
+  box-shadow: var(--shadow-md);
+}
+
+.weekdays {
+  color: var(--color-label);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  font-size: var(--font-xs);
+  line-height: var(--line-height-xs);
+}
+
+.weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-2);
+  text-transform: capitalize;
+}
+
+.daysContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--spacing-0-5);
+}

@@ -9,7 +9,7 @@ import {
   SelectValue,
   SelectGroup,
 } from './ui/select'
-import { cn } from '../../src/lib/utils'
+import { cn } from '../lib/utils'
 import { ComponentProps } from 'react'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import * as SelectPrimitive from '@radix-ui/react-select'

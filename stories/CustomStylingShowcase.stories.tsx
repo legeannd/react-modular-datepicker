@@ -532,8 +532,8 @@ export const DarkCyberpunkTheme = {
               initialMonth={new Date('2025-12-25')}
               normalizeHeight={true}
               disabledDates={{
-                days: ['2025-12-01', '2025-12-08', '2025-12-15', '2025-12-22', '2025-12-29'], // Simulate system maintenance days
-                every: 'weekend', // Weekends are system downtime
+                days: ['2025-12-01', '2025-12-08', '2025-12-15', '2025-12-22', '2025-12-29'],
+                every: 'weekend',
               }}
             >
               <DatePicker.Header

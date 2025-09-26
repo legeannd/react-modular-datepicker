@@ -1,0 +1,37 @@
+.header {
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.children {
+  color: var(--color-label);
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding: var(--spacing-4);
+  font-size: var(--font-sm);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+}
+
+.defaultSpacing {
+  column-gap: var(--spacing-4);
+  row-gap: var(--spacing-2);
+}
+
+.calendarGrid:has(> :nth-child(2)):not(:has(> :nth-child(3))) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.calendarGrid:has(> :only-child) {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}

@@ -1,5 +1,6 @@
 import { useDatePicker } from '@/hooks/useDatePicker'
 import type { ButtonProps } from '@/types'
+import styles from './Button.module.css'
 
 export function Button({ type, className, children, ...props }: ButtonProps) {
   const { refDate, handleChangeReferenceDate } = useDatePicker()
@@ -16,8 +17,7 @@ export function Button({ type, className, children, ...props }: ButtonProps) {
     <button
       {...props}
       className={
-        className ||
-        'hover:bg-hover cursor-pointer rounded px-2 py-1 transition-colors duration-200 ease-in-out disabled:cursor-not-allowed'
+        className || styles.button
       }
       onClick={handleChangeCalendarRange}
     >

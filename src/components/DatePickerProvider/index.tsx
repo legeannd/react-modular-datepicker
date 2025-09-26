@@ -12,6 +12,7 @@ import type {
 } from '@/types'
 import { useLocalizedDayjs } from '@/hooks/useLocalizedDayjs'
 import { normalizeSelection } from '@/lib/utils'
+import styles from './DatePickerProvider.module.css'
 
 export function DatePickerProvider({
   children,
@@ -284,7 +285,7 @@ export function DatePickerProvider({
     <DatePickerContext.Provider value={contextValue}>
       <div
         id='rmdp-provider'
-        className={className || 'font-display'}
+        className={className || styles.provider}
       >
         {children}
       </div>
