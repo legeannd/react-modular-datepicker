@@ -17,7 +17,7 @@ function App() {
 }
 ```
 
-A modern, customizable datepicker component library for React applications. Built with TypeScript, React 19, and styled with Tailwind CSS v4.
+A modern, customizable datepicker component library for React applications. Built with TypeScript, React 19, and CSS Modules.
 
 ## Features
 
@@ -105,14 +105,16 @@ pnpm add @legeannd/react-modular-datepicker
 yarn add @legeannd/react-modular-datepicker
 ```
 
-**Note:** The library comes with default styles built using Tailwind CSS v4, but **Tailwind is not required** to use the library. You can completely override the styles with your own CSS, CSS-in-JS, or any other styling approach.
+**Note:** The library uses CSS Modules for component styling. Styles are automatically imported when you import the library - no separate CSS import is needed.
+
+**Styling Note:** The library comes with default styles built using CSS custom properties, but you can completely override the styles with your own CSS classes using the provided className props on each component.
 
 ## Quick Start
 
 ### Basic Usage
 
 ```tsx
-import { DatePicker } from '@legeannd/react-modular-datepicker'
+import * as DatePicker from '@legeannd/react-modular-datepicker'
 
 function App() {
   return (

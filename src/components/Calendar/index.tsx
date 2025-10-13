@@ -19,7 +19,12 @@ export function Calendar({
   const calendarRef = useRef<{ updateMonthTable: (newDate?: string | Date) => void } | null>(null)
   const { header, groupingMode, handleAddCalendarRef, createMonthTable, dayjs } = useDatePicker()
   const [monthTable, setMonthTable] = useState(createMonthTable())
-  const weekdays = dayjs().localeData().weekdaysShort()
+  const firstDayOfWeek = dayjs().localeData().firstDayOfWeek()
+  const weekdayLabelsArray = dayjs().localeData().weekdaysShort()
+  const weekdays = [
+    ...weekdayLabelsArray.slice(firstDayOfWeek),
+    ...weekdayLabelsArray.slice(0, firstDayOfWeek),
+  ]
   const currentDate = dayjs(monthTable.get(1)?.[0].day.date)
   const calendarLabel = currentDate.format('MMMM, YYYY')
   const shouldRenderInsideHeader = groupingMode === 'all' || (!!id && groupingMode.includes(id))
@@ -56,17 +61,14 @@ export function Calendar({
       aria-label={calendarLabel}
       className={
         className ||
-        clsx(
-          styles.calendar,
-          (!header || !shouldRenderInsideHeader) && styles.calendarWithShadow
-        )
+        clsx(styles.calendar, (!header || !shouldRenderInsideHeader) && styles.calendarWithShadow)
       }
     >
       {showWeekdays && (
-        <div className={clsx(styles.weekdays, weekdayClassName)}>
+        <div className={styles.weekdays}>
           {weekdays.map((_, index) => (
             <span
-              className={styles.weekday}
+              className={weekdayClassName || styles.weekday}
               key={index}
             >
               {getCustomWeekdayLabel(index)}

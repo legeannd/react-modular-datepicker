@@ -131,15 +131,28 @@ export function DayButton({
         dayButtonClassNames?.base || styles.dayButton,
         today && !betweenRange && (dayButtonClassNames?.today || styles.today),
         visualSelected && (dayButtonClassNames?.selected || styles.selected),
-        !thisMonth && !visualSelected && (dayButtonClassNames?.differentMonth || styles.differentMonth),
+        !thisMonth &&
+          !visualSelected &&
+          (dayButtonClassNames?.differentMonth || styles.differentMonth),
         (startMonth || endMonth) && (dayButtonClassNames?.monthBoundary || styles.monthBoundary),
         startRange && (dayButtonClassNames?.rangeStart || styles.rangeStart),
         endRange && (dayButtonClassNames?.rangeEnd || styles.rangeEnd),
         betweenRange && (dayButtonClassNames?.betweenRange || styles.betweenRange),
-        visualHovered && !visualSelected && !betweenRange && (dayButtonClassNames?.hovered || styles.hovered),
-        weekend && !visualHovered && !visualSelected && !betweenRange && !(startMonth || endMonth) && thisMonth && (dayButtonClassNames?.weekend || styles.weekend),
+        visualHovered &&
+          !visualSelected &&
+          !betweenRange &&
+          (dayButtonClassNames?.hovered || styles.hovered),
+        weekend &&
+          !visualHovered &&
+          !visualSelected &&
+          !betweenRange &&
+          !(startMonth || endMonth) &&
+          thisMonth &&
+          (dayButtonClassNames?.weekend || styles.weekend),
         disabled && (dayButtonClassNames?.disabled || styles.disabled),
-        disabled && betweenRange && (dayButtonClassNames?.disabledInRange || styles.disabledInRange),
+        disabled &&
+          betweenRange &&
+          (dayButtonClassNames?.disabledInRange || styles.disabledInRange),
         !dayButtonClassNames && className
       )}
       data-today={today}

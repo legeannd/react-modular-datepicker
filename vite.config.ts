@@ -4,8 +4,6 @@ import path, { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
-import { globSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import dts from 'vite-plugin-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -43,6 +41,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/main.ts'),
       formats: ['es'],
     },
+    cssCodeSplit: false,
     rollupOptions: {
       external: [
         /^react(\/.*)?$/,
@@ -50,25 +49,9 @@ export default defineConfig({
         /^dayjs(\/.*)?$/,
         'clsx',
       ],
-      input: Object.fromEntries(
-        globSync(['src/components/**/index.tsx', 'src/main.ts']).map((file) => {
-          const entryName = path.relative(
-            'src',
-            file.slice(0, file.length - path.extname(file).length)
-          )
-          const entryUrl = fileURLToPath(new URL(file, import.meta.url))
-          return [entryName, entryUrl]
-        })
-      ),
       output: {
         entryFileNames: '[name].js',
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'main.css') {
-            return 'assets/main.css'
-          }
-          return 'assets/[name][extname]'
-        },
-        preserveModules: true,
+        assetFileNames: '[name][extname]',
         globals: {
           react: 'React',
           'react-dom': 'React-dom',

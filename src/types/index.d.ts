@@ -47,6 +47,13 @@ export type DatePickerSelection =
   | MultipleSelection
   | RangeSelection
 
+/** Maps CalendarType to its corresponding Selection type */
+export type SelectionForType<T extends CalendarType> =
+  T extends 'single' ? SingleSelection :
+  T extends 'multiple' ? MultipleSelection :
+  T extends 'range' ? RangeSelection :
+  never
+
 /** CSS classes for day button states */
 export interface DayButtonClassNames {
   /** Base styles applied to all day buttons - foundation layer for all states */
@@ -140,24 +147,51 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /** Props for the DatePickerProvider component - the root uncontrolled date picker */
-export interface DatePickerProviderProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className'> {
+export interface DatePickerProviderBaseProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className'> {
   /** Child components (Calendar, Header, etc.) */
   children: React.ReactNode
   /** Initial month to display when the calendar first loads (Date object or ISO string) */
   initialMonth?: string | Date
   /** Initial selected dates for uncontrolled mode - gets converted to normalized format in callbacks */
   defaultSelected?: InitialDatesObject
-  /** Calendar selection mode - determines how users can select dates */
-  type?: CalendarType
   /** Whether to normalize all calendar grids to have the same height (6 weeks) */
   normalizeHeight?: boolean
   /** Configuration for disabling specific dates or date patterns */
   disabledDates?: DisabledDatesObject
   /** Custom dayjs instance for date formatting and localization. If not provided, uses default English dayjs */
   dayjs?: (date?: string | Date | Dayjs) => Dayjs
-  /** Callback fired when the selection changes, receives clean normalized data */
-  onSelectionChange?: (selection: DatePickerSelection) => void
 }
+
+/** Specific props for single selection mode */
+export interface DatePickerProviderSingleProps extends DatePickerProviderBaseProps {
+  /** Calendar selection mode - determines how users can select dates */
+  type?: 'single'
+  /** Callback fired when the selection changes, receives clean normalized data */
+  onSelectionChange?: (selection: SingleSelection) => void
+}
+
+/** Specific props for multiple selection mode */
+export interface DatePickerProviderMultipleProps extends DatePickerProviderBaseProps {
+  /** Calendar selection mode - determines how users can select dates */
+  type: 'multiple'
+  /** Callback fired when the selection changes, receives clean normalized data */
+  onSelectionChange?: (selection: MultipleSelection) => void
+}
+
+/** Specific props for range selection mode */
+export interface DatePickerProviderRangeProps extends DatePickerProviderBaseProps {
+  /** Calendar selection mode - determines how users can select dates */
+  type: 'range'
+  /** Callback fired when the selection changes, receives clean normalized data */
+  onSelectionChange?: (selection: RangeSelection) => void
+}
+
+/** Union of all possible DatePickerProvider prop combinations for proper type inference */
+export type DatePickerProviderProps =
+  | DatePickerProviderSingleProps
+  | DatePickerProviderMultipleProps
+  | DatePickerProviderRangeProps
+
 
 /** Internal calendar reference type for programmatic updates */
 export type CalendarRefObject = React.RefObject<{
