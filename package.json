@@ -1,7 +1,7 @@
 {
   "name": "@legeannd/react-modular-datepicker",
   "private": false,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
@@ -80,7 +80,16 @@
   "files": [
     "dist"
   ],
-  "exports": "./dist/main.js",
+  "main": "./dist/main.js",
   "module": "./dist/main.js",
-  "types": "./dist/main.d.ts"
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
+    }
+  },
+  "sideEffects": [
+    "**/*.css"
+  ]
 }

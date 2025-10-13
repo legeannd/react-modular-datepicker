@@ -95,7 +95,7 @@ export const MinimalistDesign = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='border border-gray-200 bg-white'
-                  weekdayClassName='text-gray-600 font-medium text-xs'
+                  weekdayClassName='flex justify-center text-gray-600 font-medium text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
                       <span>Clean • Simple</span>
@@ -110,15 +110,16 @@ export const MinimalistDesign = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-colors text-gray-700 hover:bg-gray-50 hover:border-gray-300',
+                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-colors text-gray-700',
                     selected: 'bg-gray-900 text-white border-gray-900',
                     today: 'border-gray-400 font-semibold',
                     weekend: 'text-gray-500',
+                    hovered: 'bg-gray-50 border-gray-300',
                   }}
                 />
                 <DatePicker.Calendar
                   className='border border-l-0 border-gray-200 bg-white'
-                  weekdayClassName='text-gray-600 font-medium text-xs'
+                  weekdayClassName='flex justify-center text-gray-600 font-medium text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
                       <span>{currentDate.daysInMonth()} days in month</span>
@@ -131,10 +132,11 @@ export const MinimalistDesign = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-colors text-gray-700 hover:bg-gray-50 hover:border-gray-300',
+                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-colors text-gray-700',
                     selected: 'bg-gray-900 text-white border-gray-900',
                     today: 'border-gray-400 font-semibold',
                     weekend: 'text-gray-500',
+                    hovered: 'bg-gray-50 border-gray-300',
                   }}
                 />
               </div>
@@ -227,7 +229,7 @@ export const GradientGlassStyle = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
-                  weekdayClassName='text-white/80 font-bold text-sm'
+                  weekdayClassName='flex justify-center text-white/80 font-bold text-sm'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-2xl border border-white/30 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 p-4 backdrop-blur-md'>
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
@@ -247,7 +249,7 @@ export const GradientGlassStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded-xl px-3 py-2 text-sm transition-all text-white hover:bg-white/20 hover:backdrop-blur-sm border border-transparent',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-xl px-3 py-2 text-sm transition-all border border-transparent',
                     selected: 'bg-white text-purple-600 font-bold shadow-lg border-white',
                     rangeStart:
                       'bg-gradient-to-r from-white to-white/80 text-purple-600 font-bold shadow-lg rounded-l-xl rounded-r-none border-white',
@@ -259,12 +261,12 @@ export const GradientGlassStyle = {
                       'bg-yellow-400/30 text-yellow-100 font-bold border-yellow-300/50 shadow-[0_0_8px_rgba(251,191,36,0.6)]',
                     weekend: 'text-pink-200 font-semibold border-transparent',
                     hovered:
-                      'bg-white/15 text-white backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-white/20',
+                      'bg-white/20 backdrop-blur-sm text-white shadow-[0_0_12px_rgba(255,255,255,0.3)] border-white/20',
                   }}
                 />
                 <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
-                  weekdayClassName='text-white/80 font-bold text-sm'
+                  weekdayClassName='flex justify-center text-white/80 font-bold text-sm'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-2xl border border-white/30 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-purple-500/20 p-4 backdrop-blur-md'>
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
@@ -285,7 +287,7 @@ export const GradientGlassStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded-xl px-3 py-2 text-sm transition-all text-white hover:bg-white/20 hover:backdrop-blur-sm border border-transparent',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-xl px-3 py-2 text-sm transition-all border border-transparent',
                     selected: 'bg-white text-purple-600 font-bold shadow-lg border-white',
                     rangeStart:
                       'bg-gradient-to-r from-white to-white/80 text-purple-600 font-bold shadow-lg rounded-l-xl rounded-r-none border-white',
@@ -297,7 +299,7 @@ export const GradientGlassStyle = {
                       'bg-yellow-400/30 text-yellow-100 font-bold border-yellow-300/50 shadow-[0_0_8px_rgba(251,191,36,0.6)]',
                     weekend: 'text-pink-200 font-semibold border-transparent',
                     hovered:
-                      'bg-white/15 text-white backdrop-blur-sm shadow-[0_0_12px_rgba(255,255,255,0.3)] border-white/20',
+                      'bg-white/20 backdrop-blur-sm text-white shadow-[0_0_12px_rgba(255,255,255,0.3)] border-white/20',
                   }}
                 />
               </div>
@@ -397,7 +399,7 @@ export const DarkTheme = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='rounded-xl border border-slate-700 bg-slate-800/30 p-4 backdrop-blur-sm'
-                  weekdayClassName='text-emerald-300 font-semibold text-sm'
+                  weekdayClassName='flex justify-center text-emerald-300 font-semibold text-sm'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-xl border border-slate-700 bg-gradient-to-r from-emerald-900/20 to-slate-800/20 p-3 backdrop-blur-sm'>
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
@@ -427,7 +429,7 @@ export const DarkTheme = {
                 />
                 <DatePicker.Calendar
                   className='rounded-xl border border-l-0 border-slate-700 bg-slate-800/30 p-4 backdrop-blur-sm'
-                  weekdayClassName='text-emerald-300 font-semibold text-sm'
+                  weekdayClassName='flex justify-center text-emerald-300 font-semibold text-sm'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-xl border border-slate-700 bg-gradient-to-r from-slate-800/20 to-emerald-900/20 p-3 backdrop-blur-sm'>
                       <div className='flex items-center justify-between text-xs font-semibold text-slate-300'>
@@ -559,7 +561,7 @@ export const DarkCyberpunkTheme = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='border border-cyan-400/30 bg-gray-900/50'
-                  weekdayClassName='text-cyan-300 font-mono font-bold text-xs'
+                  weekdayClassName='flex justify-center text-cyan-300 font-mono font-bold text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='border-t border-cyan-400/50 bg-black/90 p-3 shadow-[0_0_20px_rgba(34,211,238,0.2)]'>
                       <div className='flex items-center justify-between font-mono text-xs'>
@@ -579,19 +581,21 @@ export const DarkCyberpunkTheme = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-all text-cyan-100 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_rgba(34,211,238,0.3)] font-mono',
+                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-all text-cyan-100  font-mono',
                     selected:
                       'bg-cyan-400 text-black font-bold shadow-[0_0_15px_rgba(34,211,238,0.8)]',
                     today:
                       'border-cyan-400 text-cyan-400 font-bold shadow-[0_0_5px_rgba(34,211,238,0.5)]',
                     weekend: 'text-cyan-300/70',
+                    hovered:
+                      'border-cyan-400/50 bg-cyan-400/10 shadow-[0_0_10px_rgba(34,211,238,0.3)]',
                     disabled:
                       'bg-red-900/30 text-red-400 border-red-500/30 cursor-not-allowed shadow-[0_0_8px_rgba(239,68,68,0.3)] relative after:content-["X"] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:text-red-300 after:font-bold after:animate-pulse',
                   }}
                 />
                 <DatePicker.Calendar
                   className='border border-l-0 border-cyan-400/30 bg-gray-900/50'
-                  weekdayClassName='text-cyan-300 font-mono font-bold text-xs'
+                  weekdayClassName='flex justify-center text-cyan-300 font-mono font-bold text-xs'
                   footerSlot={({ currentDate }) => (
                     <div className='border-t border-cyan-400/50 bg-black/90 p-3 shadow-[0_0_20px_rgba(34,211,238,0.2)]'>
                       <div className='flex items-center justify-between font-mono text-xs'>
@@ -616,12 +620,14 @@ export const DarkCyberpunkTheme = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-all text-cyan-100 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:shadow-[0_0_10px_rgba(34,211,238,0.3)] font-mono',
+                    base: 'flex w-full cursor-pointer items-center justify-center border border-transparent px-3 py-2 text-sm transition-all text-cyan-100  font-mono',
                     selected:
                       'bg-cyan-400 text-black font-bold shadow-[0_0_15px_rgba(34,211,238,0.8)]',
                     today:
                       'border-cyan-400 text-cyan-400 font-bold shadow-[0_0_5px_rgba(34,211,238,0.5)]',
                     weekend: 'text-cyan-300/70',
+                    hovered:
+                      'border-cyan-400/50 bg-cyan-400/10 shadow-[0_0_10px_rgba(34,211,238,0.3)]',
                     disabled:
                       'bg-red-900/30 text-red-400 border-red-500/30 cursor-not-allowed shadow-[0_0_8px_rgba(239,68,68,0.3)] relative after:content-["X"] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:text-red-300 after:font-bold after:animate-pulse',
                   }}
@@ -731,10 +737,7 @@ export const NeumorphismStyle = {
       <div className='min-h-screen bg-gray-200 p-8'>
         <div className='mx-auto max-w-4xl space-y-8'>
           <div className='rounded-3xl bg-gray-200 p-8 shadow-[20px_20px_40px_rgba(0,0,0,0.1),-20px_-20px_40px_rgba(255,255,255,1)]'>
-            <DatePicker.Provider
-              initialMonth={new Date('2025-03-20')}
-              normalizeHeight={true}
-            >
+            <DatePicker.Provider normalizeHeight={true}>
               <DatePicker.Header
                 className='rounded-2xl bg-gray-200 text-gray-700 shadow-[inset_-5px_-5px_10px_rgba(255,255,255,1),inset_5px_5px_10px_rgba(0,0,0,0.1)]'
                 calendarGridClassName='gap-x-0'
@@ -758,7 +761,7 @@ export const NeumorphismStyle = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='rounded-2xl bg-gray-200 p-4 shadow-[inset_-8px_-8px_15px_rgba(255,255,255,1),inset_8px_8px_15px_rgba(0,0,0,0.1)]'
-                  weekdayClassName='text-gray-600 font-semibold'
+                  weekdayClassName='flex justify-center text-gray-600 font-semibold'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-xl bg-gray-200 p-3 shadow-[inset_2px_2px_8px_rgba(0,0,0,0.1),inset_-2px_-2px_8px_rgba(255,255,255,1)]'>
                       <div className='flex items-center justify-center gap-4 text-xs font-semibold text-gray-700'>
@@ -780,7 +783,7 @@ export const NeumorphismStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'bg-gray-200 shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    base: ' shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
                     selected:
                       'bg-blue-400 text-white shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)] font-semibold',
                     today:
@@ -790,7 +793,7 @@ export const NeumorphismStyle = {
                 />
                 <DatePicker.Calendar
                   className='rounded-2xl bg-gray-200 p-4 shadow-[inset_-8px_-8px_15px_rgba(255,255,255,1),inset_8px_8px_15px_rgba(0,0,0,0.1)]'
-                  weekdayClassName='text-gray-600 font-semibold'
+                  weekdayClassName='flex justify-center text-gray-600 font-semibold'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-xl bg-gray-200 p-3 shadow-[inset_2px_2px_8px_rgba(0,0,0,0.1),inset_-2px_-2px_8px_rgba(255,255,255,1)]'>
                       <div className='flex items-center justify-center gap-4 text-xs font-semibold text-gray-700'>
@@ -809,7 +812,7 @@ export const NeumorphismStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'bg-gray-200 shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    base: 'shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
                     selected:
                       'bg-blue-400 text-white shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)] font-semibold',
                     today:
@@ -921,7 +924,7 @@ export const RetroVintageStyle = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='border-2 border-amber-600 bg-gradient-to-b from-amber-50 to-amber-100 p-4'
-                  weekdayClassName='text-amber-700 font-serif font-bold'
+                  weekdayClassName='flex justify-center text-amber-700 font-serif font-bold'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded border-2 border-amber-600 bg-gradient-to-r from-amber-200 via-orange-200 to-amber-200 p-3 shadow-lg'>
                       <div className='flex items-center justify-between font-serif text-xs font-bold text-amber-800'>
@@ -947,7 +950,7 @@ export const RetroVintageStyle = {
                 />
                 <DatePicker.Calendar
                   className='border-2 border-l-0 border-amber-600 bg-gradient-to-b from-amber-50 to-amber-100 p-4'
-                  weekdayClassName='text-amber-700 font-serif font-bold'
+                  weekdayClassName='flex justify-center text-amber-700 font-serif font-bold'
                   footerSlot={() => (
                     <div className='mt-4 rounded border-2 border-amber-600 bg-gradient-to-r from-orange-200 via-amber-200 to-orange-200 p-3 shadow-lg'>
                       <div className='flex items-center justify-between font-serif text-xs font-bold text-amber-800'>
@@ -1043,10 +1046,7 @@ export const ModernBrutalistStyle = {
             className='border-8 border-black bg-white p-8'
             style={{ boxShadow: '12px 12px 0px 0px black' }}
           >
-            <DatePicker.Provider
-              initialMonth={new Date('2025-01-01')}
-              normalizeHeight={true}
-            >
+            <DatePicker.Provider normalizeHeight={true}>
               <DatePicker.Header
                 className='border-4 border-black bg-red-500 text-black'
                 calendarGridClassName='gap-x-0'
@@ -1078,7 +1078,7 @@ export const ModernBrutalistStyle = {
               <div className='flex gap-0'>
                 <DatePicker.Calendar
                   className='border-4 border-black bg-white'
-                  weekdayClassName='text-black font-mono font-black text-sm'
+                  weekdayClassName='flex justify-center text-black font-mono font-black text-sm'
                   footerSlot={({ currentDate }) => (
                     <div
                       className='mt-2 border-4 border-black bg-red-500 p-3'
@@ -1101,15 +1101,15 @@ export const ModernBrutalistStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border-2 border-black bg-white px-2 py-2 text-sm font-mono font-bold text-black transition-all hover:bg-gray-200 active:translate-x-1 active:translate-y-1 active:shadow-none',
+                    base: 'flex w-full cursor-pointer items-center justify-center box-border border-2 border-black px-2 py-2 text-sm font-mono font-bold text-black transition-all hover:bg-gray-200 active:translate-x-1 active:translate-y-1 active:shadow-none',
                     selected: 'bg-black text-white font-black',
-                    today: 'bg-yellow-400 text-black font-black border-4',
+                    today: 'bg-yellow-400 text-black font-black',
                     weekend: 'bg-red-200 font-black',
                   }}
                 />
                 <DatePicker.Calendar
                   className='border-4 border-l-0 border-black bg-white'
-                  weekdayClassName='text-black font-mono font-black text-sm'
+                  weekdayClassName='flex justify-center text-black font-mono font-black text-sm'
                   footerSlot={({ currentDate }) => (
                     <div
                       className='mt-2 border-4 border-black bg-yellow-400 p-3'
@@ -1136,9 +1136,9 @@ export const ModernBrutalistStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center border-2 border-black bg-white px-2 py-2 text-sm font-mono font-bold text-black transition-all hover:bg-gray-200 active:translate-x-1 active:translate-y-1 active:shadow-none',
+                    base: 'flex w-full cursor-pointer items-center justify-center box-border border-2 border-black px-2 py-2 text-sm font-mono font-bold text-black transition-all hover:bg-gray-200 active:translate-x-1 active:translate-y-1 active:shadow-none',
                     selected: 'bg-black text-white font-black',
-                    today: 'bg-yellow-400 text-black font-black border-4',
+                    today: 'bg-yellow-400 text-black font-black',
                     weekend: 'bg-red-200 font-black',
                   }}
                 />
@@ -1214,7 +1214,7 @@ export const MobileResponsiveTheme = {
             </DatePicker.Header>
             <DatePicker.Calendar
               className='rounded-xl bg-white'
-              weekdayClassName='text-gray-600 font-medium text-sm text-center py-3'
+              weekdayClassName='flex justify-center text-gray-600 font-medium text-sm text-center py-3'
               footerSlot={({ currentDate }) => (
                 <div className='flex justify-between rounded-b-xl border-t border-gray-200 bg-gray-50 px-4 py-3 text-center text-sm font-medium text-gray-700'>
                   <span className='flex items-center gap-2 capitalize'>
@@ -1314,7 +1314,7 @@ export const PurpleGradientTheme = {
             <div className='flex gap-0'>
               <DatePicker.Calendar
                 className='bg-purple-100 p-4'
-                weekdayClassName='text-purple-700 font-semibold'
+                weekdayClassName='flex justify-center text-purple-700 font-semibold'
                 footerSlot={({ currentDate }) => (
                   <div className='flex justify-between rounded border-2 border-purple-300 bg-gradient-to-r from-purple-500 to-pink-500 p-2 text-center text-xs font-semibold text-white shadow-lg'>
                     <span className='flex items-center gap-1 capitalize'>
@@ -1344,7 +1344,7 @@ export const PurpleGradientTheme = {
               />
               <DatePicker.Calendar
                 className='bg-purple-100 p-4'
-                weekdayClassName='text-purple-700 font-semibold'
+                weekdayClassName='flex justify-center text-purple-700 font-semibold'
                 footerSlot={({ currentDate }) => (
                   <div className='flex justify-between rounded border-2 border-purple-300 bg-gradient-to-r from-purple-500 to-pink-500 p-2 text-center text-xs font-semibold text-white shadow-lg'>
                     <span className='flex items-center gap-1 capitalize'>
@@ -1384,13 +1384,13 @@ export const MaterialDesignTheme = {
   render: () => (
     <div className='min-h-screen bg-blue-50 p-8'>
       <div className='mx-auto max-w-4xl space-y-8'>
-        <div className='rounded-3xl border border-blue-100 bg-white p-8 shadow-2xl'>
+        <div className='rounded-3xl border border-blue-100 bg-blue-500 p-8'>
           <DatePicker.Provider
             type='range'
             normalizeHeight={true}
           >
             <DatePicker.Header
-              className='rounded-2xl bg-blue-500 text-white shadow-2xl'
+              className='rounded-2xl bg-blue-500 text-white'
               calendarGridClassName='gap-x-0'
             >
               <DateSelectExample
@@ -1447,8 +1447,8 @@ export const MaterialDesignTheme = {
             </DatePicker.Header>
             <div className='flex gap-0'>
               <DatePicker.Calendar
-                className='rounded-2xl border border-blue-100 bg-white p-6 shadow-xl'
-                weekdayClassName='text-blue-600 font-bold tracking-widest text-sm'
+                className='rounded-2xl rounded-r-none border border-r-0 border-blue-100 bg-white p-6'
+                weekdayClassName='flex justify-center text-blue-600 font-bold tracking-widest text-sm'
                 footerSlot={({ currentDate }) => (
                   <div className='mt-4 flex justify-between rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100 p-4 text-center text-sm font-bold text-blue-700 shadow-lg'>
                     <span className='flex items-center gap-2 capitalize'>
@@ -1483,11 +1483,12 @@ export const MaterialDesignTheme = {
                     'bg-blue-50 font-bold text-blue-600 ring-2 ring-blue-300 ring-offset-2 shadow-lg',
                   hovered: 'bg-blue-100 text-blue-800 shadow-lg font-bold border-blue-300',
                   weekend: 'text-gray-500 font-bold',
+                  differentMonth: 'text-blue-300 opacity-60',
                 }}
               />
               <DatePicker.Calendar
-                className='rounded-2xl border border-l-0 border-blue-100 bg-white p-6 shadow-xl'
-                weekdayClassName='text-blue-600 font-bold tracking-widest text-sm'
+                className='rounded-2xl rounded-l-none border border-l-0 border-blue-100 bg-white p-6'
+                weekdayClassName='flex justify-center text-blue-600 font-bold tracking-widest text-sm'
                 footerSlot={({ currentDate }) => (
                   <div className='mt-4 flex justify-between rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-100 to-blue-50 p-4 text-center text-sm font-bold text-blue-700 shadow-lg'>
                     <span className='flex items-center gap-2'>Material Design</span>
@@ -1515,6 +1516,7 @@ export const MaterialDesignTheme = {
                     'bg-blue-50 font-bold text-blue-600 ring-2 ring-blue-300 ring-offset-2 shadow-lg',
                   hovered: 'bg-blue-100 text-blue-800 shadow-lg font-bold border-blue-300',
                   weekend: 'text-gray-500 font-bold',
+                  differentMonth: 'text-blue-300 opacity-60',
                 }}
               />
             </div>

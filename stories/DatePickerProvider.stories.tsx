@@ -136,7 +136,10 @@ export const CustomLocale: Story = {
       <>
         <DatePicker.Header>
           <DateSelectExample>
-            <DatePicker.Label type='long' />
+            <DatePicker.Label
+              type='long'
+              className='capitalize'
+            />
           </DateSelectExample>
         </DatePicker.Header>
         <DatePicker.Calendar

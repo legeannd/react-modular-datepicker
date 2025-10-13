@@ -42,6 +42,7 @@ export function DatePickerProvider({
     const date = dayjs(tableDate).startOf('day')
     const startOfMonth = date.startOf('month')
     const endOfMonth = date.endOf('month')
+    const firstDayOfWeek = dayjs().localeData().firstDayOfWeek()
     const monthTable = new Map<number, CurrentDay[]>()
     let currentDay = startOfMonth.startOf('week')
     let week = 0
@@ -58,7 +59,7 @@ export function DatePickerProvider({
 
       currentDay = currentDay.add(1, 'day')
 
-      if (currentDay.day() === 0) {
+      if (currentDay.day() === firstDayOfWeek) {
         week++
       }
     }
@@ -258,7 +259,7 @@ export function DatePickerProvider({
   useEffect(() => {
     if (onSelectionChange) {
       const normalized = normalizeSelection(selected)
-      onSelectionChange(normalized)
+      onSelectionChange(normalized as never)
     }
   }, [selected, onSelectionChange])
 
