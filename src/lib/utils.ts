@@ -1,4 +1,5 @@
-import type { SelectedDate, CurrentDay, CurrentRange, DatePickerSelection } from "@/types"
+
+import type { SelectedDate, CurrentDay, CurrentRange, DatePickerSelection, SingleSelection, MultipleSelection, RangeSelection, InitialDatesObject, CalendarType } from "@/types"
 
 export function normalizeSelection(selectedData: SelectedDate): DatePickerSelection {
   const { selection, type } = selectedData
@@ -28,4 +29,26 @@ export function normalizeSelection(selectedData: SelectedDate): DatePickerSelect
   }
 }
 
+export function convertValueToInitialDates(
+  value: SingleSelection | MultipleSelection | RangeSelection,
+  type: CalendarType
+): InitialDatesObject {
+  switch (type) {
+    case 'single':
+      return { days: [value as string] }
 
+    case 'multiple':
+      return { days: value as string[] }
+
+    case 'range': {
+      const rangeValue = value as { start: string; end: string }
+      return {
+        start: rangeValue.start,
+        end: rangeValue.end
+      }
+    }
+
+    default:
+      return {}
+  }
+}

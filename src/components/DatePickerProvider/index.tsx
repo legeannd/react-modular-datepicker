@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import type { Dayjs } from 'dayjs'
 import { DatePickerContext } from '@/contexts/DatePickerContext'
 import type {
@@ -11,7 +11,7 @@ import type {
   SelectedDate,
 } from '@/types'
 import { useLocalizedDayjs } from '@/hooks/useLocalizedDayjs'
-import { normalizeSelection } from '@/lib/utils'
+import { normalizeSelection, convertValueToInitialDates } from '@/lib/utils'
 import styles from './DatePickerProvider.module.css'
 
 export function DatePickerProvider({
@@ -20,12 +20,13 @@ export function DatePickerProvider({
   type = 'single',
   normalizeHeight = false,
   defaultSelected,
+  value,
   disabledDates = {},
   dayjs: customDayjs,
   className,
   onSelectionChange,
 }: DatePickerProviderProps) {
-  const [selected, setSelected] = useState<SelectedDate>({
+  const [internalSelected, setInternalSelected] = useState<SelectedDate>({
     selection: null,
     type,
   })
@@ -37,6 +38,22 @@ export function DatePickerProvider({
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
   const { getDayjs: dayjs } = useLocalizedDayjs(customDayjs)
   const [refDate, setRefDate] = useState<Dayjs>(dayjs(initialMonth))
+
+  const prevValueRef = useRef<typeof value>(undefined)
+  const isInternalUpdateRef = useRef(false)
+  const isControlled = value !== undefined
+  const selected = internalSelected
+
+  const setSelected = (newSelected: SelectedDate | ((prev: SelectedDate) => SelectedDate)) => {
+    const resolvedValue = typeof newSelected === 'function' ? newSelected(selected) : newSelected
+    isInternalUpdateRef.current = true
+    setInternalSelected(resolvedValue)
+
+    if (isControlled && onSelectionChange) {
+      const normalized = normalizeSelection(resolvedValue)
+      onSelectionChange(normalized as never)
+    }
+  }
 
   const createMonthTable = (tableDate = initialMonth) => {
     const date = dayjs(tableDate).startOf('day')
@@ -73,7 +90,7 @@ export function DatePickerProvider({
         const day = dayjs(initialSelectedDays?.days?.[0])
         if (day.isValid()) {
           const selected = { day: { date: day.toISOString(), label: day.date() } }
-          setSelected({ type, selection: selected })
+          setInternalSelected({ type, selection: selected })
         }
         break
       }
@@ -89,7 +106,7 @@ export function DatePickerProvider({
               })
               .filter((item) => item !== null)
           : []
-        setSelected({ selection: selected, type })
+        setInternalSelected({ selection: selected, type })
         break
       }
       case 'range': {
@@ -97,7 +114,7 @@ export function DatePickerProvider({
         const end = dayjs(initialSelectedDays?.end)
 
         if (start.isValid() && end.isValid()) {
-          setSelected({
+          setInternalSelected({
             selection: {
               start: { day: { date: start.toISOString(), label: start.date() } },
               end: { day: { date: end.toISOString(), label: end.date() } },
@@ -257,11 +274,45 @@ export function DatePickerProvider({
   }, [defaultSelected])
 
   useEffect(() => {
+    if (!isControlled) return
+
+    if (value === prevValueRef.current) {
+      return
+    }
+
+    prevValueRef.current = value
+    if (isInternalUpdateRef.current) {
+      isInternalUpdateRef.current = false
+      return
+    }
+
+    if (value === null) {
+      if (internalSelected.selection !== null) {
+        setInternalSelected({ type, selection: null })
+      }
+      return
+    }
+
+    const converted = convertValueToInitialDates(value, type)
+    handleSetDefaultSelected(converted)
+
+    const firstDate =
+      type === 'single' || type === 'multiple' ? converted.days?.[0] : converted.start
+
+    const dateToShow = dayjs(firstDate)
+    if (dateToShow.isValid()) {
+      setRefDate(dateToShow)
+    }
+  }, [value, type, isControlled, internalSelected])
+
+  useEffect(() => {
+    if (isControlled) return
+
     if (onSelectionChange) {
-      const normalized = normalizeSelection(selected)
+      const normalized = normalizeSelection(internalSelected)
       onSelectionChange(normalized as never)
     }
-  }, [selected, onSelectionChange])
+  }, [internalSelected, onSelectionChange, isControlled])
 
   const contextValue = {
     selected,

@@ -9,7 +9,9 @@ import styles from './Calendar.module.css'
 export function Calendar({
   showWeekdays = true,
   weekdayLabels,
+  weekdaysContainerClassName,
   weekdayClassName,
+  daysContainerClassName,
   id,
   footerSlot,
   dayButtonClassNames,
@@ -65,7 +67,7 @@ export function Calendar({
       }
     >
       {showWeekdays && (
-        <div className={styles.weekdays}>
+        <div className={weekdaysContainerClassName || styles.weekdays}>
           {weekdays.map((_, index) => (
             <span
               className={weekdayClassName || styles.weekday}
@@ -76,7 +78,7 @@ export function Calendar({
           ))}
         </div>
       )}
-      <div className={styles.daysContainer}>
+      <div className={daysContainerClassName || styles.daysContainer}>
         {Array.from(monthTable.keys()).map((week) => (
           <div
             key={week}

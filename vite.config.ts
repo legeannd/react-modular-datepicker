@@ -5,7 +5,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import dts from 'vite-plugin-dts'
-import { visualizer } from 'rollup-plugin-visualizer'
 
 
 export default defineConfig({
@@ -24,11 +23,6 @@ export default defineConfig({
       include: ['src/**/*'],
       insertTypesEntry: true,
       copyDtsFiles: true,
-    }),
-    visualizer({
-      filename: 'dist/bundle-analysis.html',
-      open: false,
-      gzipSize: true,
     }),
   ],
   resolve: {

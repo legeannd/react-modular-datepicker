@@ -1,5 +1,10 @@
 # React Modular DatePicker
 
+[![npm version](https://img.shields.io/npm/v/@legeannd/react-modular-datepicker)](https://www.npmjs.com/package/@legeannd/react-modular-datepicker)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@legeannd/react-modular-datepicker)](https://bundlephobia.com/package/@legeannd/react-modular-datepicker)
+[![Storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 ```tsx
 import * as DatePicker from '@legeannd/react-modular-datepicker'
 
@@ -17,83 +22,20 @@ function App() {
 }
 ```
 
-A modern, customizable datepicker component library for React applications. Built with TypeScript, React 19, and CSS Modules.
+A modern, lightweight, composable datepicker library for React applications. Built with TypeScript, React 19, and CSS Modules.
+
+**[📚 View Live Examples →](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)**
 
 ## Features
 
-- 🎯 **Modular Architecture** - Use individual components or combine them
-- 🎨 **Highly Customizable** - Full control over styling and behavior
-- 🌍 **Internationalization** - Built-in Day.js localization support
-- 📱 **Responsive Design** - Mobile-friendly out of the box
-- 🎭 **Multiple Selection Types** - Single date, date range, and multi-select
-- 🎪 **Storybook Documentation** - Interactive component playground
-- 📦 **Optimized Bundle** - Tree-shakable with minimal dependencies
-- ⚡ **TypeScript First** - Full type safety and IntelliSense support
-- 🚀 **React Compiler Optimized** - Built with React's new compiler for optimal performance
-
-## Requirements
-
-This library is built using React's new compiler for optimal performance and requires the React Compiler to be configured in your project.The library will likely work without it, but it won't have performance optimizations.
-
-### React Compiler Setup
-
-Install the React Compiler:
-
-```bash
-npm install babel-plugin-react-compiler
-# or
-pnpm add babel-plugin-react-compiler
-# or
-yarn add babel-plugin-react-compiler
-```
-
-Configure your build tool:
-
-**For Vite:**
-
-```js
-// vite.config.js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-const ReactCompilerConfig = {
-  target: '19',
-}
-
-export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
-      },
-    }),
-  ],
-})
-```
-
-**For Next.js:**
-
-```js
-// next.config.js
-const nextConfig = {
-  experimental: {
-    reactCompiler: {
-      target: '19',
-    },
-  },
-}
-
-module.exports = nextConfig
-```
-
-**For Create React App:**
-
-```js
-// babel.config.js
-module.exports = {
-  plugins: [['babel-plugin-react-compiler', { target: '19' }]],
-}
-```
+- 🎯 **Modular Architecture** - Compose components to build custom date pickers
+- 🎨 **Highly Customizable** - Complete styling control via CSS classes and custom properties
+- 🌍 **Internationalization** - Day.js-powered localization support
+- 📱 **Responsive** - Mobile-friendly with flexible layouts
+- 🎭 **Multiple Selection Modes** - Single, multiple, and range selection
+- 🎛️ **Controlled & Uncontrolled** - Use as controlled or uncontrolled components
+- ⚡ **React Compiler Optimized** - Built for performance with React's compiler
+- 📦 **TypeScript First** - Full type safety and IntelliSense
 
 ## Installation
 
@@ -105,9 +47,11 @@ pnpm add @legeannd/react-modular-datepicker
 yarn add @legeannd/react-modular-datepicker
 ```
 
-**Note:** The library uses CSS Modules for component styling. Styles are automatically imported when you import the library - no separate CSS import is needed.
+**Peer Dependencies:** React 19+, Day.js
 
-**Styling Note:** The library comes with default styles built using CSS custom properties, but you can completely override the styles with your own CSS classes using the provided className props on each component.
+> **Note:** This library is optimized with React's compiler for better performance. While it works without it, we recommend setting it up. [Learn more about the React Compiler →](https://react.dev/learn/react-compiler)
+
+> **💡 Tip:** Explore all features and styling options in our [interactive Storybook documentation](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)
 
 ## Quick Start
 
@@ -117,22 +61,15 @@ yarn add @legeannd/react-modular-datepicker
 import * as DatePicker from '@legeannd/react-modular-datepicker'
 
 function App() {
+  const handleSelectionChange = (date) => {
+    console.log('Selected date:', date)
+  }
+
   return (
-    <DatePicker.Provider>
-      <DatePicker.Calendar />
-    </DatePicker.Provider>
-  )
-}
-```
-
-### With Header Controls
-
-```tsx
-import { DatePicker } from '@legeannd/react-modular-datepicker'
-
-function App() {
-  return (
-    <DatePicker.Provider>
+    <DatePicker.Provider
+      type='single'
+      onSelectionChange={handleSelectionChange}
+    >
       <DatePicker.Header>
         <DatePicker.Button type='previous'>←</DatePicker.Button>
         <DatePicker.Label />
@@ -144,20 +81,17 @@ function App() {
 }
 ```
 
-### Date Range Selection
+### Controlled Mode
 
 ```tsx
-import { DatePicker } from '@legeannd/react-modular-datepicker'
-
 function App() {
-  const handleSelectionChange = (selection) => {
-    console.log('Selected dates:', selection)
-  }
+  const [selectedDate, setSelectedDate] = useState<string | null>(null)
 
   return (
     <DatePicker.Provider
-      type='range'
-      onSelectionChange={handleSelectionChange}
+      type='single'
+      value={selectedDate}
+      onSelectionChange={setSelectedDate}
     >
       <DatePicker.Calendar />
     </DatePicker.Provider>
@@ -165,251 +99,210 @@ function App() {
 }
 ```
 
-## Components
-
-### DatePicker.Provider
-
-The root provider component that manages state and context for all child components.
+### Multiple Calendars
 
 ```tsx
-<DatePicker.Provider
-  type='single' // "single" | "range" | "multiple"
-  initialMonth={new Date()} // Optional initial display month for the calendar
-  defaultSelected={{
-    days: ['2024-01-15'], // For single or multiple selection
-    start: '2024-01-01', // For range selection
-    end: '2024-01-31', // For range selection
-    // The displayed dates depend on the `type` prop. If `type="single"`, only the first item in the `days` array will be selected and shown.
-  }}
-  normalizeHeight={true} // Makes all calendar grids 6 weeks tall
-  disabledDates={{
-    days: ['2024-12-25'], // Specific dates
-    start: '2024-01-01', // Disable dates after this (when no end)
-    end: '2024-12-31', // Disable dates before this (when no start)
-    // When both start & end are present: disables the entire range including boundaries
-    every: 'weekend', // "weekend" | "weekdays"
-    weekdays: [0, 6], // Sunday=0, Saturday=6
-  }}
-  onSelectionChange={(selection) => {
-    // selection format depends on provider type:
-    // single: "2024-01-15" | null
-    // multiple: ["2024-01-15", "2024-01-16"] | null
-    // range: { start: "2024-01-01", end: "2024-01-31" } | null
-    console.log(selection)
-  }}
-  dayjs={customDayjsInstance} // Optional custom dayjs instance
-  className='custom-datepicker'
->
-  {/* Your datepicker components */}
-</DatePicker.Provider>
-```
+function App() {
+  const handleSelectionChange = (range) => {
+    if (range) {
+      console.log(`Selected range: ${range.start} to ${range.end}`)
+    }
+  }
 
-#### Props Reference
-
-| Prop                | Type                                        | Default      | Description                                                               |
-| ------------------- | ------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `children`          | `React.ReactNode`                           | **Required** | Child components (Calendar, Header, etc.)                                 |
-| `initialMonth`      | `string` \| `Date`                          | `new Date()` | Initial month to display when the calendar first loads                    |
-| `defaultSelected`   | `InitialDatesObject`                        | `undefined`  | Initial selected dates to display on the calendar                         |
-| `type`              | `'single'` \| `'multiple'` \| `'range'`     | `'single'`   | Calendar selection mode (single, multiple, or range)                      |
-| `normalizeHeight`   | `boolean`                                   | `false`      | Normalize all calendar grids to have the same height (6 weeks)            |
-| `disabledDates`     | `DisabledDatesObject`                       | `{}`         | Configuration for disabling specific dates or date patterns               |
-| `dayjs`             | `(date?: string \| Date \| Dayjs) => Dayjs` | `undefined`  | Custom dayjs instance for date formatting and localization                |
-| `className`         | `string`                                    | `undefined`  | CSS classes for the provider container                                    |
-| `onSelectionChange` | `(selection: NormalizedSelection) => void`  | `undefined`  | Callback fired when the selection changes, receives clean normalized data |
-
-### DatePicker.Calendar
-
-The main calendar grid component that displays the dates in a monthly view. This component handles date rendering, user interactions, and visual state management.
-
-#### Key Features
-
-- **Automatic Month Display**: Renders the current month with previous/next month dates for context
-- **Multiple Selection Support**: Handles single, range, and multiple date selection modes
-- **Portal Integration**: Can be rendered inside Header components or as standalone calendars
-- **Accessibility**: Full ARIA labels and keyboard navigation support
-
-#### Basic Usage
-
-```tsx
-<DatePicker.Calendar />
-```
-
-#### Advanced Configuration
-
-```tsx
-<DatePicker.Calendar
-  id='primary-calendar'
-  showWeekdays={true}
-  weekdayLabels={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
-  weekdayClassName='font-semibold text-gray-600'
-  className='custom-calendar-styling'
-  dayButtonClassNames={{
-    base: 'custom-day-button',
-    selected: 'selected-day',
-    today: 'today-highlight',
-    weekend: 'weekend-styling',
-    disabled: 'disabled-day',
-    betweenRange: 'range-middle',
-    rangeStart: 'range-start',
-    rangeEnd: 'range-end',
-  }}
-  footerSlot={({ currentDate }) => (
-    <div className='mt-2 text-center text-sm text-gray-500'>{currentDate.format('MMMM YYYY')}</div>
-  )}
-/>
-```
-
-#### Props Reference
-
-| Prop                  | Type                  | Default     | Description                                                  |
-| --------------------- | --------------------- | ----------- | ------------------------------------------------------------ |
-| `showWeekdays`        | `boolean`             | `true`      | Display weekday headers above the calendar grid              |
-| `weekdayLabels`       | `string[]`            | `undefined` | Custom labels for weekdays (7 items, Sunday-Saturday)        |
-| `weekdayClassName`    | `string`              | `undefined` | CSS classes for the weekday header row                       |
-| `id`                  | `string`              | `undefined` | Unique identifier for calendar grouping and Portal rendering |
-| `footerSlot`          | `function`            | `undefined` | Render prop for custom footer content                        |
-| `dayButtonClassNames` | `DayButtonClassNames` | `{}`        | Comprehensive styling configuration for day buttons          |
-| `className`           | `string`              | `undefined` | CSS classes for the calendar container                       |
-
-#### Day Button States & Styling
-
-The Calendar component provides granular control over day button appearance through the `dayButtonClassNames` prop. Each state has specific priorities and interaction rules:
-
-```tsx
-const dayStyles: DayButtonClassNames = {
-  // Foundation styling applied to all day buttons
-  base: 'h-10 w-10 rounded-md text-sm',
-
-  // State-specific styling (applied conditionally)
-  today: 'ring-2 ring-blue-300', // Current date highlight
-  selected: 'bg-blue-600 text-white', // Selected dates (highest priority)
-  weekend: 'text-red-500', // Saturday/Sunday
-  hovered: 'bg-gray-100', // Mouse hover state
-
-  // Month context styling
-  differentMonth: 'text-gray-400', // Previous/next month dates
-  monthBoundary: 'font-bold', // First/last day of month
-
-  // Range selection styling (type="range" only)
-  rangeStart: 'bg-blue-600 rounded-l-md', // Range start date
-  rangeEnd: 'bg-blue-600 rounded-r-md', // Range end date
-  betweenRange: 'bg-blue-200', // Dates between range
-
-  // Disabled state styling (highest priority)
-  disabled: 'bg-gray-100 text-gray-300 cursor-not-allowed',
-  disabledInRange: 'bg-gray-50 text-gray-200', // Disabled dates in range
+  return (
+    <DatePicker.Provider
+      type='range'
+      onSelectionChange={handleSelectionChange}
+    >
+      <DatePicker.Header>
+        <DatePicker.Button type='previous'>←</DatePicker.Button>
+        <DatePicker.Label />
+        <DatePicker.Button type='next'>→</DatePicker.Button>
+      </DatePicker.Header>
+      <DatePicker.Calendar />
+      <DatePicker.Calendar />
+    </DatePicker.Provider>
+  )
 }
 ```
 
-#### Calendar ID & Grouping
+## Core Components
 
-When using multiple calendars with Header components, the `id` prop controls Portal rendering behavior:
+### DatePicker.Provider
 
-```tsx
-// All calendars render inside header (groupingMode="all") This is the default behavior so the prop is not required.
-<DatePicker.Header groupingMode="all">
-  <DatePicker.Button type="previous">←</DatePicker.Button>
-  <DatePicker.Label />
-  <DatePicker.Button type="next">→</DatePicker.Button>
-</DatePicker.Header>
-<DatePicker.Calendar />                    // Renders in header
-<DatePicker.Calendar />                    // Renders in header
+Root component that manages state and provides context.
 
-// Selective calendar grouping (groupingMode={['cal1', 'cal2']})
-<DatePicker.Header groupingMode={['cal1', 'cal2']}>
-  <DatePicker.Button type="previous">←</DatePicker.Button>
-  <DatePicker.Label />
-  <DatePicker.Button type="next">→</DatePicker.Button>
-</DatePicker.Header>
-<DatePicker.Calendar id="cal1" />          // Renders in header
-<DatePicker.Calendar id="cal2" />          // Renders in header
-<DatePicker.Calendar id="cal3" />          // Renders separately
+**Key Props:**
 
-// Disabled grouping (groupingMode="disabled")
-<DatePicker.Header groupingMode="disabled">
-  <DatePicker.Button type="previous">←</DatePicker.Button>
-  <DatePicker.Label />
-  <DatePicker.Button type="next">→</DatePicker.Button>
-</DatePicker.Header>
-<DatePicker.Calendar />                    // Renders separately
-```
+| Prop                | Type                                | Default      | Description                                  |
+| ------------------- | ----------------------------------- | ------------ | -------------------------------------------- |
+| `type`              | `'single' \| 'multiple' \| 'range'` | `'single'`   | Selection mode                               |
+| `value`             | Depends on `type`                   | `undefined`  | Controlled value (see Controlled Mode below) |
+| `defaultSelected`   | `InitialDatesObject`                | `undefined`  | Initial selected dates (uncontrolled)        |
+| `onSelectionChange` | `(selection) => void`               | `undefined`  | Selection change callback                    |
+| `initialMonth`      | `string \| Date`                    | `new Date()` | Initial month to display                     |
+| `normalizeHeight`   | `boolean`                           | `false`      | Fix calendar height to 6 weeks               |
+| `disabledDates`     | `DisabledDatesObject`               | `{}`         | Date disabling configuration                 |
+| `dayjs`             | `(date?: ConfigType) => Dayjs`      | `undefined`  | Custom Day.js instance for localization      |
+| `className`         | `string`                            | `undefined`  | Container CSS classes                        |
 
-#### Custom Footer with Render Props
+**Selection Types:**
 
-Use the `footerSlot` prop for custom footer content with access to calendar data:
+- **Single:** `value: string | null` → Returns ISO date string or null
+- **Multiple:** `value: string[] | null` → Returns array of ISO date strings or null
+- **Range:** `value: { start: string; end: string } | null` → Returns object with start/end ISO date strings or null
+
+**Disabling Rules:**
+
+1. **`days`** - Array of ISO date strings to disable specific dates
+2. **`every: 'weekend'`** - Disables all Saturdays (6) and Sundays (0)
+3. **`every: 'weekdays'`** - Requires the `weekdays` prop. Disables specific weekdays where 0=Sunday, 1=Monday, ..., 6=Saturday
+4. **`start` only** - Disables all dates AFTER this date
+5. **`end` only** - Disables all dates BEFORE this date
+6. **`start` + `end`** - Disables the entire range INCLUDING both boundaries
+
+All rules are cumulative (OR logic) - a date is disabled if ANY rule matches.
+
+### DatePicker.Calendar
+
+Displays the calendar grid with date selection.
+
+**Key Props:**
+
+| Prop                         | Type                  | Default     | Description                               |
+| ---------------------------- | --------------------- | ----------- | ----------------------------------------- |
+| `id`                         | `string`              | `undefined` | Calendar identifier for grouping          |
+| `showWeekdays`               | `boolean`             | `true`      | Show weekday headers                      |
+| `weekdayLabels`              | `string[]`            | `undefined` | Custom weekday labels (7 items)           |
+| `weekdaysContainerClassName` | `string`              | `undefined` | CSS classes for weekday labels container  |
+| `weekdayClassName`           | `string`              | `undefined` | CSS classes for individual weekday labels |
+| `daysContainerClassName`     | `string`              | `undefined` | CSS classes for days grid container       |
+| `dayButtonClassNames`        | `DayButtonClassNames` | `{}`        | Granular day button styling (see below)   |
+| `footerSlot`                 | `function`            | `undefined` | Render prop for custom footer             |
+| `className`                  | `string`              | `undefined` | Calendar container CSS classes            |
+
+**Day Button States:**
 
 ```tsx
 <DatePicker.Calendar
-  footerSlot={({ currentDate }) => (
-    <div className='mt-2 border-t pt-2'>
-      <p className='text-center text-sm text-gray-600'>{currentDate.format('MMMM YYYY')}</p>
-      <p className='text-center text-xs text-gray-400'>Week {currentDate.week()}</p>
-    </div>
-  )}
+  dayButtonClassNames={{
+    base: 'px-2 py-1 rounded', // Foundation for all days
+    selected: 'bg-blue-600 text-white', // Selected dates
+    today: 'ring-2 ring-blue-300', // Current date
+    weekend: 'text-red-500', // Weekend days (Sat/Sun by default, but may vary based on locale)
+    disabled: 'opacity-50 cursor-not-allowed', // Disabled dates
+    hovered: 'bg-gray-100', // Hover state
+    differentMonth: 'text-gray-400', // Prev/next month dates that appear on the current grid
+    monthBoundary: 'font-bold', // First/last days of the month
+    rangeStart: 'rounded-l-lg', // Range start (range mode)
+    rangeEnd: 'rounded-r-lg', // Range end (range mode)
+    betweenRange: 'bg-blue-100', // Dates in range (range mode)
+    disabledInRange: 'bg-red-50', // Disabled dates within a selected range (range mode)
+  }}
 />
 ```
 
-#### Accessibility Features
-
-The Calendar component includes comprehensive accessibility support:
-
-- **ARIA Labels**: Each calendar has `aria-label` with current month/year
-- **Keyboard Navigation**: Arrow keys, Enter/Space for selection
-- **Screen Reader Support**: Date announcements and selection state
-- **Focus Management**: Proper focus indicators and tab order
-
 ### DatePicker.Header
 
-A flexible container for navigation controls.
+Container for navigation controls with calendar grouping support.
+
+**Key Props:**
+
+| Prop                    | Type                              | Default     | Description                                 |
+| ----------------------- | --------------------------------- | ----------- | ------------------------------------------- |
+| `groupingMode`          | `'all' \| 'disabled' \| string[]` | `'all'`     | Controls which calendars render in header   |
+| `calendarGridClassName` | `string`                          | `undefined` | CSS classes for calendar grid layout        |
+| `childrenClassName`     | `string`                          | `undefined` | CSS classes for navigation controls wrapper |
+| `className`             | `string`                          | `undefined` | Header container CSS classes                |
+
+**Calendar Grouping:**
+
+The Header component serves two purposes:
+
+1. **Calendar Coordination** - When a Header exists, it automatically coordinates ALL Calendar components to display consecutive months and respond to navigation controls (Previous/Next buttons), regardless of where they're rendered.
+
+2. **Visual Grouping** - Uses React Portals to optionally render Calendar components inside the Header container for a unified layout.
+
+**Without a Header:** Calendars render independently at their DOM positions, each showing the same month (from `initialMonth` prop).
+
+**With a Header:** All calendars display consecutive months (e.g., Jan, Feb, Mar) and share navigation controls. The `groupingMode` prop controls which calendars render **inside** the Header via Portal:
+
+- **`'all'`** (default) - All Calendar components render inside the Header container
+- **`'disabled'`** - Calendars render at their original DOM positions (but still coordinated)
+- **`['id1', 'id2']`** - Only Calendars with matching `id` props render inside the Header
+
+Calendars rendered inside the Header automatically arrange in a responsive grid.
+
+**Example:**
 
 ```tsx
-<DatePicker.Header>
-  <DatePicker.Button type='previous'>Previous</DatePicker.Button>
+<DatePicker.Header groupingMode={['calendar1', 'calendar2']}>
+  <DatePicker.Button type='previous'>←</DatePicker.Button>
   <DatePicker.Label />
-  <DatePicker.Button type='next'>Next</DatePicker.Button>
+  <DatePicker.Button type='next'>→</DatePicker.Button>
 </DatePicker.Header>
+<DatePicker.Calendar id='calendar1' /> {/* Renders in header */}
+<DatePicker.Calendar id='calendar3' /> {/* Renders separately */}
 ```
 
 ### DatePicker.Button
 
 Navigation buttons for month/year changes.
 
+**Props:**
+
+| Prop        | Type                   | Description          |
+| ----------- | ---------------------- | -------------------- |
+| `type`      | `'previous' \| 'next'` | Navigation direction |
+| `children`  | `React.ReactNode`      | Button content       |
+| `className` | `string`               | Button CSS classes   |
+
+**Examples:**
+
 ```tsx
-<DatePicker.Button type="previous" className="custom-button">
+{/* Text content */}
+<DatePicker.Button type='previous'>
   ← Previous
 </DatePicker.Button>
-<DatePicker.Button type="next" className="custom-button">
+<DatePicker.Button type='next'>
   Next →
+</DatePicker.Button>
+
+{/* Icon content */}
+<DatePicker.Button type='previous'>
+  <ChevronLeftIcon />
+</DatePicker.Button>
+<DatePicker.Button type='next'>
+  <ChevronRightIcon />
 </DatePicker.Button>
 ```
 
 ### DatePicker.Label
 
-Displays the current month and year.
+Displays current month/year. When multiple calendars are present, automatically shows the date range.
+
+**Props:**
+
+| Prop        | Type                                        | Default     | Description            |
+| ----------- | ------------------------------------------- | ----------- | ---------------------- |
+| `type`      | `'long' \| 'short'`                         | `'long'`    | Label format           |
+| `children`  | `(data: { start, end }) => React.ReactNode` | `undefined` | Custom render function |
+| `className` | `string`                                    | `undefined` | Label CSS classes      |
 
 ```tsx
-<DatePicker.Label type="long" /> // "January 2024"
-<DatePicker.Label type="short" /> // "Jan 2024"
+{/* Default display */}
+<DatePicker.Label type='long' />  {/* "January 2025" */}
+<DatePicker.Label type='short' /> {/* "Jan 2025" */}
 
+{/* Multiple calendars automatically show range */}
+<DatePicker.Label type='long' />  {/* "January - March 2025" */}
 ```
 
-## Multiple Calendar Display
+## Advanced Features
 
-When using multiple calendar components within the same provider context, the date range label automatically displays the complete span across all calendars.
+### Multiple Calendars
 
-**Example:**
-
-- Two calendar components showing January and February
-- Label displays: "January - February 2024"
-
-This ensures users have clear visibility of the entire selectable date range when working with multi-month calendar views.
-
-## Multiple Calendars & Grouping Mode
-
-The library supports displaying multiple calendars simultaneously within a single Header container using the React Portal API. This is useful for date range selection, comparing months, or creating complex date interfaces.
-
-### Basic Multiple Calendar Setup
+Display multiple consecutive months for range selection:
 
 ```tsx
 <DatePicker.Provider type='range'>
@@ -418,213 +311,27 @@ The library supports displaying multiple calendars simultaneously within a singl
     <DatePicker.Label />
     <DatePicker.Button type='next'>→</DatePicker.Button>
   </DatePicker.Header>
-
   <DatePicker.Calendar />
   <DatePicker.Calendar />
   <DatePicker.Calendar />
 </DatePicker.Provider>
 ```
 
-### Grouping Mode Options
-
-The `groupingMode` prop on `DatePicker.Header` controls which calendars are rendered inside the header container:
-
-#### `groupingMode="all"` (Default)
-
-All calendars are rendered inside the header in a responsive grid. Calendar IDs are not required.
-
-```tsx
-<DatePicker.Header groupingMode="all">
-  {/* Navigation controls */}
-</DatePicker.Header>
-<DatePicker.Calendar />
-<DatePicker.Calendar />
-<DatePicker.Calendar />
-```
-
-#### `groupingMode="disabled"`
-
-No calendars are rendered inside the header - they appear as separate components.
-
-```tsx
-<DatePicker.Header groupingMode="disabled">
-  {/* Navigation controls */}
-</DatePicker.Header>
-<DatePicker.Calendar id="standalone" />
-```
-
-#### `groupingMode={['id1', 'id2']}` (Selective)
-
-Only calendars with matching IDs are rendered inside the header.
-
-```tsx
-<DatePicker.Header groupingMode={['feb', 'mar']}>
-  {/* Navigation controls */}
-</DatePicker.Header>
-<DatePicker.Calendar id="jan" />    {/* Renders separately */}
-<DatePicker.Calendar id="feb" />    {/* Renders in header */}
-<DatePicker.Calendar id="mar" />    {/* Renders in header */}
-```
-
-### Navigation Behavior
-
-When multiple calendars are grouped:
-
-- **Previous/Next buttons** navigate all grouped calendars simultaneously
-- Each calendar displays consecutive months (Jan → Feb → Mar)
-- Navigation updates all calendars maintaining their month sequence
-- Individual calendars maintain their own state but share selection data
-
-### Responsive Grid Layout
-
-Multiple calendars automatically arrange in a responsive CSS Grid:
-
-```css
-/* Default responsive behavior */
-.rmdp-header-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-/* Responsive breakpoints */
-@media (max-width: 1024px) {
-  .rmdp-header-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .rmdp-header-grid {
-    grid-template-columns: 1fr;
-  }
-}
-```
-
-### Custom Grid Styling
-
-Customize the calendar grid layout:
-
-```tsx
-<DatePicker.Header calendarGridClassName='grid grid-cols-2 gap-4 lg:grid-cols-4'>
-  <DatePicker.Button type='previous'>←</DatePicker.Button>
-  <DatePicker.Label />
-  <DatePicker.Button type='next'>→</DatePicker.Button>
-</DatePicker.Header>
-```
-
-### Complete Example: Date Range Picker
-
-```tsx
-function DateRangePicker() {
-  const [selection, setSelection] = useState(null)
-
-  return (
-    <DatePicker.Provider
-      type='range'
-      onSelectionChange={(dates) => {
-        if (dates) {
-          console.log(`Range: ${dates.start} to ${dates.end}`)
-          setSelection(dates)
-        }
-      }}
-    >
-      <DatePicker.Header className='rounded-lg bg-white p-4 shadow-lg'>
-        <div className='mb-4 flex items-center justify-between'>
-          <DatePicker.Button type='previous'>Previous Month</DatePicker.Button>
-          <DatePicker.Label />
-          <DatePicker.Button type='next'>Next Month</DatePicker.Button>
-        </div>
-      </DatePicker.Header>
-
-      <DatePicker.Calendar />
-      <DatePicker.Calendar />
-    </DatePicker.Provider>
-  )
-}
-```
-
-## Styling & Customization
-
-### Default Styling
-
-The library includes default styles built with **Tailwind CSS v4**, but **Tailwind is not required**. You can use any CSS approach.
-
-### Styling Methods
-
-#### 1. CSS Classes
-
-```tsx
-<DatePicker.Calendar
-  dayButtonClassNames={{
-    base: 'day-button',
-    selected: 'day-selected',
-    today: 'day-today',
-    weekend: 'day-weekend',
-    disabled: 'day-disabled',
-    hovered: 'day-hovered',
-    differentMonth: 'day-different-month',
-    monthBoundary: 'day-month-boundary',
-    rangeStart: 'day-range-start',
-    rangeEnd: 'day-range-end',
-    betweenRange: 'day-between-range',
-    disabledInRange: 'day-disabled-in-range',
-  }}
-/>
-```
-
-#### 2. CSS Variables (Theme System)
-
-```css
-.my-datepicker {
-  --color-primary: #1f2937;
-  --color-hover: #f3f4f6;
-  --color-selected: #3b82f6;
-  --color-disabled: #9ca3af;
-  --color-range: #dbeafe;
-  --color-weekend: #ef4444;
-  --color-today: #f0f0f0;
-  --font-display: 'Inter', sans-serif;
-  --radius: 8px;
-}
-```
-
-#### 3. CSS-in-JS & Other Approaches
-
-Works with styled-components, emotion, CSS modules, or any styling solution.
-
-### Disabled Dates
-
-```tsx
-<DatePicker.Provider
-  disabledDates={{
-    days: ['2024-07-04', '2024-12-25'], // Disable specific dates
-    start: '2024-01-01', // Disable dates after this (when no end)
-    end: '2024-12-31', // Disable dates before this (when no start)
-    // When both start & end: disables the entire range including boundaries
-    every: 'weekend', // Disable weekends (sat/sun)
-    weekdays: [1, 2], // Used with every: "weekdays" - disable these weekdays
-  }}
->
-  <DatePicker.Calendar />
-</DatePicker.Provider>
-```
+Navigation controls update all calendars simultaneously. Label displays the full range (e.g., "January - March 2025").
 
 ### Localization
 
-The library uses Day.js for date formatting and localization. You can provide a custom Day.js instance with your desired locale:
+Use custom Day.js locale for internationalization:
 
 ```tsx
 import dayjs from 'dayjs'
-import 'dayjs/locale/es' // Import Spanish locale
+import 'dayjs/locale/es'
 import localeData from 'dayjs/plugin/localeData'
 import isToday from 'dayjs/plugin/isToday'
 
-// Extend dayjs with required plugins
 dayjs.extend(localeData)
 dayjs.extend(isToday)
 
-// Create a custom dayjs factory function
 const spanishDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('es')
 
 <DatePicker.Provider dayjs={spanishDayjs}>
@@ -632,38 +339,124 @@ const spanishDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('es')
 </DatePicker.Provider>
 ```
 
-**Required Plugins:** The custom dayjs instance must include `localeData` and `isToday` plugins for the library to function correctly.
+**Required plugins:** `localeData` and `isToday` must be included in custom Day.js instances.
 
-## Development & Storybook
+### Custom Styling
 
-Run the interactive component documentation:
+The library includes default styles but supports complete customization:
 
-```bash
-git clone https://github.com/legeannd/react-modular-datepicker.git
-cd react-modular-datepicker
-pnpm install
-pnpm storybook  # Opens http://localhost:6006
+**CSS Classes:**
+
+```tsx
+<DatePicker.Calendar
+  className='my-calendar'
+  weekdaysContainerClassName='weekdays-wrapper'
+  weekdayClassName='weekday-label'
+  daysContainerClassName='days-grid'
+  dayButtonClassNames={{
+    base: 'day',
+    selected: 'day-selected',
+    today: 'day-today',
+  }}
+/>
 ```
 
-Explore components, styling examples, and test configurations interactively.
+**CSS Variables:**
 
-## Hooks
+```css
+.my-calendar {
+  --color-primary: #1f2937;
+  --color-selected: #3b82f6;
+  --color-disabled: #9ca3af;
+  --radius: 8px;
+}
+```
 
-### useDateSelect
+### Custom Footer
 
-Access month/year selection functionality:
+Add custom content below the calendar grid using the `footerSlot` render prop:
+
+```tsx
+<DatePicker.Calendar
+  footerSlot={({ currentDate }) => (
+    <div className='mt-2 text-center text-sm'>
+      {currentDate.format('MMMM YYYY')} • Week {currentDate.week()}
+    </div>
+  )}
+/>
+```
+
+The `currentDate` parameter is a Day.js object representing the displayed month, giving you access to all Day.js formatting and manipulation methods.
+
+### Custom Label Rendering
+
+Create fully custom month/year labels with the Label's render prop:
+
+```tsx
+<DatePicker.Label>
+  {({ start, end }) => (
+    <div className='flex items-center gap-2 text-lg font-semibold'>
+      <span className='text-gray-900'>{start.month}</span>
+      <span className='text-gray-500'>{start.year}</span>
+      {start.month !== end.month && (
+        <>
+          <span className='text-gray-400'>→</span>
+          <span className='text-gray-900'>{end.month}</span>
+          <span className='text-gray-500'>{end.year}</span>
+        </>
+      )}
+    </div>
+  )}
+</DatePicker.Label>
+```
+
+The render function receives `start` and `end` objects with localized month names and year numbers, automatically adapting to single or multiple calendar displays.
+
+### useDateSelect Hook
+
+Build custom month/year navigation controls as an alternative to (or complement to) the Header navigation buttons.
+
+**What it provides:**
+
+- Locale-aware month names based on your Day.js configuration
+- Configurable year range (default: 10 years forward, 40 years backward)
+- Current month/year state tracking
+- Change handlers that update ALL calendars
+
+**Options:**
+
+| Option                 | Type     | Default | Description                           |
+| ---------------------- | -------- | ------- | ------------------------------------- |
+| `yearRangeStartOffset` | `number` | `10`    | Years ahead from initial display date |
+| `yearRangeEndOffset`   | `number` | `40`    | Years back from initial display date  |
+
+**Returns:**
+
+| Property        | Type                           | Description                                |
+| --------------- | ------------------------------ | ------------------------------------------ |
+| `currentMonth`  | `number`                       | Current month index (0-11)                 |
+| `currentYear`   | `number`                       | Current year                               |
+| `months`        | `string[]`                     | Localized month names (use index as value) |
+| `years`         | `number[]`                     | Array of years within configured range     |
+| `onMonthChange` | `(monthIndex: number) => void` | Updates calendars to specified month       |
+| `onYearChange`  | `(year: number) => void`       | Updates calendars to specified year        |
+
+**Example:**
 
 ```tsx
 import { useDateSelect } from '@legeannd/react-modular-datepicker'
 
-function CustomMonthSelect() {
-  const { currentMonth, currentYear, months, years, onMonthChange, onYearChange } = useDateSelect()
+function CustomMonthYearPicker() {
+  const { currentMonth, currentYear, months, years, onMonthChange, onYearChange } = useDateSelect({
+    yearRangeStartOffset: 5, // 5 years ahead
+    yearRangeEndOffset: 20, // 20 years back
+  })
 
   return (
     <div>
       <select
         value={currentMonth}
-        onChange={onMonthChange}
+        onChange={(e) => onMonthChange(Number(e.target.value))}
       >
         {months.map((month, index) => (
           <option
@@ -674,9 +467,10 @@ function CustomMonthSelect() {
           </option>
         ))}
       </select>
+
       <select
         value={currentYear}
-        onChange={onYearChange}
+        onChange={(e) => onYearChange(Number(e.target.value))}
       >
         {years.map((year) => (
           <option
@@ -690,9 +484,32 @@ function CustomMonthSelect() {
     </div>
   )
 }
+
+function App() {
+  return (
+    <DatePicker.Provider>
+      <CustomMonthYearPicker />
+      <DatePicker.Header>
+        <DatePicker.Button type='previous'>←</DatePicker.Button>
+        <DatePicker.Label />
+        <DatePicker.Button type='next'>→</DatePicker.Button>
+      </DatePicker.Header>
+      <DatePicker.Calendar />
+    </DatePicker.Provider>
+  )
+}
 ```
 
-## TypeScript Support
+**Important Notes:**
+
+- **Requires a Header component in the Provider** - The hook updates the reference date, but only the Header propagates these changes to Calendar components. The custom picker can be placed anywhere in the Provider (inside or outside the Header), as long as a Header exists.
+- Must be used inside `DatePicker.Provider` (requires context)
+- Changes affect ALL calendars in the provider
+- Month names are automatically localized when custom Day.js instance is provided
+- Month index follows JavaScript convention (0 = January, 11 = December)
+- Year range is calculated from the initial month when calendar first loads
+
+## TypeScript
 
 Full TypeScript support with comprehensive type definitions:
 
@@ -700,49 +517,40 @@ Full TypeScript support with comprehensive type definitions:
 import type {
   DatePickerProviderProps,
   CalendarProps,
-  HeaderProps,
   DayButtonClassNames,
+  SingleSelection,
+  MultipleSelection,
+  RangeSelection,
 } from '@legeannd/react-modular-datepicker'
-
-// Both individual imports and compound component work
-import { DatePicker } from '@legeannd/react-modular-datepicker'
-
-const customDayStyles: DayButtonClassNames = {
-  base: 'px-3 py-2 text-sm',
-  selected: 'bg-blue-600 text-white',
-  today: 'ring-2 ring-blue-300',
-}
 ```
 
-### Import Options
-
-The library supports both compound components and individual imports:
+**Import Options:**
 
 ```tsx
-// Option 1: Compound Components (Recommended)
-import { DatePicker } from '@legeannd/react-modular-datepicker'
+// Compound components (recommended)
+import * as DatePicker from '@legeannd/react-modular-datepicker'
 ;<DatePicker.Provider>
   <DatePicker.Calendar />
 </DatePicker.Provider>
 
-// Option 2: Individual Components
+// Individual components
 import { DatePickerProvider, Calendar } from '@legeannd/react-modular-datepicker'
 ;<DatePickerProvider>
   <Calendar />
 </DatePickerProvider>
 ```
 
-## Dependencies
+## Development
 
-- **React 19+** - Required for the component library
-- **React Compiler** - Required for optimal performance (babel-plugin-react-compiler)
-- **Day.js** (peer dependency) - For date manipulation and formatting
-- **CSS** - Default styles included (built with Tailwind CSS v4, but Tailwind is not required for usage)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+```bash
+git clone https://github.com/legeannd/react-modular-datepicker.git
+cd react-modular-datepicker
+pnpm install
+pnpm storybook  # Interactive documentation at http://localhost:6006
+pnpm test       # Run tests
+pnpm build      # Build library
+```
 
 ## License
 
-MIT
+MIT © [legeannd](https://github.com/legeannd)

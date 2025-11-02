@@ -1,4 +1,5 @@
 import './storybook.css'
+import '../src/styles/main.css'
 
 import type { Preview } from '@storybook/react'
 
