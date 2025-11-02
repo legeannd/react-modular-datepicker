@@ -134,153 +134,56 @@ export const WithCalendarInfoLabels: Story = {
 export const DocumentationExample: Story = {
   decorators: [
     (Story) => (
-      <div className='space-y-6'>
-        <div className='mb-6 rounded-lg bg-slate-50 p-6 text-sm'>
-          <h3 className='mb-4 text-lg font-bold text-slate-900'>📋 Day Button Props Reference</h3>
+      <div className='space-y-4'>
+        <div className='rounded-lg bg-slate-50 p-4 text-xs'>
+          <h3 className='mb-3 text-sm font-bold text-slate-900'>Day Button Style Props</h3>
 
-          <div className='space-y-6'>
-            <div className='rounded-lg border border-blue-200 bg-blue-50 p-4'>
-              <h4 className='mb-3 font-bold text-blue-900'>
-                🎨 dayButtonClassNames Object Properties
-              </h4>
-              <div className='space-y-3 text-xs'>
-                <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-                  <div className='space-y-2'>
-                    <div>
-                      <strong className='text-blue-800'>base:</strong> Foundation styles for all day
-                      buttons
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>selected:</strong> Styles for chosen dates
-                      (overrides hover/weekend/today)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>today:</strong> Styles for current date
-                      (suppressed in betweenRange)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>hovered:</strong> Styles for mouse hover
-                      (blocked when selected/in range)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>weekend:</strong> Styles for Sat/Sun (hidden
-                      when hovered/selected/in range)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>differentMonth:</strong> Styles for
-                      prev/next month dates shown in calendar grid (always applies)
-                    </div>
-                  </div>
-                  <div className='space-y-2'>
-                    <div>
-                      <strong className='text-blue-800'>monthBoundary:</strong> Styles for 1st/last
-                      day of month
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>rangeStart:</strong> Range start date
-                      (type="range" only)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>rangeEnd:</strong> Range end date
-                      (type="range" only)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>betweenRange:</strong> Dates between range
-                      (type="range" only)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>disabled:</strong> Disabled dates (highest
-                      priority)
-                    </div>
-                    <div>
-                      <strong className='text-blue-800'>disabledInRange:</strong> Disabled dates
-                      within selected range
-                    </div>
-                  </div>
-                </div>
+          <div className='grid gap-4 md:grid-cols-2'>
+            <div className='space-y-2'>
+              <div>
+                <strong>base</strong> - Foundation for all buttons
+              </div>
+              <div>
+                <strong>selected</strong> - Selected dates
+              </div>
+              <div>
+                <strong>today</strong> - Current date
+              </div>
+              <div>
+                <strong>hovered</strong> - Hover state
+              </div>
+              <div>
+                <strong>weekend</strong> - Saturday/Sunday
+              </div>
+              <div>
+                <strong>differentMonth</strong> - Prev/next month dates
               </div>
             </div>
-
-            <div className='rounded-lg border border-amber-200 bg-amber-50 p-4'>
-              <h4 className='mb-3 font-bold text-amber-900'>
-                ⚠️ Critical Behaviors & Dependencies
-              </h4>
-              <div className='space-y-3 text-xs text-amber-800'>
-                <div>
-                  <strong>Priority System:</strong> disabled {`>`} selected {`>`} range states {`>`}{' '}
-                  hover {`>`} today {`>`} weekend {`>`} differentMonth {`>`} base
-                </div>
-                <div>
-                  <strong>Calendar Type Dependencies:</strong>
-                  <ul className='mt-1 ml-4 list-disc space-y-1'>
-                    <li>
-                      <code>rangeStart</code>, <code>rangeEnd</code>, <code>betweenRange</code> only
-                      work with <code>type="range"</code>
-                    </li>
-                    <li>
-                      <code>selected</code> behavior changes: single date vs multiple dates vs range
-                      endpoints
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <strong>Context Dependencies:</strong>
-                  <ul className='mt-1 ml-4 list-disc space-y-1'>
-                    <li>
-                      <code>monthBoundary</code> applies only to first/last days of current month
-                    </li>
-                    <li>Multi-calendar setups affect cross-calendar interactions</li>
-                    <li>
-                      Header + multi-calendar setup prevents <code>selected</code> styling on
-                      different-month dates to avoid visual confusion
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <strong>State Suppressions:</strong>
-                  <ul className='mt-1 ml-4 list-disc space-y-1'>
-                    <li>
-                      <code>weekend</code> styles hidden when hovered, selected, or in range
-                    </li>
-                    <li>
-                      <code>today</code> outline suppressed when in <code>betweenRange</code>
-                    </li>
-                    <li>
-                      <code>hover</code> blocked on selected dates and dates in range
-                    </li>
-                    <li>
-                      <code>differentMonth</code> hidden when date is selected
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <strong>Accessibility:</strong> All buttons include ARIA labels with full date
-                  format and proper disabled states
-                </div>
+            <div className='space-y-2'>
+              <div>
+                <strong>monthBoundary</strong> - 1st/last day of month
+              </div>
+              <div>
+                <strong>rangeStart</strong> - Range start (range mode)
+              </div>
+              <div>
+                <strong>rangeEnd</strong> - Range end (range mode)
+              </div>
+              <div>
+                <strong>betweenRange</strong> - Dates in range (range mode)
+              </div>
+              <div>
+                <strong>disabled</strong> - Disabled dates
+              </div>
+              <div>
+                <strong>disabledInRange</strong> - Disabled in selected range
               </div>
             </div>
+          </div>
 
-            <div className='rounded-lg border border-green-200 bg-green-50 p-4'>
-              <h4 className='mb-3 font-bold text-green-900'>🎯 Implementation Tips</h4>
-              <div className='space-y-2 text-xs text-green-800'>
-                <div>
-                  <strong>Layering:</strong> Use base styles for common properties, specific states
-                  for overrides
-                </div>
-                <div>
-                  <strong>Visual Hierarchy:</strong> Higher priority states should have more
-                  prominent styling
-                </div>
-                <div>
-                  <strong>Consistency:</strong> Maintain consistent color schemes across related
-                  states
-                </div>
-                <div>
-                  <strong>Testing:</strong> Test all combinations with different calendar types and
-                  configurations
-                </div>
-              </div>
-            </div>
+          <div className='mt-3 rounded border border-amber-200 bg-amber-50 p-2 text-amber-800'>
+            <strong>Priority:</strong> disabled → selected → range → hover → today → weekend →
+            differentMonth → base
           </div>
         </div>
 
@@ -298,8 +201,8 @@ export const DocumentationExample: Story = {
   ],
   args: {
     footerSlot: ({ currentDate }) => (
-      <div className='text-footer-label flex justify-between rounded p-2 text-center text-xs font-light'>
-        <span className='flex items-center gap-1 capitalize'>
+      <div className='flex justify-between rounded p-2 text-xs'>
+        <span className='flex items-center gap-1'>
           <CalendarDays
             size={12}
             strokeWidth={1}
@@ -315,25 +218,23 @@ export const DocumentationExample: Story = {
         </span>
       </div>
     ),
+    weekdaysContainerClassName: 'grid grid-cols-7 gap-1 mb-2 px-1',
+    weekdayClassName: 'text-xs font-semibold text-gray-600 text-center py-1',
+    daysContainerClassName: 'space-y-1',
     dayButtonClassNames: {
-      base: 'rounded-md border transition-all duration-150 px-2 py-1.5 text-sm cursor-pointer flex items-center justify-center font-medium hover:shadow-sm',
-
+      base: 'rounded-md border transition-all px-2 py-1.5 text-sm font-medium hover:shadow-sm',
       disabled: 'opacity-40 cursor-not-allowed bg-gray-50 border-gray-200 text-gray-400',
-      disabledInRange: 'bg-red-50 text-red-400 border-red-200 cursor-not-allowed opacity-50',
-
+      disabledInRange: 'bg-red-50 text-red-400 border-red-200 opacity-50',
       selected: 'bg-blue-500 text-white border-blue-500 font-semibold shadow-sm',
-
       rangeStart: 'bg-blue-500 text-white border-blue-500 rounded-r-sm font-semibold',
       rangeEnd: 'bg-blue-500 text-white border-blue-500 rounded-l-sm font-semibold',
       betweenRange: 'bg-blue-100 text-blue-800 border-blue-200 rounded-none',
-
       hovered: 'bg-blue-50 border-blue-300 shadow-sm',
-
       today: 'bg-orange-50 text-orange-800 border-orange-300 font-semibold',
       weekend: 'text-red-600 border-red-100 bg-red-50',
-
       differentMonth: 'opacity-30 text-gray-400 border-gray-100',
       monthBoundary: 'font-bold border-green-300 bg-green-50 text-green-700',
     } as DayButtonClassNames,
+    className: 'border border-gray-200 rounded-lg p-3 bg-white shadow-sm',
   } as CalendarProps,
 }

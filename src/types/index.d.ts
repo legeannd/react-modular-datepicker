@@ -88,8 +88,12 @@ export interface CalendarProps extends HTMLAttributes<HTMLDivElement> {
   showWeekdays?: boolean
   /** Custom labels for weekday headers (7 items: Sunday through Saturday) */
   weekdayLabels?: string[]
-  /** CSS classes for styling the weekday header row */
+  /** CSS classes for styling the weekday labels container wrapper */
+  weekdaysContainerClassName?: string
+  /** CSS classes for styling individual weekday header labels */
   weekdayClassName?: string
+  /** CSS classes for styling the days container grid wrapper */
+  daysContainerClassName?: string
   /** Unique identifier for the calendar instance. If the header grouping is set to string[], it will be matched if this ID is inside of the array as well */
   id?: string
   /** Custom footer content using render prop pattern. Receives calendar data for full customization. If not provided, no footer will be rendered */
@@ -146,7 +150,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode
 }
 
-/** Props for the DatePickerProvider component - the root uncontrolled date picker */
+/** Props for the root DatePickerProvider component */
 export interface DatePickerProviderBaseProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className'> {
   /** Child components (Calendar, Header, etc.) */
   children: React.ReactNode
@@ -166,6 +170,8 @@ export interface DatePickerProviderBaseProps extends Pick<HTMLAttributes<HTMLDiv
 export interface DatePickerProviderSingleProps extends DatePickerProviderBaseProps {
   /** Calendar selection mode - determines how users can select dates */
   type?: 'single'
+  /** Selected date value for controlled mode - must match onSelectionChange output format */
+  value?: SingleSelection
   /** Callback fired when the selection changes, receives clean normalized data */
   onSelectionChange?: (selection: SingleSelection) => void
 }
@@ -174,6 +180,8 @@ export interface DatePickerProviderSingleProps extends DatePickerProviderBasePro
 export interface DatePickerProviderMultipleProps extends DatePickerProviderBaseProps {
   /** Calendar selection mode - determines how users can select dates */
   type: 'multiple'
+  /** Selected dates value for controlled mode - must match onSelectionChange output format */
+  value?: MultipleSelection
   /** Callback fired when the selection changes, receives clean normalized data */
   onSelectionChange?: (selection: MultipleSelection) => void
 }
@@ -182,6 +190,8 @@ export interface DatePickerProviderMultipleProps extends DatePickerProviderBaseP
 export interface DatePickerProviderRangeProps extends DatePickerProviderBaseProps {
   /** Calendar selection mode - determines how users can select dates */
   type: 'range'
+  /** Selected range value for controlled mode - must match onSelectionChange output format */
+  value?: RangeSelection
   /** Callback fired when the selection changes, receives clean normalized data */
   onSelectionChange?: (selection: RangeSelection) => void
 }

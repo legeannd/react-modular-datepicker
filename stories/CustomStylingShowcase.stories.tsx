@@ -96,6 +96,7 @@ export const MinimalistDesign = {
                 <DatePicker.Calendar
                   className='border border-gray-200 bg-white'
                   weekdayClassName='flex justify-center text-gray-600 font-medium text-xs'
+                  daysContainerClassName='flex flex-col gap-0.5'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
                       <span>Clean • Simple</span>
@@ -120,6 +121,7 @@ export const MinimalistDesign = {
                 <DatePicker.Calendar
                   className='border border-l-0 border-gray-200 bg-white'
                   weekdayClassName='flex justify-center text-gray-600 font-medium text-xs'
+                  daysContainerClassName='flex flex-col gap-0.5'
                   footerSlot={({ currentDate }) => (
                     <div className='flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-3 text-xs font-medium text-gray-600'>
                       <span>{currentDate.daysInMonth()} days in month</span>
@@ -230,6 +232,7 @@ export const GradientGlassStyle = {
                 <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
                   weekdayClassName='flex justify-center text-white/80 font-bold text-sm'
+                  daysContainerClassName='flex flex-col gap-2'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-2xl border border-white/30 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 p-4 backdrop-blur-md'>
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
@@ -267,6 +270,7 @@ export const GradientGlassStyle = {
                 <DatePicker.Calendar
                   className='rounded-2xl border border-white/20 bg-white/5 p-4 backdrop-blur-lg'
                   weekdayClassName='flex justify-center text-white/80 font-bold text-sm'
+                  daysContainerClassName='flex flex-col gap-2'
                   footerSlot={({ currentDate }) => (
                     <div className='mt-4 rounded-2xl border border-white/30 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-purple-500/20 p-4 backdrop-blur-md'>
                       <div className='flex items-center justify-between text-xs font-semibold text-white/90'>
@@ -417,13 +421,13 @@ export const DarkTheme = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-sm transition-all text-slate-300 hover:bg-slate-700 hover:shadow-md border border-transparent',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-sm transition-all text-slate-300 border border-transparent',
                     selected:
                       'bg-emerald-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-emerald-400',
                     today:
                       'bg-slate-700 text-emerald-300 font-bold border-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.3)]',
                     weekend: 'text-slate-400 font-medium',
-                    hovered: 'bg-slate-600 text-white shadow-md border-slate-500',
+                    hovered: 'bg-slate-700 text-white shadow-md border-slate-500',
                     differentMonth: 'text-slate-500',
                   }}
                 />
@@ -448,13 +452,13 @@ export const DarkTheme = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-sm transition-all text-slate-300 hover:bg-slate-700 hover:shadow-md border border-transparent',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-sm transition-all text-slate-300 border border-transparent',
                     selected:
                       'bg-emerald-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-emerald-400',
                     today:
                       'bg-slate-700 text-emerald-300 font-bold border-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.3)]',
                     weekend: 'text-slate-400 font-medium',
-                    hovered: 'bg-slate-600 text-white shadow-md border-slate-500',
+                    hovered: 'bg-slate-700 text-white shadow-md border-slate-500',
                     differentMonth: 'text-slate-500',
                   }}
                 />
@@ -783,7 +787,9 @@ export const NeumorphismStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: ' shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    base: ' shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    hovered:
+                      'hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)]',
                     selected:
                       'bg-blue-400 text-white shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)] font-semibold',
                     today:
@@ -812,7 +818,9 @@ export const NeumorphismStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] hover:shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    base: 'shadow-[inset_-2px_-2px_5px_rgba(255,255,255,1),inset_2px_2px_5px_rgba(0,0,0,0.1)] rounded-lg transition-all px-3 py-2 text-sm cursor-pointer text-gray-700',
+                    hovered:
+                      'shadow-[inset_-1px_-1px_3px_rgba(255,255,255,1),inset_1px_1px_3px_rgba(0,0,0,0.1)]',
                     selected:
                       'bg-blue-400 text-white shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)] font-semibold',
                     today:
@@ -942,7 +950,8 @@ export const RetroVintageStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded border-2 border-transparent px-3 py-2 text-sm transition-all text-amber-800 hover:border-amber-500 hover:bg-amber-200 hover:shadow-md font-serif font-medium active:translate-y-px',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded border-2 border-transparent px-3 py-2 text-sm transition-all text-amber-800 font-serif font-medium active:translate-y-px',
+                    hovered: 'hover:border-amber-500 hover:bg-amber-200 hover:shadow-md',
                     selected: 'bg-amber-600 text-white border-amber-700 font-bold shadow-lg',
                     today: 'border-orange-500 bg-orange-200 text-orange-800 font-bold',
                     weekend: 'text-red-700 font-bold',
@@ -968,7 +977,8 @@ export const RetroVintageStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center rounded border-2 border-transparent px-3 py-2 text-sm transition-all text-amber-800 hover:border-amber-500 hover:bg-amber-200 hover:shadow-md font-serif font-medium active:translate-y-px',
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded border-2 border-transparent px-3 py-2 text-sm transition-all text-amber-800 font-serif font-medium active:translate-y-px',
+                    hovered: 'border-amber-500 bg-amber-200 shadow-md',
                     selected: 'bg-amber-600 text-white border-amber-700 font-bold shadow-lg',
                     today: 'border-orange-500 bg-orange-200 text-orange-800 font-bold',
                     weekend: 'text-red-700 font-bold',
@@ -1101,7 +1111,8 @@ export const ModernBrutalistStyle = {
                     </div>
                   )}
                   dayButtonClassNames={{
-                    base: 'flex w-full cursor-pointer items-center justify-center box-border border-2 border-black px-2 py-2 text-sm font-mono font-bold text-black transition-all hover:bg-gray-200 active:translate-x-1 active:translate-y-1 active:shadow-none',
+                    base: 'flex w-full cursor-pointer items-center justify-center box-border border-2 border-black px-2 py-2 text-sm font-mono font-bold text-black transition-all active:translate-x-1 active:translate-y-1 active:shadow-none',
+                    hovered: 'bg-gray-200',
                     selected: 'bg-black text-white font-black',
                     today: 'bg-yellow-400 text-black font-black',
                     weekend: 'bg-red-200 font-black',
@@ -1237,9 +1248,9 @@ export const MobileResponsiveTheme = {
               )}
               dayButtonClassNames={{
                 base: 'flex w-full cursor-pointer items-center justify-center rounded-lg h-12 text-base transition-colors duration-200 text-gray-700 hover:bg-gray-100 font-medium touch-manipulation border border-transparent hover:border-gray-300',
-                selected: 'bg-gray-900 hover:bg-gray-800 text-white font-medium border-gray-900',
+                selected: 'bg-gray-900 text-white font-medium border-gray-900',
                 today: 'bg-gray-100 font-medium text-gray-900 border-2 border-gray-300',
-                hovered: 'bg-gray-50 text-gray-800 font-medium border-gray-300',
+                hovered: 'bg-gray-800 text-gray-800 font-medium border-gray-300',
                 weekend: 'text-gray-500 font-medium',
                 differentMonth: 'text-gray-300 opacity-50',
               }}
@@ -1471,17 +1482,16 @@ export const MaterialDesignTheme = {
                 )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-2xl aspect-square px-2 py-2 text-sm transition-all duration-200 ease-out text-gray-700 hover:bg-blue-50 hover:shadow-lg font-semibold border border-transparent hover:border-blue-200',
-                  selected:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400',
+                  selected: 'bg-blue-500 text-white font-bold shadow-xl border-blue-400',
                   rangeStart:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400 rounded-l-2xl rounded-r-md',
+                    'bg-blue-500 text-white font-bold shadow-xl border-blue-400 rounded-l-2xl rounded-r-md',
                   rangeEnd:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400 rounded-r-2xl rounded-l-md',
+                    'bg-blue-500 text-white font-bold shadow-xl border-blue-400 rounded-r-2xl rounded-l-md',
                   betweenRange:
                     'bg-blue-100 text-blue-700 font-semibold border-blue-200 rounded-none shadow-md',
                   today:
                     'bg-blue-50 font-bold text-blue-600 ring-2 ring-blue-300 ring-offset-2 shadow-lg',
-                  hovered: 'bg-blue-100 text-blue-800 shadow-lg font-bold border-blue-300',
+                  hovered: 'bg-blue-600 text-blue-800 shadow-lg font-bold border-blue-300',
                   weekend: 'text-gray-500 font-bold',
                   differentMonth: 'text-blue-300 opacity-60',
                 }}
@@ -1504,17 +1514,16 @@ export const MaterialDesignTheme = {
                 )}
                 dayButtonClassNames={{
                   base: 'flex cursor-pointer items-center justify-center rounded-2xl aspect-square px-2 py-2 text-sm transition-all duration-200 ease-out text-gray-700 hover:bg-blue-50 hover:shadow-lg font-semibold border border-transparent hover:border-blue-200',
-                  selected:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400',
+                  selected: 'bg-blue-500 text-white font-bold shadow-xl border-blue-400',
                   rangeStart:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400 rounded-l-2xl rounded-r-md',
+                    'bg-blue-500 text-white font-bold shadow-xl border-blue-400 rounded-l-2xl rounded-r-md',
                   rangeEnd:
-                    'bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-xl border-blue-400 rounded-r-2xl rounded-l-md',
+                    'bg-blue-500 text-white font-bold shadow-xl border-blue-400 rounded-r-2xl rounded-l-md',
                   betweenRange:
                     'bg-blue-100 text-blue-700 font-semibold border-blue-200 rounded-none shadow-md',
                   today:
                     'bg-blue-50 font-bold text-blue-600 ring-2 ring-blue-300 ring-offset-2 shadow-lg',
-                  hovered: 'bg-blue-100 text-blue-800 shadow-lg font-bold border-blue-300',
+                  hovered: 'bg-blue-600 text-blue-800 shadow-lg font-bold border-blue-300',
                   weekend: 'text-gray-500 font-bold',
                   differentMonth: 'text-blue-300 opacity-60',
                 }}
@@ -1525,4 +1534,178 @@ export const MaterialDesignTheme = {
       </div>
     </div>
   ),
+}
+
+export const DensityControlShowcase = {
+  render: () => {
+    return (
+      <div className='min-h-screen bg-gradient-to-br from-slate-50 to-gray-50 p-8'>
+        <div className='mx-auto max-w-7xl space-y-8'>
+          <div className='grid gap-8 lg:grid-cols-3'>
+            <div className='rounded-2xl bg-white p-6 shadow-xl'>
+              <div className='mb-4 flex items-center gap-2'>
+                <h3 className='text-xl font-bold text-slate-900'>Compact</h3>
+                <span className='rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700'>
+                  Mobile
+                </span>
+              </div>
+              <p className='mb-4 text-sm text-slate-600'>
+                Tight spacing for mobile screens or sidebars
+              </p>
+              <DatePicker.Provider
+                type='single'
+                normalizeHeight={true}
+              >
+                <DatePicker.Header
+                  className='mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3'
+                  calendarGridClassName='gap-4'
+                >
+                  <div className='flex gap-2'>
+                    <DatePicker.Button
+                      type='previous'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronLeft size={14} />
+                    </DatePicker.Button>
+                    <DatePicker.Button
+                      type='next'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronRight size={14} />
+                    </DatePicker.Button>
+                  </div>
+                </DatePicker.Header>
+
+                <DatePicker.Calendar
+                  className='rounded-lg border border-slate-200 bg-white p-3'
+                  weekdaysContainerClassName='flex px-2 mb-1'
+                  weekdayClassName='flex flex-1 justify-center text-blue-600 font-medium text-[10px] uppercase'
+                  daysContainerClassName='flex flex-col gap-0.5 rounded-md bg-blue-50 p-2 border border-blue-200'
+                  dayButtonClassNames={{
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded px-1 py-1.5 text-xs transition-colors text-slate-700 hover:bg-blue-200',
+                    selected: 'bg-blue-600 text-white font-semibold',
+                    hovered: 'bg-blue-700',
+                    today: 'bg-white border border-blue-400 text-blue-900 font-semibold',
+                    weekend: 'text-slate-500',
+                    differentMonth: 'text-slate-300',
+                  }}
+                />
+              </DatePicker.Provider>
+              <div className='mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600'>
+                <code>gap-0.5</code> - Minimal spacing, maximum data density
+              </div>
+            </div>
+
+            <div className='rounded-2xl bg-white p-6 shadow-xl ring-2 ring-blue-500'>
+              <div className='mb-4 flex items-center gap-2'>
+                <h3 className='text-xl font-bold text-slate-900'>Default</h3>
+                <span className='rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-700'>
+                  Standard
+                </span>
+              </div>
+              <p className='mb-4 text-sm text-slate-600'>
+                Balanced spacing for desktop applications
+              </p>
+              <DatePicker.Provider
+                type='single'
+                normalizeHeight={true}
+              >
+                <DatePicker.Header
+                  className='mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3'
+                  calendarGridClassName='gap-4'
+                >
+                  <div className='flex gap-2'>
+                    <DatePicker.Button
+                      type='previous'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronLeft size={16} />
+                    </DatePicker.Button>
+                    <DatePicker.Button
+                      type='next'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronRight size={16} />
+                    </DatePicker.Button>
+                  </div>
+                </DatePicker.Header>
+
+                <DatePicker.Calendar
+                  className='rounded-lg border border-slate-200 bg-white p-4'
+                  weekdaysContainerClassName='flex px-2 mb-2'
+                  weekdayClassName='flex flex-1 justify-center text-green-700 font-semibold text-xs uppercase'
+                  daysContainerClassName='flex flex-col gap-1 rounded-lg bg-green-50 p-2 border border-green-200'
+                  dayButtonClassNames={{
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-md px-2 py-2 text-sm transition-colors text-slate-700 hover:bg-green-200',
+                    selected: 'bg-green-600 text-white font-bold',
+                    hovered: 'bg-green-700',
+                    today: 'bg-white border border-green-400 text-green-900 font-bold',
+                    weekend: 'text-slate-500',
+                    differentMonth: 'text-slate-300',
+                  }}
+                />
+              </DatePicker.Provider>
+              <div className='mt-4 rounded-lg bg-blue-50 p-3 text-xs text-blue-900'>
+                <code>gap-1</code> - Default library spacing (4px)
+              </div>
+            </div>
+
+            <div className='rounded-2xl bg-white p-6 shadow-xl'>
+              <div className='mb-4 flex items-center gap-2'>
+                <h3 className='text-xl font-bold text-slate-900'>Comfortable</h3>
+                <span className='rounded-full bg-purple-100 px-2 py-1 text-xs font-semibold text-purple-700'>
+                  Touch
+                </span>
+              </div>
+              <p className='mb-4 text-sm text-slate-600'>
+                Generous spacing for tablets and touch devices
+              </p>
+              <DatePicker.Provider
+                type='single'
+                normalizeHeight={true}
+              >
+                <DatePicker.Header
+                  className='mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3'
+                  calendarGridClassName='gap-4'
+                >
+                  <div className='flex gap-2'>
+                    <DatePicker.Button
+                      type='previous'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronLeft size={18} />
+                    </DatePicker.Button>
+                    <DatePicker.Button
+                      type='next'
+                      className='cursor-pointer rounded border border-slate-300 bg-white p-2 text-slate-600 hover:bg-slate-50'
+                    >
+                      <ChevronRight size={18} />
+                    </DatePicker.Button>
+                  </div>
+                </DatePicker.Header>
+
+                <DatePicker.Calendar
+                  className='rounded-lg border border-slate-200 bg-white p-5'
+                  weekdaysContainerClassName='flex px-3 mb-3'
+                  weekdayClassName='flex flex-1 justify-center text-purple-700 font-bold text-xs uppercase'
+                  daysContainerClassName='flex flex-col gap-3 rounded-lg bg-purple-50 p-3 border border-purple-200'
+                  dayButtonClassNames={{
+                    base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-3 text-sm transition-colors text-slate-700 hover:bg-purple-200',
+                    selected: 'bg-purple-600 text-white font-bold',
+                    hovered: 'bg-purple-700',
+                    today: 'bg-white border border-purple-400 text-purple-900 font-bold',
+                    weekend: 'text-slate-500',
+                    differentMonth: 'text-slate-300',
+                  }}
+                />
+              </DatePicker.Provider>
+              <div className='mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600'>
+                <code>gap-3</code> - Larger touch targets, better accessibility
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
 }
