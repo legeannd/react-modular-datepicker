@@ -1,0 +1,272 @@
+---
+sidebar_position: 3
+---
+
+import {
+  UncontrolledDatePicker,
+  ControlledDatePicker,
+  MultipleCalendarsWithHeader,
+  MultipleCalendarsWithoutHeader,
+  GroupingModeExample,
+  CustomHooksExample,
+} from '@site/src/components/DatePickerExamples'
+
+# Architecture
+
+Understanding how React Modular DatePicker components work together.
+
+## Component Hierarchy
+
+```
+Provider (Context)
+├── Header (optional)
+│   ├── Button type="previous"
+│   ├── Label
+│   └── Button type="next"
+└── Calendar(s)
+```
+
+## The Provider Pattern
+
+`Provider` is the root component that manages all state and coordinates child components:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+<DatePicker.Provider
+  type='single'
+  value={selectedDate}
+  onSelectionChange={setSelectedDate}
+>
+  {/* All other components */}
+</DatePicker.Provider>
+```
+
+### What Provider Does
+
+1. **State Management** - Holds selected dates, reference date, disabled dates
+2. **Context Distribution** - Makes state available to all children via Context
+3. **Calendar Registration** - Tracks all Calendar components for coordination
+4. **Mode Enforcement** - Ensures correct props for each selection mode
+
+## State Flow
+
+### Uncontrolled Mode
+
+Provider manages state internally:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+<DatePicker.Provider type='single'>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+State lives in Provider, you can read it with callbacks:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+<DatePicker.Provider
+  type='single'
+  onSelectionChange={(date) => console.log('Selected:', date)}
+>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<UncontrolledDatePicker />
+
+### Controlled Mode
+
+You manage state, Provider coordinates components:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+import type { SingleSelection } from '@legeannd/react-modular-datepicker'
+import { useState } from 'react'
+
+const [selectedDate, setSelectedDate] = useState<SingleSelection>(null)
+
+<DatePicker.Provider
+  type='single'
+  value={selectedDate}
+  onSelectionChange={setSelectedDate}
+>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<ControlledDatePicker />
+
+## Calendar Registration
+
+Each `<DatePicker.Calendar />` automatically registers itself with the Provider when it mounts. This registration happens **only when a Header component is present** in the tree.
+
+### Without Header
+
+Calendars render independently, each showing the same month (defaults to current month):
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+;<DatePicker.Provider type='single'>
+  <DatePicker.Calendar /> {/* Shows current month */}
+  <DatePicker.Calendar /> {/* Shows current month */}
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<MultipleCalendarsWithoutHeader />
+
+### With Header
+
+Calendars automatically display **consecutive months** starting from `initialMonth` (or current month if not specified):
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+<DatePicker.Provider
+  type='range'
+  initialMonth='2025-01-01'
+>
+  <DatePicker.Header>
+    <DatePicker.Button type='previous'>←</DatePicker.Button>
+    <DatePicker.Label /> {/* Shows "January - March 2025" */}
+    <DatePicker.Button type='next'>→</DatePicker.Button>
+  </DatePicker.Header>
+  <DatePicker.Calendar /> {/* Shows January */}
+  <DatePicker.Calendar /> {/* Shows February */}
+  <DatePicker.Calendar /> {/* Shows March */}
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<MultipleCalendarsWithHeader />
+
+The Header provides two key features:
+
+1. **Calendar Coordination** - All calendars show consecutive months and respond to navigation buttons
+2. **Visual Grouping** - Optionally renders calendars inside the Header container using React Portals
+
+## Visual Grouping with `groupingMode`
+
+By default, when you add a Header, **all calendars render inside the Header container** using React Portals. The `groupingMode` prop lets you control this behavior:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+<DatePicker.Provider
+  type='range'
+  initialMonth='2025-01-01'
+>
+  <DatePicker.Header groupingMode={['cal1', 'cal2']}>
+    <DatePicker.Button type='previous'>←</DatePicker.Button>
+    <DatePicker.Label />
+    <DatePicker.Button type='next'>→</DatePicker.Button>
+  </DatePicker.Header>
+  <DatePicker.Calendar id='cal1' /> {/* Renders in Header */}
+  <DatePicker.Calendar id='cal2' /> {/* Renders in Header */}
+  <DatePicker.Calendar id='cal3' /> {/* Renders at original position */}
+</DatePicker.Provider>
+```
+
+### Options
+
+- **`'all'` (default)** - All calendars render inside the Header container via Portal
+- **`'disabled'`** - Calendars render at their original DOM positions (like in the example above)
+- **`['id1', 'id2']`** - Only calendars with matching `id` props render inside the Header
+
+### Live Example
+
+<GroupingModeExample />
+
+### Key Point
+
+The Header **always coordinates all calendars** (consecutive months + shared navigation), regardless of `groupingMode`. This prop only controls **where calendars appear visually** in the DOM.
+
+## Custom Hooks
+
+The library exports the `useDateSelect` hook for building custom navigation:
+
+### useDateSelect
+
+Build custom month/year navigation:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+import { useDateSelect } from '@legeannd/react-modular-datepicker'
+
+function MonthYearSelector() {
+  const { months, currentMonth, years, currentYear, onMonthChange, onYearChange } = useDateSelect()
+
+  return (
+    <div>
+      <select
+        value={currentMonth}
+        onChange={(e) => onMonthChange(Number(e.target.value))}
+      >
+        {months.map((month, index) => (
+          <option
+            key={month}
+            value={index}
+          >
+            {month}
+          </option>
+        ))}
+      </select>
+
+      <select
+        value={currentYear}
+        onChange={(e) => onYearChange(Number(e.target.value))}
+      >
+        {years.map((year) => (
+          <option
+            key={year}
+            value={year}
+          >
+            {year}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+// Usage
+<DatePicker.Provider type='single'>
+  <DatePicker.Header>
+    <MonthYearSelector />
+  </DatePicker.Header>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<CustomHooksExample />
+
+**Options:**
+
+- `yearRangeStartOffset` - How many years ahead to show (default: 10)
+- `yearRangeEndOffset` - How many years back to show (default: 40)
+
+**Important:** `useDateSelect` requires `<DatePicker.Header>` in the tree to work. The Header listens to reference date changes and updates all calendars accordingly. Without a Header, calendars won't respond to month/year changes.
+
+## React Compiler Optimization
+
+This library leverages React 19's compiler for automatic optimizations:
+
+- No manual `useMemo` or `useCallback`
+- Automatic dependency tracking
+- Optimized re-renders
+- Smaller bundle size
+
+If you're using the compiler in your app, you'll get these benefits automatically.
