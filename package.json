@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --noEmit",
     "lint": "eslint . --ext ts,tsx",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "format": "prettier --check .",
@@ -18,8 +19,10 @@
     "chromatic": "npx chromatic --project-token=chpt_4ab819befceabe3"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "dayjs": "^1.11.13",
+    "clsx": "^2.1.1"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -49,6 +52,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "chromatic": "^13.3.3",
     "class-variance-authority": "^0.7.1",
+    "dayjs": "^1.11.13",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
@@ -62,6 +66,8 @@
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "rollup-plugin-visualizer": "^6.0.3",
     "storybook": "8.6.12",
     "tailwind-merge": "^3.3.0",

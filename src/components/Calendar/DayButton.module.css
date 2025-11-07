@@ -82,6 +82,10 @@
   background-color: rgba(24, 24, 27, 0.15);
 }
 
+:root[data-theme='dark'] .dayButton:hover.betweenRange {
+  background-color: rgba(228, 228, 231, 0.15);
+}
+
 .dayButton:hover.weekend {
   background-color: var(--color-weekend-background);
 }

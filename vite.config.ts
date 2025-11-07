@@ -41,15 +41,15 @@ export default defineConfig({
         /^react(\/.*)?$/,
         /^react-dom(\/.*)?$/,
         /^dayjs(\/.*)?$/,
-        'clsx',
       ],
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name][extname]',
         globals: {
           react: 'React',
-          'react-dom': 'React-dom',
+          'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'react/jsx-runtime',
+          dayjs: 'dayjs',
         },
       },
     },
