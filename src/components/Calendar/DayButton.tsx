@@ -50,14 +50,14 @@ export function DayButton({
 
   const isStartRangeDate = () => {
     if (selected.selection && selected.type === 'range' && selected.selection.start) {
-      return dayjs(selected.selection.start.day.date).isSame(currentDay.day.date)
+      return dayjs(selected.selection.start.day.date).isSame(currentDay.day.date, 'day')
     }
     return false
   }
 
   const isEndRangeDate = () => {
     if (selected.selection && selected.type === 'range' && selected.selection.end) {
-      return dayjs(selected.selection.end.day.date).isSame(currentDay.day.date)
+      return dayjs(selected.selection.end.day.date).isSame(currentDay.day.date, 'day')
     }
     return false
   }
@@ -93,9 +93,11 @@ export function DayButton({
     const { day } = currentDay
     switch (selected.type) {
       case 'single':
-        return dayjs(selected.selection?.day.date).isSame(day.date)
+        return dayjs(selected.selection?.day.date).isSame(day.date, 'day')
       case 'multiple':
-        return selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date)) ?? false
+        return (
+          selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date, 'day')) ?? false
+        )
       case 'range':
         return isStartRangeDate() || isEndRangeDate()
       default:

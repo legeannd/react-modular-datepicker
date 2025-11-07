@@ -1,0 +1,174 @@
+---
+sidebar_position: 2
+---
+
+import {
+  BasicDatePicker,
+  ControlledDatePicker,
+  NavigationDatePicker,
+  RangeDatePicker,
+  MultipleDatePicker,
+} from '@site/src/components/DatePickerExamples'
+
+# Getting Started
+
+Get React Modular DatePicker up and running in minutes.
+
+## Installation
+
+Install the package and its peer dependency:
+
+```bash
+# npm
+npm install @legeannd/react-modular-datepicker dayjs
+
+# pnpm
+pnpm add @legeannd/react-modular-datepicker dayjs
+
+# yarn
+yarn add @legeannd/react-modular-datepicker dayjs
+```
+
+**Requirements:**
+
+- React ≥ 19.0.0
+- Day.js ≥ 1.11.0
+
+**TypeScript:** Types are included—no separate installation needed.
+
+## Quick Start
+
+Here's the simplest implementation:
+
+```tsx
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+
+function App() {
+  return (
+    <DatePicker.Provider>
+      <DatePicker.Calendar />
+    </DatePicker.Provider>
+  )
+}
+```
+
+### Live Example
+
+<BasicDatePicker />
+
+## Controlled State
+
+Manage the selected date in your component:
+
+```tsx
+import { useState } from 'react'
+import * as DatePicker from '@legeannd/react-modular-datepicker'
+import type { SingleSelection } from '@legeannd/react-modular-datepicker'
+
+function App() {
+  const [selectedDate, setSelectedDate] = useState<SingleSelection>(null)
+
+  return (
+    <DatePicker.Provider
+      value={selectedDate}
+      onSelectionChange={setSelectedDate}
+    >
+      <DatePicker.Calendar />
+      <p>Selected: {selectedDate || 'None'}</p>
+    </DatePicker.Provider>
+  )
+}
+```
+
+### Live Example
+
+<ControlledDatePicker />
+
+## Add Navigation
+
+Include month/year controls:
+
+```tsx
+<DatePicker.Provider
+  value={selectedDate}
+  onSelectionChange={setSelectedDate}
+>
+  <DatePicker.Header>
+    <DatePicker.Button type='previous'>←</DatePicker.Button>
+    <DatePicker.Label />
+    <DatePicker.Button type='next'>→</DatePicker.Button>
+  </DatePicker.Header>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<NavigationDatePicker />
+
+## Selection Modes
+
+### Range Selection
+
+```tsx
+import type { RangeSelection } from '@legeannd/react-modular-datepicker'
+
+const [dateRange, setDateRange] = useState<RangeSelection>(null)
+
+<DatePicker.Provider
+  value={dateRange}
+  onSelectionChange={setDateRange}
+  type='range'
+>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<RangeDatePicker />
+
+### Multiple Selection
+
+```tsx
+import type { MultipleSelection } from '@legeannd/react-modular-datepicker'
+
+const [selectedDates, setSelectedDates] = useState<MultipleSelection>(null)
+
+<DatePicker.Provider
+  value={selectedDates}
+  onSelectionChange={setSelectedDates}
+  type='multiple'
+>
+  <DatePicker.Calendar />
+</DatePicker.Provider>
+```
+
+### Live Example
+
+<MultipleDatePicker />
+
+## Additional Setup
+
+### CSS Styles
+
+Styles are automatically injected within the library build. For Storybook or environments without CSS injection support:
+
+```tsx
+import '@legeannd/react-modular-datepicker/dist/style.css'
+```
+
+### Day.js Plugins (for custom instances)
+
+If using custom Day.js instances for localization:
+
+```tsx
+import dayjs from 'dayjs'
+import localeData from 'dayjs/plugin/localeData'
+import isToday from 'dayjs/plugin/isToday'
+
+dayjs.extend(localeData)
+dayjs.extend(isToday)
+```
+
+**Note:** The library's default Day.js instance already includes these plugins.

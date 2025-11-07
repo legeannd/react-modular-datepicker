@@ -1,8 +1,8 @@
-# React Modular DatePicker
+# [React Modular DatePicker](https://legeannd.github.io/react-modular-datepicker/)
 
 [![npm version](https://img.shields.io/npm/v/@legeannd/react-modular-datepicker)](https://www.npmjs.com/package/@legeannd/react-modular-datepicker)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/@legeannd/react-modular-datepicker)](https://bundlephobia.com/package/@legeannd/react-modular-datepicker)
-[![Storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)
+[![Storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ```tsx
@@ -24,7 +24,7 @@ function App() {
 
 A modern, lightweight, composable datepicker library for React applications. Built with TypeScript, React 19, and CSS Modules.
 
-**[📚 View Live Examples →](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)**
+**[📚 View Live Examples →](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)**
 
 ## Features
 
@@ -51,7 +51,7 @@ yarn add @legeannd/react-modular-datepicker
 
 > **Note:** This library is optimized with React's compiler for better performance. While it works without it, we recommend setting it up. [Learn more about the React Compiler →](https://react.dev/learn/react-compiler)
 
-> **💡 Tip:** Explore all features and styling options in our [interactive Storybook documentation](https://6906e222e254283f6ff8fd07-qrweuektya.chromatic.com)
+> **💡 Tip:** Explore all features and styling options in our [interactive Storybook documentation](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)
 
 ## Quick Start
 
