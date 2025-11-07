@@ -1,4 +1,4 @@
-# React Modular DatePicker
+# [React Modular DatePicker](https://legeannd.github.io/react-modular-datepicker/)
 
 [![npm version](https://img.shields.io/npm/v/@legeannd/react-modular-datepicker)](https://www.npmjs.com/package/@legeannd/react-modular-datepicker)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/@legeannd/react-modular-datepicker)](https://bundlephobia.com/package/@legeannd/react-modular-datepicker)
