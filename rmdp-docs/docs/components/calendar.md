@@ -4,7 +4,7 @@ Displays the calendar grid with date selection.
 
 ## Live Demo
 
-**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com//?path=/story/components-calendar--default)**
+**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/story/components-calendar--default)**
 
 See live examples with different configurations and styling options.
 
