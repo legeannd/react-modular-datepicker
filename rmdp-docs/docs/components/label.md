@@ -4,7 +4,7 @@ Displays current month/year. Automatically shows date range when multiple calend
 
 ## Live Demo
 
-**[→ See Label in action in the Header stories](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com//?path=/story/components-header--default)**
+**[→ See Label in action in the Header stories](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/story/components-header--default)**
 
 The Label component is showcased within the Header component stories, where you can see it displaying month/year information and handling date ranges.
 

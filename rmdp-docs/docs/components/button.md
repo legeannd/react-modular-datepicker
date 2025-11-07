@@ -4,7 +4,7 @@ Navigation buttons for month/year changes.
 
 ## Live Demo
 
-**[→ See Button in action in the Header stories](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com//?path=/story/components-header--default)**
+**[→ See Button in action in the Header stories](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/story/components-header--default)**
 
 The Button component is showcased within the Header component stories, where you can see it working with navigation controls.
 
