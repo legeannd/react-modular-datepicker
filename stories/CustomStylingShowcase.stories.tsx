@@ -1585,7 +1585,7 @@ export const DensityControlShowcase = {
                     base: 'flex w-full cursor-pointer items-center justify-center rounded px-1 py-1.5 text-xs transition-colors text-slate-700 hover:bg-blue-200',
                     selected: 'bg-blue-600 text-white font-semibold',
                     hovered: 'bg-blue-700',
-                    today: 'bg-white border border-blue-400 text-blue-900 font-semibold',
+                    today: 'bg-white outline outline-blue-400 text-blue-900 font-semibold',
                     weekend: 'text-slate-500',
                     differentMonth: 'text-slate-300',
                   }}
@@ -1639,7 +1639,7 @@ export const DensityControlShowcase = {
                     base: 'flex w-full cursor-pointer items-center justify-center rounded-md px-2 py-2 text-sm transition-colors text-slate-700 hover:bg-green-200',
                     selected: 'bg-green-600 text-white font-bold',
                     hovered: 'bg-green-700',
-                    today: 'bg-white border border-green-400 text-green-900 font-bold',
+                    today: 'bg-white outline outline-green-400 text-green-900 font-bold',
                     weekend: 'text-slate-500',
                     differentMonth: 'text-slate-300',
                   }}
@@ -1693,7 +1693,7 @@ export const DensityControlShowcase = {
                     base: 'flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-3 text-sm transition-colors text-slate-700 hover:bg-purple-200',
                     selected: 'bg-purple-600 text-white font-bold',
                     hovered: 'bg-purple-700',
-                    today: 'bg-white border border-purple-400 text-purple-900 font-bold',
+                    today: 'bg-white outline outline-purple-400 text-purple-900 font-bold',
                     weekend: 'text-slate-500',
                     differentMonth: 'text-slate-300',
                   }}

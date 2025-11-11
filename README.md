@@ -1,5 +1,9 @@
 # [React Modular DatePicker](https://legeannd.github.io/react-modular-datepicker/)
 
+<p align="center">
+  <img src="public/default.png" alt="React Modular DatePicker" width="400" />
+</p>
+
 [![npm version](https://img.shields.io/npm/v/@legeannd/react-modular-datepicker)](https://www.npmjs.com/package/@legeannd/react-modular-datepicker)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/@legeannd/react-modular-datepicker)](https://bundlephobia.com/package/@legeannd/react-modular-datepicker)
 [![Storybook](https://img.shields.io/badge/storybook-live-ff4785)](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)
@@ -24,7 +28,8 @@ function App() {
 
 A modern, lightweight, composable datepicker library for React applications. Built with TypeScript, React 19, and CSS Modules.
 
-**[📚 View Live Examples →](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)**
+**[📚 View Live Examples →](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/)**  
+**[📝 Read the Docs →](https://legeannd.github.io/react-modular-datepicker/)**
 
 ## Features
 
@@ -181,6 +186,10 @@ Displays the calendar grid with date selection.
 | `footerSlot`                 | `function`            | `undefined` | Render prop for custom footer             |
 | `className`                  | `string`              | `undefined` | Calendar container CSS classes            |
 
+<p align="center">
+  <img src="public/custom.png" alt="Custom Calendar Example" width="400" />
+</p>
+
 **Day Button States:**
 
 ```tsx
@@ -226,6 +235,10 @@ The Header component serves two purposes:
 **Without a Header:** Calendars render independently at their DOM positions, each showing the same month (from `initialMonth` prop).
 
 **With a Header:** All calendars display consecutive months (e.g., Jan, Feb, Mar) and share navigation controls. The `groupingMode` prop controls which calendars render **inside** the Header via Portal:
+
+<p align="center">
+  <img src="public/withHeader.png" alt="DatePicker with Header Example" width="600" />
+</p>
 
 - **`'all'`** (default) - All Calendar components render inside the Header container
 - **`'disabled'`** - Calendars render at their original DOM positions (but still coordinated)
