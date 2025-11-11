@@ -93,7 +93,9 @@ export function DayButton({
     const { day } = currentDay
     switch (selected.type) {
       case 'single':
-        return dayjs(selected.selection?.day.date).isSame(day.date, 'day')
+        return selected.selection
+          ? dayjs(selected.selection?.day.date).isSame(day.date, 'day')
+          : false
       case 'multiple':
         return (
           selected.selection?.some((date) => dayjs(date.day.date).isSame(day.date, 'day')) ?? false
@@ -131,7 +133,7 @@ export function DayButton({
       {...props}
       className={clsx(
         dayButtonClassNames?.base || styles.dayButton,
-        today && !betweenRange && (dayButtonClassNames?.today || styles.today),
+        today && !visualSelected && !betweenRange && (dayButtonClassNames?.today || styles.today),
         visualSelected && (dayButtonClassNames?.selected || styles.selected),
         !thisMonth &&
           !visualSelected &&

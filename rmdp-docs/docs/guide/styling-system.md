@@ -60,7 +60,7 @@ function App() {
 ```
 
 :::tip
-For more styling examples and inspiration, check out our [Custom Styling Showcase in Storybook](https://github.com/legeannd/react-modular-datepicker/blob/develop/stories/CustomStylingShowcase.stories.tsx) or view the [live examples](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/docs/examples-custom-styling-showcase--docs).
+For more styling examples and inspiration, check out our [Custom Styling Showcase in Storybook](https://github.com/legeannd/react-modular-datepicker/blob/develop/stories/CustomStylingShowcase.stories.tsx) or view the [live examples](https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/?path=/docs/examples-custom-styling-showcase--docs).
 :::
 
 ### Range Selection with Tailwind

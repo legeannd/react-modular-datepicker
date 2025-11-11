@@ -14,7 +14,7 @@ hero:
       link: https://github.com/legeannd/react-modular-datepicker
     - theme: alt
       text: Try in Storybook
-      link: https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/
+      link: https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/
 
 features:
   - icon: 🧩

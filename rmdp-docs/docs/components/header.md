@@ -4,7 +4,7 @@ Container for navigation controls with calendar coordination and visual grouping
 
 ## Live Demo
 
-**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/story/components-header--default)**
+**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/?path=/story/components-header--default)**
 
 See live examples with different grouping modes and navigation patterns.
 

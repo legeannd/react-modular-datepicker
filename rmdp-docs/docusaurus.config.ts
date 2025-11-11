@@ -85,7 +85,7 @@ const config: Config = {
           label: 'Examples',
         },
         {
-          href: 'https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/',
+          href: 'https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/',
           label: 'Storybook',
           position: 'right',
         },
@@ -125,7 +125,7 @@ const config: Config = {
             },
             {
               label: 'Storybook',
-              href: 'https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/',
+              href: 'https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/',
             },
           ],
         },

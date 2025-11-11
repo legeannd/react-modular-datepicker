@@ -106,4 +106,4 @@ const portugueseDayjs = (date?: dayjs.ConfigType) => dayjs(date).locale('pt-br')
 
 ## Learn More
 
-- [Storybook](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/) - Interactive playground
+- [Storybook](https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/) - Interactive playground
