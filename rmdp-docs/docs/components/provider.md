@@ -4,7 +4,7 @@ The root component that manages state and coordinates all child components.
 
 ## Live Demo
 
-**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-clbcgotlkj.chromatic.com/?path=/story/components-provider--default)**
+**[→ Try the interactive demo in Storybook](https://6906e222e254283f6ff8fd07-bifeswhdfq.chromatic.com/?path=/story/components-provider--default)**
 
 See live examples with different selection modes and configurations.
 
