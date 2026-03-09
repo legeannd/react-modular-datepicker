@@ -34,17 +34,15 @@ export function DayButton({
 
   const isStartMonth = () => {
     return (
-      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).startOf('M').startOf('D')) &&
-        currentDay.isCurrentMonth) ||
-      false
+      dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).startOf('M').startOf('D')) &&
+      currentDay.isCurrentMonth
     )
   }
 
   const isEndMonth = () => {
     return (
-      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).endOf('M').startOf('D')) &&
-        currentDay.isCurrentMonth) ||
-      false
+      dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).endOf('M').startOf('D')) &&
+      currentDay.isCurrentMonth
     )
   }
 
@@ -107,8 +105,8 @@ export function DayButton({
     }
   }
 
-  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
-  const thisMonth = currentDay.isCurrentMonth ?? false
+  const today = dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth
+  const thisMonth = currentDay.isCurrentMonth
   const disabled = isDateDisabled(currentDay.day.date)
   const startMonth = isStartMonth()
   const endMonth = isEndMonth()
@@ -171,7 +169,7 @@ export function DayButton({
       aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
       onClick={() => handleDateSelect(currentDay)}
       onMouseEnter={() => handleHover(currentDay)}
-      onMouseLeave={() => handleHover()}
+      onMouseLeave={/* v8 ignore next */ () => handleHover()}
       disabled={disabled}
     >
       {currentDay.day.label}

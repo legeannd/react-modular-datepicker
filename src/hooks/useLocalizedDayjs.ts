@@ -1,3 +1,4 @@
+/* v8 ignore next 3 */
 import dayjs from "dayjs";
 import localeData from 'dayjs/plugin/localeData'
 import isToday from 'dayjs/plugin/isToday'

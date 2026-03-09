@@ -19,7 +19,7 @@ export default defineConfig({
     libInjectCss(),
     dts({
       exclude: ['**/*.stories.tsx', 'src/test', '**/*.test.tsx', '**/*.spec.tsx'],
-      tsconfigPath: 'tsconfig.app.json',
+      tsconfigPath: 'tsconfig.json',
       include: ['src/**/*'],
       insertTypesEntry: true,
       copyDtsFiles: true,
@@ -58,9 +58,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
-    css: true,
+    css: true, exclude: ['**/node_modules/**', '**/dist/**', 'e2e/**'],
     coverage: {
-      include: ['src/components'],
+      include: ['src/components', 'src/hooks', 'src/lib'],
       exclude: ['**/*.stories.tsx'],
     },
   }

@@ -7,7 +7,7 @@ export interface CurrentDay {
     label: number
     date: string
   }
-  isCurrentMonth?: boolean
+  isCurrentMonth: boolean
 }
 
 /** Internal date range representation */

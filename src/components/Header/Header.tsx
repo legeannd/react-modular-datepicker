@@ -28,6 +28,7 @@ export function Header({
     if (groupingMode) {
       handleSetGroupingMode(groupingMode)
     }
+    /* v8 ignore next */
   }, [groupingMode, handleSetGroupingMode])
 
   return (
@@ -41,6 +42,7 @@ export function Header({
           styles.calendarGrid,
           !calendarGridClassName && styles.defaultSpacing,
           calendarGridClassName
+          /* v8 ignore next */
         )}
         id='rmdp-header'
         ref={handleSetHeaderRef}

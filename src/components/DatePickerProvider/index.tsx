@@ -89,7 +89,10 @@ export function DatePickerProvider({
       case 'single': {
         const day = dayjs(initialSelectedDays?.days?.[0])
         if (day.isValid()) {
-          const selected = { day: { date: day.toISOString(), label: day.date() } }
+          const selected = {
+            day: { date: day.toISOString(), label: day.date() },
+            isCurrentMonth: true,
+          }
           setInternalSelected({ type, selection: selected })
         }
         break
@@ -100,7 +103,10 @@ export function DatePickerProvider({
               ?.map((initial) => {
                 const day = dayjs(initial)
                 if (day.isValid()) {
-                  return { day: { date: day.toISOString(), label: day.date() } }
+                  return {
+                    day: { date: day.toISOString(), label: day.date() },
+                    isCurrentMonth: true,
+                  }
                 }
                 return null
               })
@@ -116,8 +122,11 @@ export function DatePickerProvider({
         if (start.isValid() && end.isValid()) {
           setInternalSelected({
             selection: {
-              start: { day: { date: start.toISOString(), label: start.date() } },
-              end: { day: { date: end.toISOString(), label: end.date() } },
+              start: {
+                day: { date: start.toISOString(), label: start.date() },
+                isCurrentMonth: true,
+              },
+              end: { day: { date: end.toISOString(), label: end.date() }, isCurrentMonth: true },
             },
             type,
           })
@@ -133,11 +142,10 @@ export function DatePickerProvider({
       isDisabled = isDisabled || current.day() === 0 || current.day() === 6
     }
     if (disabledDates.every === 'weekdays' && disabledDates.weekdays) {
-      isDisabled = isDisabled || (disabledDates.weekdays?.includes(current.day()) ?? false)
+      isDisabled = isDisabled || disabledDates.weekdays?.includes(current.day())
     }
     if (disabledDates.days && disabledDates.days.length > 0) {
-      isDisabled =
-        isDisabled || (disabledDates.days.some((day) => dayjs(day).isSame(current)) ?? false)
+      isDisabled = isDisabled || disabledDates.days.some((day) => dayjs(day).isSame(current))
     }
     if (disabledDates.start || disabledDates.end) {
       const start = dayjs(disabledDates.start)
@@ -171,9 +179,6 @@ export function DatePickerProvider({
 
   const handleDateSelect: HandleDateSelectType = (day) => {
     switch (type) {
-      case 'single':
-        setSelected({ type, selection: day })
-        break
       case 'multiple': {
         const currentSelection = Array.isArray(selected.selection) ? selected.selection : []
         const filteredSelection = currentSelection.filter(
@@ -202,19 +207,14 @@ export function DatePickerProvider({
             const start = dayjs(selection.start?.day.date)
             if (date.isBefore(start)) {
               if (!isRangeDisabled(date.toISOString(), start.toISOString())) {
-                setSelected((prev) => {
-                  if (prev.selection && 'start' in prev.selection) {
-                    return { type, selection: { start: day, end: prev.selection.start } }
-                  }
-                  return prev
-                })
+                setSelected({ type, selection: { start: day, end: selection.start } })
               } else {
                 setSelected({ type, selection: null })
                 setHovered(null)
               }
             } else if (date.isAfter(start)) {
               if (!isRangeDisabled(start.toISOString(), date.toISOString())) {
-                setSelected((prev) => ({ type, selection: { ...prev.selection, end: day } }))
+                setSelected({ type, selection: { ...selection, end: day } })
               } else {
                 setSelected({ type, selection: null })
                 setHovered(null)
@@ -225,18 +225,16 @@ export function DatePickerProvider({
         break
       }
       default:
-        return
+        setSelected({ type, selection: day })
     }
   }
 
   const handleAddCalendarRef = (ref: CalendarRefObject) => {
     if (ref) {
-      setCalendarRefs((prevRefs) => {
-        if (!prevRefs.includes(ref.current)) {
-          return [...prevRefs, ref.current]
-        }
-        return prevRefs
-      })
+      setCalendarRefs((prevRefs) =>
+        /* v8 ignore next -- duplicate ref only happens in React StrictMode double-invoke */
+        prevRefs.includes(ref.current) ? prevRefs : [...prevRefs, ref.current]
+      )
     }
   }
 
