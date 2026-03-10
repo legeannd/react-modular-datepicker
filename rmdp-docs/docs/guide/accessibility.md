@@ -14,8 +14,7 @@ role="grid"  aria-label="March, 2026"
     …
   role="rowgroup"
     role="row"                           ← one per week
-      role="gridcell"
-        <button tabIndex={0|-1} aria-label="March 9, 2026" …>
+      <button tabIndex={0|-1} aria-label="March 9, 2026" …>
 ```
 
 A `grid` is preferred over a plain `table` because it contains **interactive** cells (focusable buttons), and over a `listbox` because it is two-dimensional. This follows the [ARIA Authoring Practices Guide — Date Picker Dialog example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/).
