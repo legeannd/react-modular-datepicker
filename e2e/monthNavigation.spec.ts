@@ -20,8 +20,7 @@ test.describe('Month navigation', () => {
     const label = page.locator('[aria-live="polite"]')
     const initialText = await label.textContent()
 
-    // The nav buttons are the last two visible buttons (Prev = -2, Next = -1)
-    const nextBtn = page.locator('button:visible').last()
+    const nextBtn = page.locator('button[aria-label="Next month"]')
     await nextBtn.click()
 
     const newText = await label.textContent()
@@ -32,8 +31,7 @@ test.describe('Month navigation', () => {
     const label = page.locator('[aria-live="polite"]')
     const initialText = await label.textContent()
 
-    // Second-to-last visible button is the Prev nav button
-    const prevBtn = page.locator('button:visible').nth(-2)
+    const prevBtn = page.locator('button[aria-label="Previous month"]')
     await prevBtn.click()
 
     const newText = await label.textContent()
@@ -44,8 +42,8 @@ test.describe('Month navigation', () => {
     const label = page.locator('[aria-live="polite"]')
     const initialText = await label.textContent()
 
-    const prevBtn = page.locator('button:visible').nth(-2)
-    const nextBtn = page.locator('button:visible').last()
+    const prevBtn = page.locator('button[aria-label="Previous month"]')
+    const nextBtn = page.locator('button[aria-label="Next month"]')
 
     await nextBtn.click()
     await prevBtn.click()
@@ -56,7 +54,7 @@ test.describe('Month navigation', () => {
 
   test('clicking Next multiple times compounds correctly', async ({ page }) => {
     const label = page.locator('[aria-live="polite"]')
-    const nextBtn = page.locator('button:visible').last()
+    const nextBtn = page.locator('button[aria-label="Next month"]')
 
     await nextBtn.click()
     await nextBtn.click()

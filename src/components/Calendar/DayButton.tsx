@@ -103,8 +103,6 @@ export function DayButton({
         )
       case 'range':
         return isStartRangeDate() || isEndRangeDate()
-      default:
-        return false
     }
   }
 
@@ -172,7 +170,7 @@ export function DayButton({
       data-between-range={betweenRange}
       data-date={dateKey}
       key={currentDay.day.date}
-      tabIndex={focusedDay === dateKey ? 0 : -1}
+      tabIndex={focusedDay === dateKey && !disabled ? 0 : -1}
       aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
       aria-selected={visualSelected}
       aria-current={today ? 'date' : undefined}

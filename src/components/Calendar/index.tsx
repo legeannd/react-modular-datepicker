@@ -22,6 +22,7 @@ export function Calendar({
   const gridRef = useRef<HTMLDivElement>(null)
   const {
     header,
+    providerRoot,
     groupingMode,
     handleAddCalendarRef,
     createMonthTable,
@@ -81,7 +82,7 @@ export function Calendar({
     const button = gridRef.current?.querySelector<HTMLButtonElement>(
       `[data-date="${focusedDay}"][data-this-month="true"]`
     )
-    if (!button) return
+    if (!button || button.disabled) return
     button.focus()
     setKeyboardNavPending(false)
   }, [focusedDay, monthTable, keyboardNavPending])
@@ -117,11 +118,9 @@ export function Calendar({
         next = current.endOf('week').startOf('day')
         break
       case 'PageDown':
-        if (header && e.shiftKey) return
         next = e.shiftKey ? current.add(1, 'year') : current.add(1, 'month')
         break
       case 'PageUp':
-        if (header && e.shiftKey) return
         next = e.shiftKey ? current.subtract(1, 'year') : current.subtract(1, 'month')
         break
       case 'Enter':
@@ -148,14 +147,14 @@ export function Calendar({
     const displayedYear = dayjs(monthTable.get(1)?.[0].day.date).year()
     if (next.month() !== displayedMonth || next.year() !== displayedYear) {
       if (header) {
-        const hasTargetCalendar = header.querySelector(
+        const hasTargetCalendar = providerRoot.current?.querySelector(
           `[data-this-month="true"][data-date^="${next.format('YYYY-MM')}"]`
         )
         if (!hasTargetCalendar) {
           if (next.isAfter(current, 'month')) {
-            handleChangeReferenceDate(refDate.add(1, 'month'))
+            handleChangeReferenceDate(refDate.add(1, e.shiftKey ? 'year' : 'month'))
           } else {
-            handleChangeReferenceDate(refDate.subtract(1, 'month'))
+            handleChangeReferenceDate(refDate.subtract(1, e.shiftKey ? 'year' : 'month'))
           }
         }
       } else {

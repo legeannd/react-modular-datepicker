@@ -402,6 +402,7 @@ describe('DatePickerProvider – uncontrolled range selection', () => {
     const buttons = screen
       .getAllByRole('button')
       .filter((b) => (b as HTMLButtonElement).dataset.thisMonth === 'true')
+    handler.mockClear()
     fireEvent.click(buttons[4])
     await waitFor(() => {
       expect((buttons[4] as HTMLButtonElement).dataset.startRange).toBe('true')
@@ -614,6 +615,7 @@ describe('DatePickerProvider – controlled mode', () => {
         <Calendar />
       </DatePickerProvider>
     )
+    handler.mockClear()
     const btn = screen
       .getAllByRole('button')
       .find((b) => (b as HTMLButtonElement).dataset.thisMonth === 'true')!
@@ -705,6 +707,7 @@ describe('DatePickerProvider – controlled mode', () => {
         <Calendar />
       </DatePickerProvider>
     )
+    handler.mockClear()
     const btn = screen
       .getAllByRole('button')
       .find((b) => (b as HTMLButtonElement).dataset.thisMonth === 'true')!

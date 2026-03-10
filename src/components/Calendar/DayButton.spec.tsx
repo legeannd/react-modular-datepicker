@@ -49,7 +49,9 @@ describe('DayButton – data attributes', () => {
   it('data-this-month=true for current-month days', () => {
     renderCalendar()
     const btns = currentMonthButtons()
-    btns.forEach((b) => expect((b as HTMLButtonElement).dataset.thisMonth).toBe('true'))
+    for (const b of btns) {
+      expect((b as HTMLButtonElement).dataset.thisMonth).toBe('true')
+    }
   })
 
   it('data-this-month=false for days outside the current month', () => {
@@ -209,7 +211,9 @@ describe('DayButton – dayButtonClassNames', () => {
     renderCalendar({}, { dayButtonClassNames: { base: 'custom-base' } })
     const btns = screen.getAllByRole('button')
     // All buttons should have the custom base class
-    btns.forEach((b) => expect(b).toHaveClass('custom-base'))
+    for (const b of btns) {
+      expect(b).toHaveClass('custom-base')
+    }
   })
 
   it('uses custom disabled class on disabled buttons', () => {

@@ -2,6 +2,7 @@
 /// <reference types="vitest" />
 import path, { resolve } from 'node:path'
 import { defineConfig } from 'vite'
+import { configDefaults } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import dts from 'vite-plugin-dts'
@@ -58,7 +59,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
-    css: true, exclude: ['**/node_modules/**', '**/dist/**', 'e2e/**'],
+    css: true, exclude: [...configDefaults.exclude, 'e2e/**'],
     coverage: {
       include: ['src/components', 'src/hooks', 'src/lib'],
       exclude: ['**/*.stories.tsx'],

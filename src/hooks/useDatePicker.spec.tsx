@@ -31,12 +31,17 @@ describe('useDatePicker', () => {
     expect(typeof ctx.handleDateSelect).toBe('function')
     expect(typeof ctx.handleSetHovered).toBe('function')
     expect(typeof ctx.handleSetHeaderRef).toBe('function')
+    expect(ctx.providerRoot).toBeDefined()
     expect(typeof ctx.handleAddCalendarRef).toBe('function')
     expect(typeof ctx.handleSetGroupingMode).toBe('function')
     expect(typeof ctx.createMonthTable).toBe('function')
     expect(typeof ctx.isDateDisabled).toBe('function')
     expect(typeof ctx.dayjs).toBe('function')
     expect(typeof ctx.handleChangeReferenceDate).toBe('function')
+    expect(typeof ctx.focusedDay === 'string' || ctx.focusedDay === null).toBe(true)
+    expect(typeof ctx.setFocusedDay).toBe('function')
+    expect(typeof ctx.keyboardNavPending).toBe('boolean')
+    expect(typeof ctx.setKeyboardNavPending).toBe('function')
   })
 
   it('reflects the provider type prop in the context', () => {

@@ -53,8 +53,13 @@ test.describe('Single date selection', () => {
     // Any disabled button should remain unselected after click attempt
     const disabledBtns = page.locator('button:disabled')
     const disabledCount = await disabledBtns.count()
-    if (disabledCount > 0) {
-      // Disabled buttons are not interactable, so selection should not change
+    expect(disabledCount).toBeGreaterThan(0)
+    for (let i = 0; i < disabledCount; i++) {
+      try {
+        await disabledBtns.nth(i).click({ force: true })
+      } catch {
+        // Clicks on disabled buttons may throw – this is expected behavior
+      }
       await expect(page.locator('[data-selected="true"]')).toHaveCount(0)
     }
   })

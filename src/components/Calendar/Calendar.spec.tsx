@@ -38,6 +38,19 @@ describe('Calendar – basic rendering', () => {
     const calendarEl = document.querySelector('[aria-label]')
     expect(calendarEl?.getAttribute('aria-label')).toMatch(/March.*2024/)
   })
+
+  it('renders footerSlot content when provided', () => {
+    render(
+      <DatePickerProvider initialMonth='2024-03-01'>
+        <Calendar
+          footerSlot={({ currentDate }) => (
+            <div data-testid='footer'>{currentDate.format('MMMM YYYY')}</div>
+          )}
+        />
+      </DatePickerProvider>
+    )
+    expect(screen.getByTestId('footer').textContent).toBe('March 2024')
+  })
 })
 
 describe('Calendar – weekdays', () => {
@@ -167,8 +180,9 @@ describe('Calendar – portal behaviour', () => {
     await waitFor(() => {
       const portalTarget = document.getElementById('rmdp-header')
       expect(portalTarget).toBeInTheDocument()
-      // Calendar with id should exist in the DOM
-      expect(document.getElementById('cal-portal')).toBeInTheDocument()
+      const calPortal = document.getElementById('cal-portal')
+      expect(calPortal).toBeInTheDocument()
+      expect(portalTarget!.contains(calPortal)).toBe(true)
     })
   })
 
@@ -184,7 +198,12 @@ describe('Calendar – portal behaviour', () => {
     )
     await waitFor(() => {
       // cal-excluded is not in groupingMode array, so renders inline
-      expect(document.getElementById('cal-excluded')).toBeInTheDocument()
+      const calExcluded = document.getElementById('cal-excluded')
+      expect(calExcluded).toBeInTheDocument()
+      const portalTarget = document.getElementById('rmdp-header')
+      if (portalTarget) {
+        expect(portalTarget.contains(calExcluded)).toBe(false)
+      }
     })
   })
 })
@@ -260,10 +279,14 @@ describe('Calendar – keyboard navigation', () => {
       </DatePickerProvider>
     )
     const grid = document.querySelector('[role="grid"]')!
+    const beforeDate = document
+      .querySelector<HTMLButtonElement>('[tabindex="0"]')
+      ?.getAttribute('data-date')
     fireEvent.keyDown(grid, { key: 'Home' })
     await waitFor(() => {
       const focused = document.querySelector<HTMLButtonElement>('[tabindex="0"]')
-      expect(focused?.getAttribute('data-date')).toBeDefined()
+      expect(focused?.getAttribute('data-date')).toBe('2024-03-03')
+      expect(focused?.getAttribute('data-date')).not.toBe(beforeDate)
     })
   })
 
@@ -274,10 +297,14 @@ describe('Calendar – keyboard navigation', () => {
       </DatePickerProvider>
     )
     const grid = document.querySelector('[role="grid"]')!
+    const beforeDate = document
+      .querySelector<HTMLButtonElement>('[tabindex="0"]')
+      ?.getAttribute('data-date')
     fireEvent.keyDown(grid, { key: 'End' })
     await waitFor(() => {
       const focused = document.querySelector<HTMLButtonElement>('[tabindex="0"]')
-      expect(focused?.getAttribute('data-date')).toBeDefined()
+      expect(focused?.getAttribute('data-date')).toBe('2024-03-02')
+      expect(focused?.getAttribute('data-date')).not.toBe(beforeDate)
     })
   })
 
@@ -560,7 +587,7 @@ describe('Calendar – keyboard navigation', () => {
     })
   })
 
-  it('Shift+PageDown in header mode does nothing', async () => {
+  it('Shift+PageDown in header mode moves focus one year forward', async () => {
     render(
       <DatePickerProvider initialMonth='2024-03-01'>
         <Header>
@@ -581,8 +608,43 @@ describe('Calendar – keyboard navigation', () => {
       expect(march1.tabIndex).toBe(0)
     })
     fireEvent.keyDown(march1.closest('[role="grid"]')!, { key: 'PageDown', shiftKey: true })
-    // Focus should remain on March 1 (no navigation happened)
-    expect(march1.tabIndex).toBe(0)
+    // Calendar advances one year; March 2025 renders and March 1 2025 receives focus
+    await waitFor(() => {
+      const march2025 = document.querySelector<HTMLButtonElement>(
+        '[data-date="2025-03-01"][data-this-month="true"]'
+      )!
+      expect(document.activeElement).toBe(march2025)
+    })
+  })
+
+  it('Shift+PageUp in header mode moves focus one year backward', async () => {
+    render(
+      <DatePickerProvider initialMonth='2024-03-01'>
+        <Header>
+          <Button type='previous'>Prev</Button>
+          <Button type='next'>Next</Button>
+        </Header>
+        <Calendar />
+      </DatePickerProvider>
+    )
+    await waitFor(() => {
+      expect(document.querySelector('[role="grid"]')).toBeInTheDocument()
+    })
+    const march1 = document.querySelector<HTMLButtonElement>(
+      '[data-date="2024-03-01"][data-this-month="true"]'
+    )!
+    fireEvent.focus(march1)
+    await waitFor(() => {
+      expect(march1.tabIndex).toBe(0)
+    })
+    fireEvent.keyDown(march1.closest('[role="grid"]')!, { key: 'PageUp', shiftKey: true })
+    // Calendar retreats one year; March 2023 renders and March 1 2023 receives focus
+    await waitFor(() => {
+      const march2023 = document.querySelector<HTMLButtonElement>(
+        '[data-date="2023-03-01"][data-this-month="true"]'
+      )!
+      expect(document.activeElement).toBe(march2023)
+    })
   })
 
   it('ArrowRight in header mode slides to next month when it is not rendered', async () => {
@@ -716,5 +778,76 @@ describe('Calendar – keyboard navigation', () => {
       )!
       expect(document.activeElement).toBe(feb15)
     })
+  })
+
+  it('ArrowRight in partial groupingMode moves focus from grouped to ungrouped calendar without shifting layout', async () => {
+    // cal-march is portaled into the header; cal-april is ungrouped (outside header)
+    render(
+      <DatePickerProvider initialMonth='2024-03-01'>
+        <Header groupingMode={['cal-march']}>
+          <Button type='previous'>Prev</Button>
+          <Button type='next'>Next</Button>
+        </Header>
+        <Calendar id='cal-march' />
+        <Calendar id='cal-april' />
+      </DatePickerProvider>
+    )
+    await waitFor(() => {
+      expect(document.querySelector('#cal-april [data-date="2024-04-01"]')).toBeInTheDocument()
+    })
+    const march31 = document.querySelector<HTMLButtonElement>(
+      '#cal-march [data-date="2024-03-31"][data-this-month="true"]'
+    )!
+    fireEvent.focus(march31)
+    await waitFor(() => {
+      expect(march31.tabIndex).toBe(0)
+    })
+    fireEvent.keyDown(march31.closest('[role="grid"]')!, { key: 'ArrowRight' })
+    // cal-april already shows April — no layout shift should occur; April 1 gets focus
+    await waitFor(() => {
+      const april1 = document.querySelector<HTMLButtonElement>(
+        '#cal-april [data-date="2024-04-01"][data-this-month="true"]'
+      )!
+      expect(document.activeElement).toBe(april1)
+    })
+    // cal-april must still be showing April (layout not shifted)
+    expect(
+      document.querySelector('#cal-april [data-date="2024-04-01"][data-this-month="true"]')
+    ).toBeInTheDocument()
+  })
+
+  it('ArrowRight in partial groupingMode moves focus between two ungrouped calendars without shifting layout', async () => {
+    render(
+      <DatePickerProvider initialMonth='2024-03-01'>
+        <Header groupingMode={['cal-march']}>
+          <Button type='previous'>Prev</Button>
+          <Button type='next'>Next</Button>
+        </Header>
+        <Calendar id='cal-march' />
+        <Calendar id='cal-april' />
+        <Calendar id='cal-may' />
+      </DatePickerProvider>
+    )
+    await waitFor(() => {
+      expect(document.querySelector('#cal-may [data-date="2024-05-01"]')).toBeInTheDocument()
+    })
+    const april30 = document.querySelector<HTMLButtonElement>(
+      '#cal-april [data-date="2024-04-30"][data-this-month="true"]'
+    )!
+    fireEvent.focus(april30)
+    await waitFor(() => {
+      expect(april30.tabIndex).toBe(0)
+    })
+    fireEvent.keyDown(april30.closest('[role="grid"]')!, { key: 'ArrowRight' })
+    // cal-may already shows May — no layout shift; May 1 gets focus
+    await waitFor(() => {
+      const may1 = document.querySelector<HTMLButtonElement>(
+        '#cal-may [data-date="2024-05-01"][data-this-month="true"]'
+      )!
+      expect(document.activeElement).toBe(may1)
+    })
+    expect(
+      document.querySelector('#cal-may [data-date="2024-05-01"][data-this-month="true"]')
+    ).toBeInTheDocument()
   })
 })

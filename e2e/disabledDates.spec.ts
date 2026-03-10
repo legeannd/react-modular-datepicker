@@ -21,7 +21,7 @@ test.describe('Disabled dates', () => {
   }) => {
     const disabledBtns = page.locator('button:disabled')
     const count = await disabledBtns.count()
-    if (count === 0) return // skip if story has no disabled dates
+    expect(count).toBeGreaterThan(0)
 
     // Playwright's click on a disabled element: we use force to try, but
     // the event handler should not trigger selection
@@ -37,6 +37,7 @@ test.describe('Disabled dates', () => {
   test('disabled days are not part of any selection state', async ({ page }) => {
     const disabledBtns = page.locator('button:disabled')
     const count = await disabledBtns.count()
+    expect(count).toBeGreaterThan(0)
     for (let i = 0; i < Math.min(count, 3); i++) {
       await expect(disabledBtns.nth(i)).toHaveAttribute('data-selected', 'false')
     }

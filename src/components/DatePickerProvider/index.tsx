@@ -42,6 +42,7 @@ export function DatePickerProvider({
   const [focusedDay, setFocusedDay] = useState<string | null>(refDate.format('YYYY-MM-DD'))
   const [keyboardNavPending, setKeyboardNavPending] = useState(false)
 
+  const providerRootRef = useRef<HTMLDivElement | null>(null)
   const prevValueRef = useRef<typeof value>(undefined)
   const isInternalUpdateRef = useRef(false)
   const isControlled = value !== undefined
@@ -152,7 +153,7 @@ export function DatePickerProvider({
       isDisabled = isDisabled || disabledDates.weekdays?.includes(current.day())
     }
     if (disabledDates.days && disabledDates.days.length > 0) {
-      isDisabled = isDisabled || disabledDates.days.some((day) => dayjs(day).isSame(current))
+      isDisabled = isDisabled || disabledDates.days.some((day) => dayjs(day).isSame(current, 'day'))
     }
     if (disabledDates.start || disabledDates.end) {
       const start = dayjs(disabledDates.start)
@@ -324,6 +325,7 @@ export function DatePickerProvider({
     hovered,
     type,
     header: headerRef,
+    providerRoot: providerRootRef,
     calendarRefs,
     groupingMode,
     refDate,
@@ -346,6 +348,7 @@ export function DatePickerProvider({
     <DatePickerContext.Provider value={contextValue}>
       <div
         id='rmdp-provider'
+        ref={providerRootRef}
         className={className || styles.provider}
         aria-label={ariaLabel}
       >

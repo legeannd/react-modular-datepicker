@@ -223,6 +223,7 @@ export interface DatePickerContextType {
   hovered: CurrentDay | null
   type: CalendarType
   header: HTMLElement | null
+  providerRoot: React.RefObject<HTMLDivElement | null>
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
   groupingMode: GroupingModeType
   refDate: Dayjs

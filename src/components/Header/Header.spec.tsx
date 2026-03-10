@@ -95,6 +95,7 @@ describe('Header – navigation updates Calendar', () => {
         <Calendar />
       </DatePickerProvider>
     )
+    await waitFor(() => expect(document.querySelector('[aria-live="polite"]')).toBeInTheDocument())
     fireEvent.click(screen.getByRole('button', { name: 'Prev' }))
     await waitFor(() => {
       const label = document.querySelector('[aria-live="polite"]')

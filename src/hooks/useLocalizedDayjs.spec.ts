@@ -31,8 +31,8 @@ describe('useLocalizedDayjs', () => {
 
   it('uses the custom dayjs factory when provided', () => {
     const customDate = dayjs('2024-06-10')
-    const customDayjs = vi.fn().mockReturnValue(customDate)
-    const { getDayjs } = useLocalizedDayjs(customDayjs as never)
+    const customDayjs = vi.fn().mockReturnValue(customDate) as unknown as typeof dayjs
+    const { getDayjs } = useLocalizedDayjs(customDayjs)
     const result = getDayjs('2024-06-10')
     expect(customDayjs).toHaveBeenCalledWith('2024-06-10')
     expect(result).toBe(customDate)

@@ -20,7 +20,7 @@ test.describe('Multiple date selection', () => {
     const selectedCount = await page
       .locator('button[data-selected="true"]')
       .count()
-    expect(selectedCount).toBeGreaterThanOrEqual(3)
+    expect(selectedCount).toBe(3)
   })
 
   test('clicking an already-selected day deselects it', async ({ page }) => {

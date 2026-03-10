@@ -6,7 +6,7 @@ React Modular DatePicker is built to be fully usable by keyboard and screen read
 
 The `<Calendar>` component renders as an ARIA `grid` composite widget — the correct role for a 2D table of interactive cells. The full structure looks like this:
 
-```
+```text
 role="grid"  aria-label="March, 2026"
   role="row"                             ← weekday header row (showWeekdays)
     role="columnheader" aria-label="Sunday"
@@ -42,14 +42,12 @@ When an arrow key crosses a month boundary the calendar re-renders to the new mo
 
 ### Multi-calendar mode (with `<Header>`)
 
-`PageDown` and `PageUp` (without Shift) behave differently when a `<Header>` is present:
+All navigation keys work in header mode. When multiple calendars are rendered together, the calendar set is aware of which months are already visible:
 
-- **Adjacent calendar is rendered** — focus moves to day 1 of the target month in the already-visible grid. No re-render.
-- **At the boundary** (target month not rendered) — the entire calendar set slides forward/backward via `handleChangeReferenceDate`, then focus moves to day 1 of the newly visible month.
+- **Target month is already rendered** — focus moves directly to the target day in the already-visible grid. No re-render.
+- **Target month is not rendered** — the entire calendar set slides forward or backward to bring the target month into view, then focus lands on the target day.
 
-`Shift+PageDown` and `Shift+PageUp` (year jump) are intentionally disabled in header mode. Year navigation in a multi-calendar layout could land on a month not visible in any rendered grid, which has no defined behavior in the ARIA spec.
-
-Arrow keys cross calendar boundaries transparently — pressing `ArrowRight` on the last day of March moves focus to April 1 in the adjacent grid without any extra key press.
+This applies to all navigation — `PageDown`, `PageUp`, `Shift+PageDown`, `Shift+PageUp`, and arrow keys that cross a month boundary. Pressing `ArrowRight` on the last day of March, for example, moves focus to April 1 in the adjacent grid without any extra key press.
 
 ## Roving `tabIndex`
 
