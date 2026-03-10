@@ -204,15 +204,11 @@ export function Calendar({
             className={styles.daysGrid}
           >
             {monthTable.get(week)?.map((currentDay) => (
-              <span
-                role='gridcell'
+              <DayButton
                 key={currentDay.day.date}
-              >
-                <DayButton
-                  currentDay={currentDay}
-                  dayButtonClassNames={dayButtonClassNames}
-                />
-              </span>
+                currentDay={currentDay}
+                dayButtonClassNames={dayButtonClassNames}
+              />
             ))}
           </div>
         ))}
