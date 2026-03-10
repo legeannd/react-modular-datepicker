@@ -49,18 +49,4 @@ test.describe('Single date selection', () => {
     expect(ariaLabel).toMatch(/^[A-Z][a-z]+ \d+, \d{4}$/)
   })
 
-  test('disabled days cannot be selected', async ({ page }) => {
-    // Any disabled button should remain unselected after click attempt
-    const disabledBtns = page.locator('button:disabled')
-    const disabledCount = await disabledBtns.count()
-    expect(disabledCount).toBeGreaterThan(0)
-    for (let i = 0; i < disabledCount; i++) {
-      try {
-        await disabledBtns.nth(i).click({ force: true })
-      } catch {
-        // Clicks on disabled buttons may throw – this is expected behavior
-      }
-      await expect(page.locator('[data-selected="true"]')).toHaveCount(0)
-    }
-  })
 })

@@ -78,10 +78,16 @@ export const Default: Story = {
       <>
         <DateSelectExample iconSlot={<Calendar1 />} />
         <div className='flex gap-4'>
-          <DatePicker.Button type='previous'>
+          <DatePicker.Button
+            type='previous'
+            aria-label='Previous month'
+          >
             <ChevronLeft className='text-label' />
           </DatePicker.Button>
-          <DatePicker.Button type='next'>
+          <DatePicker.Button
+            type='next'
+            aria-label='Next month'
+          >
             <ChevronRight className='text-label' />
           </DatePicker.Button>
         </div>
