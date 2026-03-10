@@ -25,6 +25,9 @@ export function DayButton({
     handleSetHovered,
     isDateDisabled,
     dayjs,
+    focusedDay,
+    setFocusedDay,
+    type,
   } = useDatePicker()
 
   const isWeekend = () => {
@@ -34,17 +37,15 @@ export function DayButton({
 
   const isStartMonth = () => {
     return (
-      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).startOf('M').startOf('D')) &&
-        currentDay.isCurrentMonth) ||
-      false
+      dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).startOf('M').startOf('D')) &&
+      currentDay.isCurrentMonth
     )
   }
 
   const isEndMonth = () => {
     return (
-      (dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).endOf('M').startOf('D')) &&
-        currentDay.isCurrentMonth) ||
-      false
+      dayjs(currentDay.day.date).isSame(dayjs(currentDay.day.date).endOf('M').startOf('D')) &&
+      currentDay.isCurrentMonth
     )
   }
 
@@ -102,13 +103,11 @@ export function DayButton({
         )
       case 'range':
         return isStartRangeDate() || isEndRangeDate()
-      default:
-        return false
     }
   }
 
-  const today = (dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth) ?? false
-  const thisMonth = currentDay.isCurrentMonth ?? false
+  const today = dayjs(currentDay.day.date).isToday() && currentDay.isCurrentMonth
+  const thisMonth = currentDay.isCurrentMonth
   const disabled = isDateDisabled(currentDay.day.date)
   const startMonth = isStartMonth()
   const endMonth = isEndMonth()
@@ -117,6 +116,8 @@ export function DayButton({
   const endRange = isEndRangeDate()
   const betweenRange = isBetweenRangeDates()
   const visualSelected = isVisualSelected()
+  const disabledInRange = disabled && betweenRange
+  const dateKey = dayjs(currentDay.day.date).format('YYYY-MM-DD')
 
   const handleHover = (day?: CurrentDay) => {
     if (day) {
@@ -167,12 +168,19 @@ export function DayButton({
       data-start-range={startRange}
       data-end-range={endRange}
       data-between-range={betweenRange}
+      data-date={dateKey}
       key={currentDay.day.date}
+      tabIndex={focusedDay === dateKey && !disabled ? 0 : -1}
       aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
-      onClick={() => handleDateSelect(currentDay)}
+      aria-selected={visualSelected}
+      aria-current={today ? 'date' : undefined}
+      aria-pressed={type === 'multiple' ? visualSelected : undefined}
+      aria-disabled={disabledInRange ? 'true' : undefined}
+      onClick={() => !disabled && handleDateSelect(currentDay)}
+      onFocus={() => setFocusedDay(dateKey)}
       onMouseEnter={() => handleHover(currentDay)}
       onMouseLeave={() => handleHover()}
-      disabled={disabled}
+      disabled={!disabledInRange && disabled}
     >
       {currentDay.day.label}
     </button>

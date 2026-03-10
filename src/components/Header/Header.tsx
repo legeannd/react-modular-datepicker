@@ -32,6 +32,8 @@ export function Header({
 
   return (
     <div
+      role='navigation'
+      aria-label='Calendar navigation'
       {...props}
       className={className || styles.header}
     >
