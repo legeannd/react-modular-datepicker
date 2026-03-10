@@ -1007,3 +1007,22 @@ describe('DatePickerProvider – handleSetDefaultSelected edge cases', () => {
     await waitFor(() => expect((btn as HTMLButtonElement).dataset.selected).toBe('true'))
   })
 })
+
+// ─── handleAddCalendarRef ─────────────────────────────────────────────────────
+
+describe('DatePickerProvider – handleAddCalendarRef', () => {
+  it('does not add a duplicate ref when the same ref is registered twice', () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <DatePickerProvider>{children}</DatePickerProvider>
+    )
+    const { result } = renderHook(() => useDatePicker(), { wrapper })
+    const fakeRef = { current: { updateMonthTable: vi.fn() } }
+    act(() => {
+      result.current.handleAddCalendarRef(fakeRef)
+    })
+    act(() => {
+      result.current.handleAddCalendarRef(fakeRef)
+    })
+    expect(result.current.calendarRefs).toHaveLength(1)
+  })
+})

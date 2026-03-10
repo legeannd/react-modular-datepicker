@@ -337,7 +337,7 @@ describe('DayButton – dayButtonClassNames range classes', () => {
         .find((b) => b.getAttribute('aria-label') === 'March 5, 2024')!
       // disabled + betweenRange → styles.disabledInRange applied (CSS module fallback)
       expect((march5 as HTMLButtonElement).dataset.betweenRange).toBe('true')
-      expect(march5).toBeDisabled()
+      expect(march5).toHaveAttribute('aria-disabled', 'true')
     })
   })
 })

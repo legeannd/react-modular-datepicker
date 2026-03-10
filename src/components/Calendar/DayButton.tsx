@@ -25,6 +25,9 @@ export function DayButton({
     handleSetHovered,
     isDateDisabled,
     dayjs,
+    focusedDay,
+    setFocusedDay,
+    type,
   } = useDatePicker()
 
   const isWeekend = () => {
@@ -115,6 +118,8 @@ export function DayButton({
   const endRange = isEndRangeDate()
   const betweenRange = isBetweenRangeDates()
   const visualSelected = isVisualSelected()
+  const disabledInRange = disabled && betweenRange
+  const dateKey = dayjs(currentDay.day.date).format('YYYY-MM-DD')
 
   const handleHover = (day?: CurrentDay) => {
     if (day) {
@@ -165,12 +170,19 @@ export function DayButton({
       data-start-range={startRange}
       data-end-range={endRange}
       data-between-range={betweenRange}
+      data-date={dateKey}
       key={currentDay.day.date}
+      tabIndex={focusedDay === dateKey ? 0 : -1}
       aria-label={dayjs(currentDay.day.date).format('MMMM D, YYYY')}
-      onClick={() => handleDateSelect(currentDay)}
+      aria-selected={visualSelected}
+      aria-current={today ? 'date' : undefined}
+      aria-pressed={type === 'multiple' ? visualSelected : undefined}
+      aria-disabled={disabledInRange ? 'true' : undefined}
+      onClick={() => !disabled && handleDateSelect(currentDay)}
+      onFocus={() => setFocusedDay(dateKey)}
       onMouseEnter={() => handleHover(currentDay)}
-      onMouseLeave={/* v8 ignore next */ () => handleHover()}
-      disabled={disabled}
+      onMouseLeave={() => handleHover()}
+      disabled={!disabledInRange && disabled}
     >
       {currentDay.day.label}
     </button>

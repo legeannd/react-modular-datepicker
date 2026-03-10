@@ -43,6 +43,7 @@ export function Label({ type = 'short', className, children, ...props }: LabelPr
       className={className}
       aria-label={props['aria-label'] ?? monthAriaLabel}
       aria-live='polite'
+      aria-atomic='true'
       {...props}
     >
       {children

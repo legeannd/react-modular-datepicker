@@ -39,6 +39,7 @@ const sidebars: SidebarsConfig = {
         'guide/localization',
         'guide/custom-hooks',
         'guide/performance',
+        'guide/accessibility',
       ],
     },
   ],

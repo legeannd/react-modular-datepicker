@@ -24,6 +24,7 @@ export function DatePickerProvider({
   disabledDates = {},
   dayjs: customDayjs,
   className,
+  'aria-label': ariaLabel,
   onSelectionChange,
 }: DatePickerProviderProps) {
   const [internalSelected, setInternalSelected] = useState<SelectedDate>({
@@ -38,6 +39,8 @@ export function DatePickerProvider({
   const [groupingMode, setGroupingMode] = useState<GroupingModeType>('all')
   const { getDayjs: dayjs } = useLocalizedDayjs(customDayjs)
   const [refDate, setRefDate] = useState<Dayjs>(dayjs(initialMonth))
+  const [focusedDay, setFocusedDay] = useState<string | null>(refDate.format('YYYY-MM-DD'))
+  const [keyboardNavPending, setKeyboardNavPending] = useState(false)
 
   const prevValueRef = useRef<typeof value>(undefined)
   const isInternalUpdateRef = useRef(false)
@@ -94,6 +97,7 @@ export function DatePickerProvider({
             isCurrentMonth: true,
           }
           setInternalSelected({ type, selection: selected })
+          setFocusedDay(day.format('YYYY-MM-DD'))
         }
         break
       }
@@ -113,6 +117,8 @@ export function DatePickerProvider({
               .filter((item) => item !== null)
           : []
         setInternalSelected({ selection: selected, type })
+        const firstMultiDay = dayjs(initialSelectedDays?.days?.[0])
+        if (firstMultiDay.isValid()) setFocusedDay(firstMultiDay.format('YYYY-MM-DD'))
         break
       }
       case 'range': {
@@ -130,6 +136,7 @@ export function DatePickerProvider({
             },
             type,
           })
+          setFocusedDay(start.format('YYYY-MM-DD'))
         }
       }
     }
@@ -178,6 +185,7 @@ export function DatePickerProvider({
   }
 
   const handleDateSelect: HandleDateSelectType = (day) => {
+    setFocusedDay(dayjs(day.day.date).format('YYYY-MM-DD'))
     switch (type) {
       case 'multiple': {
         const currentSelection = Array.isArray(selected.selection) ? selected.selection : []
@@ -232,7 +240,6 @@ export function DatePickerProvider({
   const handleAddCalendarRef = (ref: CalendarRefObject) => {
     if (ref) {
       setCalendarRefs((prevRefs) =>
-        /* v8 ignore next -- duplicate ref only happens in React StrictMode double-invoke */
         prevRefs.includes(ref.current) ? prevRefs : [...prevRefs, ref.current]
       )
     }
@@ -320,6 +327,10 @@ export function DatePickerProvider({
     calendarRefs,
     groupingMode,
     refDate,
+    focusedDay,
+    setFocusedDay,
+    keyboardNavPending,
+    setKeyboardNavPending,
     handleSetHovered,
     handleSetHeaderRef,
     handleDateSelect,
@@ -336,6 +347,7 @@ export function DatePickerProvider({
       <div
         id='rmdp-provider'
         className={className || styles.provider}
+        aria-label={ariaLabel}
       >
         {children}
       </div>

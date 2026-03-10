@@ -13,12 +13,16 @@ export function Button({ type, className, children, ...props }: ButtonProps) {
     }
   }
 
+  const defaultAriaLabel = type === 'next' ? 'Next month' : 'Previous month'
+  const effectiveAriaLabel =
+    props['aria-label'] ?? (typeof children !== 'string' ? defaultAriaLabel : undefined)
+
   return (
     <button
+      type='button'
       {...props}
-      className={
-        className || styles.button
-      }
+      aria-label={effectiveAriaLabel}
+      className={className || styles.button}
       onClick={handleChangeCalendarRange}
     >
       {children}

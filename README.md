@@ -23,6 +23,12 @@ A modern, lightweight, composable datepicker library for React applications. Bui
 - **React Compiler Optimized** - Built for performance with React's compiler
 - **TypeScript First** - Full type safety and IntelliSense
 
+## Accessibility
+
+Built on the [ARIA grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/) with full keyboard navigation, roving `tabIndex`, semantic roles and labels, and seamless multi-calendar focus management.
+
+See the [Accessibility guide →](https://legeannd.github.io/react-modular-datepicker/docs/guide/accessibility) for full details.
+
 ## Installation
 
 ```bash

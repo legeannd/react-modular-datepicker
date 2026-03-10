@@ -151,7 +151,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /** Props for the root DatePickerProvider component */
-export interface DatePickerProviderBaseProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className'> {
+export interface DatePickerProviderBaseProps extends Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'aria-label'> {
   /** Child components (Calendar, Header, etc.) */
   children: React.ReactNode
   /** Initial month to display when the calendar first loads (Date object or ISO string) */
@@ -226,6 +226,10 @@ export interface DatePickerContextType {
   calendarRefs: Array<{ updateMonthTable: (newDate: string | Date) => void }>
   groupingMode: GroupingModeType
   refDate: Dayjs
+  focusedDay: string | null
+  setFocusedDay: (date: string | null) => void
+  keyboardNavPending: boolean
+  setKeyboardNavPending: (pending: boolean) => void
   handleSetHovered: (day?: CurrentDay) => void
   handleSetHeaderRef: (ref: HTMLDivElement | null) => void
   handleAddCalendarRef: (ref: CalendarRefObject) => void;
