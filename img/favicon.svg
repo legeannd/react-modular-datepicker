@@ -1,18 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- White calendar background filling entire width -->
-  <rect x="5" y="10" width="90" height="85" rx="6" fill="#fff"/>
-  
-  <!-- Purple header bar -->
-  <rect x="5" y="10" width="90" height="20" rx="6" fill="#8b5cf6"/>
-  
-  <!-- Two binding rings on top -->
-  <rect x="22" y="5" width="8" height="16" rx="4" fill="#6d28d9"/>
-  <rect x="70" y="5" width="8" height="16" rx="4" fill="#6d28d9"/>
-  
-  <!-- Minimalist geometric "M" made of rectangles -->
-  <rect x="25" y="40" width="8" height="45" rx="2" fill="#8b5cf6"/>
-  <rect x="67" y="40" width="8" height="45" rx="2" fill="#8b5cf6"/>
-  <rect x="33" y="40" width="8" height="30" rx="2" fill="#8b5cf6"/>
-  <rect x="59" y="40" width="8" height="30" rx="2" fill="#8b5cf6"/>
-  <rect x="46" y="40" width="8" height="20" rx="2" fill="#8b5cf6"/>
+  <!-- Dark container — the calendar shell -->
+  <rect x="8" y="8" width="84" height="84" rx="18" fill="#6d28d9"/>
+  <!-- 3×3 dot grid representing day cells -->
+  <circle cx="30" cy="32" r="6" fill="#ede9fe" opacity="0.5"/>
+  <circle cx="50" cy="32" r="6" fill="#ede9fe" opacity="0.5"/>
+  <circle cx="70" cy="32" r="6" fill="#ede9fe" opacity="0.5"/>
+
+  <circle cx="30" cy="52" r="6" fill="#ede9fe" opacity="0.5"/>
+  <!-- One highlighted "selected" cell -->
+  <circle cx="50" cy="52" r="8" fill="#ede9fe"/>
+  <circle cx="70" cy="52" r="6" fill="#ede9fe" opacity="0.5"/>
+
+  <circle cx="30" cy="72" r="6" fill="#ede9fe" opacity="0.5"/>
+  <circle cx="50" cy="72" r="6" fill="#ede9fe" opacity="0.5"/>
+  <circle cx="70" cy="72" r="6" fill="#ede9fe" opacity="0.5"/>
 </svg>
